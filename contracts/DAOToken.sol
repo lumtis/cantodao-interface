@@ -9,18 +9,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
-// DAO Token contract
-// This contract inherits from the ERC20Votes contract
-// It initializes the token with a name, symbol, and initial supply
-// It also mints the initial supply to the contract deployer
-
+// A regular ERC20 token with voting power
 contract DAOToken is ERC20, ERC20Permit, ERC20Votes {
     constructor(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply
-    ) ERC20(name, symbol) ERC20Permit(name) {
-        _mint(msg.sender, initialSupply);
+        string memory _name,
+        string memory _symbol,
+        uint256 _initialSupply
+    ) ERC20(_name, _symbol) ERC20Permit(_name) {
+        _mint(msg.sender, _initialSupply);
     }
 
     // The functions below are overrides required by Solidity.

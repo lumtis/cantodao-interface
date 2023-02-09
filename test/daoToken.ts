@@ -1,6 +1,3 @@
-// daoToken.ts contains the DAO token contract tests
-// it tests the contract can be instantiated, contains the right name, symbol and total supply
-
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
