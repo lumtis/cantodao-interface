@@ -1,0 +1,30 @@
+{
+  "name": "cantodao",
+  "version": "0.0.1",
+  "description": "CantoDAO interface",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "2.0.12",
+    "@chakra-ui/react": "2.4.1",
+    "@fontsource/vt323": "^4.5.10",
+    "framer-motion": "7.6.12",
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "typescript": "4.9.3"
+  }
+}
