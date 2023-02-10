@@ -1,15 +1,17 @@
+import React, { useEffect, useState } from "react";
+
+import { FaCheckCircle } from "react-icons/fa";
+import { FiCopy } from "react-icons/fi";
+
 import {
   Box,
   Button,
   Icon,
+  Image,
   Text,
   useClipboard,
   useColorMode,
-  Image,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
-import { FiCopy } from "react-icons/fi";
-import React, { useEffect, useState } from "react";
 
 // import { CopyAddressType } from "../types";
 
