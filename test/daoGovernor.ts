@@ -96,7 +96,6 @@ describe("DAO Governor", () => {
 
     // Delegate voting power to itself
     let tx = await daoToken.delegate(owner.address);
-    await tx.wait();
 
     // Send a propposal and get ID
     tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
@@ -117,7 +116,6 @@ describe("DAO Governor", () => {
 
     // Vote reject on the proposal
     tx = await daoGovernor.castVote(proposalId, 0);
-    await tx.wait();
 
     // Check proposal is still active and against votes
     let proposalState = await daoGovernor.state(proposalId);
@@ -138,7 +136,6 @@ describe("DAO Governor", () => {
 
     // Delegate voting power to itself
     let tx = await daoToken.delegate(owner.address);
-    await tx.wait();
 
     // Propose a mint proposal
     tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
@@ -156,7 +153,6 @@ describe("DAO Governor", () => {
 
     // Vote approve on the proposal
     tx = await daoGovernor.castVote(proposalId, 1);
-    await tx.wait();
 
     // Check proposal is still active and for votes
     let proposalState = await daoGovernor.state(proposalId);
@@ -177,7 +173,6 @@ describe("DAO Governor", () => {
       [daoToken.interface.encodeFunctionData("mint", [newMint])],
       proposalDescriptionHash
     );
-    await tx.wait();
 
     // Check proposal is queued
     proposalState = await daoGovernor.state(proposalId);
@@ -191,7 +186,6 @@ describe("DAO Governor", () => {
       [daoToken.interface.encodeFunctionData("mint", [newMint])],
       proposalDescriptionHash
     );
-    await tx.wait();
 
     // Check proposal is executed
     proposalState = await daoGovernor.state(proposalId);

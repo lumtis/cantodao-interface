@@ -1,19 +1,63 @@
 import { ethers } from "hardhat";
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+const supply = 10000;
 
-  const lockedAmount = ethers.utils.parseEther("1");
+const main = async () => {
+  const [owner] = await ethers.getSigners();
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  // Deploy the DAO token
+  const DAOToken = await ethers.getContractFactory("DAOToken");
+  const daoToken = await DAOToken.deploy("foo", "FOO", supply);
+  await daoToken.deployed();
 
-  await lock.deployed();
+  // Deploy the timelock controller with deployer as admin
+  const TimelockController = await ethers.getContractFactory(
+    "TimelockController"
+  );
+  const timelockController = await TimelockController.deploy(
+    1,
+    [owner.address],
+    [],
+    owner.address
+  );
+  await timelockController.deployed();
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
-}
+  // Deploy the governor
+  const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
+  const daoGovernor = await DAOGovernor.deploy(
+    daoToken.address,
+    timelockController.address
+  );
+  await daoGovernor.deployed();
+
+  // Grant proposer role to the governor and renounce it from the owner
+  await timelockController.grantRole(
+    await timelockController.PROPOSER_ROLE(),
+    daoGovernor.address
+  );
+  await timelockController.grantRole(
+    await timelockController.EXECUTOR_ROLE(),
+    daoGovernor.address
+  );
+  await timelockController.renounceRole(
+    await timelockController.PROPOSER_ROLE(),
+    owner.address
+  );
+  await timelockController.renounceRole(
+    await timelockController.TIMELOCK_ADMIN_ROLE(),
+    owner.address
+  );
+
+  // Transfer ownership of the token to the governor
+  await daoToken.transferOwnership(timelockController.address);
+
+  console.log("Contracts deployed");
+  console.table([
+    ["DAO Token", daoToken.address],
+    ["Timelock Controller", timelockController.address],
+    ["DAO Governor", daoGovernor.address],
+  ]);
+};
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
