@@ -1,25 +1,27 @@
-import { Box, Link, Heading, Image } from "@chakra-ui/react";
+import { Box, Heading, Image, Link } from "@chakra-ui/react";
 
-// import links from "../config/navlinks";
+import { Address } from "../components/wallet/address";
+import { Connect } from "../components/wallet/connect";
+import links from "../config/navlinks";
 
 // Header is a simple empty header with a gray background using Chakra UI
 const Header = () => {
   // List of components for the navigation bar
-  // const navLinks = links.map((link) => (
-  //   <Box p="4" display="flex" alignItems="center" key={link.key}>
-  //     <Heading size="lg" letterSpacing={"tighter"}>
-  //       <Link
-  //         _hover={{
-  //           color: "primary",
-  //           textDecoration: "none",
-  //         }}
-  //         href={link.href}
-  //       >
-  //         {link.label}
-  //       </Link>
-  //     </Heading>
-  //   </Box>
-  // ));
+  const navLinks = links.map((link) => (
+    <Box p="4" display="flex" alignItems="center" key={link.key}>
+      <Heading size="lg" letterSpacing={"tighter"}>
+        <Link
+          _hover={{
+            color: "primary",
+            textDecoration: "none",
+          }}
+          href={link.href}
+        >
+          {link.label}
+        </Link>
+      </Heading>
+    </Box>
+  ));
 
   // The header contains a string "hello" on the right side of the bar
   return (
@@ -36,7 +38,21 @@ const Header = () => {
             <Image h="10" src="images/logo.png" alt="logo" />
           </Link>
         </Box>
-        {/* {navLinks} */}
+        {navLinks}
+      </Box>
+      <Box
+        as="nav"
+        p="4"
+        display="flex"
+        justifyContent="flex-end"
+        float={"right"}
+      >
+        <Box paddingX="2">
+          <Address />
+        </Box>
+        <Box paddingX="2">
+          <Connect />
+        </Box>
       </Box>
     </Box>
   );

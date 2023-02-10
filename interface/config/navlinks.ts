@@ -1,7 +1,7 @@
 // List of links for the navigation bar
 const navlinks = [
-  { href: "/portfolio", label: "Portfolio", key: 1 },
-  { href: "/dao", label: "DAO", key: 2 },
+  { href: "/daos", label: "DAOs", key: 1 },
+  { href: "/create", label: "Create", key: 2 },
 ];
 
 export default navlinks;

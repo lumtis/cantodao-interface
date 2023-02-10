@@ -1,8 +1,9 @@
 import Head from "next/head";
-import { Heading, Box } from "@chakra-ui/react";
 
-import Layout from "../layout/Layout";
+import { Box, Heading } from "@chakra-ui/react";
+
 import ContainerPage from "../components/ui/container-page";
+import Layout from "../layout/Layout";
 
 export default function Home() {
   return (
