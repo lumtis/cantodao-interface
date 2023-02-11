@@ -25,8 +25,13 @@ const main = async () => {
   // Deploy the governor
   const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
   const daoGovernor = await DAOGovernor.deploy(
+    "cantodao",
+    4,
     daoToken.address,
-    timelockController.address
+    timelockController.address,
+    0,
+    600,
+    0
   );
   await daoGovernor.deployed();
 

@@ -7,6 +7,7 @@ const supply = 10000;
 const newMint = 1000;
 const proposalDescription = "A new proposal";
 const proposalDescriptionHash = ethers.utils.id(proposalDescription);
+const daoName = "cantodao";
 
 // Mirror of proposal states from IGovernor
 enum ProposalState {
@@ -45,8 +46,13 @@ describe("DAO Governor", () => {
     // Deploy the governor
     const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
     const daoGovernor = await DAOGovernor.deploy(
+      daoName,
+      4,
       daoToken.address,
-      timelockController.address
+      timelockController.address,
+      0,
+      600,
+      0
     );
     await daoGovernor.deployed();
 
@@ -87,6 +93,10 @@ describe("DAO Governor", () => {
     // daoGovernor is instantiated with token and timelock controller
     expect(await daoGovernor.token()).to.equal(daoToken.address);
     expect(await daoGovernor.timelock()).to.equal(timelockController.address);
+    expect(await daoGovernor.name()).to.equal(daoName);
+    expect(await daoGovernor.votingDelay()).to.equal(0);
+    expect(await daoGovernor.votingPeriod()).to.equal(600);
+    expect(await daoGovernor.proposalThreshold()).to.equal(0);
   });
 
   it("Should allow to vote and reject a proposal", async () => {

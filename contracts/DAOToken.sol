@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: APACHE-2.0
 pragma solidity ^0.8.9;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
-
 // Import nececcary contracts from OpenZeppelin for token voting
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
@@ -24,7 +21,7 @@ contract DAOToken is ERC20, ERC20Permit, ERC20Votes, Ownable {
         _mint(owner(), amount);
     }
 
-    // The functions below are overrides required by Solidity.
+    // The functions below are overrides required by Solidity
     function _afterTokenTransfer(
         address from,
         address to,

@@ -15,30 +15,42 @@ contract DAOGovernor is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
+    uint256 private _votingDelay_;
+    uint256 private _votingPeriod_;
+    uint256 private _proposalThreshold_;
+
     constructor(
+        string memory _name,
+        uint256 _quorumFraction,
         IVotes _token,
-        TimelockController _timelock
+        TimelockController _timelock,
+        uint256 _votingDelay,
+        uint256 _votingPeriod,
+        uint256 _proposalThreshold
     )
-        Governor("MyGovernor")
+        Governor(_name)
         GovernorVotes(_token)
-        GovernorVotesQuorumFraction(4)
+        GovernorVotesQuorumFraction(_quorumFraction)
         GovernorTimelockControl(_timelock)
-    {}
-
-    function votingDelay() public pure override returns (uint256) {
-        return 0;
+    {
+        _votingDelay_ = _votingDelay;
+        _votingPeriod_ = _votingPeriod;
+        _proposalThreshold_ = _proposalThreshold;
     }
 
-    function votingPeriod() public pure override returns (uint256) {
-        return 600;
+    function votingDelay() public view override returns (uint256) {
+        return _votingDelay_;
     }
 
-    function proposalThreshold() public pure override returns (uint256) {
-        return 0;
+    function votingPeriod() public view override returns (uint256) {
+        return _votingPeriod_;
     }
 
-    // The functions below are overrides required by Solidity.
+    function proposalThreshold() public view override returns (uint256) {
+        return _proposalThreshold_;
+    }
 
+    // The functions below are overrides required by Solidity
     function state(
         uint256 proposalId
     )
