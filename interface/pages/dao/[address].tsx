@@ -1,11 +1,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { Box, Heading, Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 
 import { Dao } from "../../components/Dao";
 import BoxW from "../../components/ui/box";
 import ContainerPage from "../../components/ui/container-page";
+import PageHeader from "../../components/ui/page-header";
 import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../layout/Layout";
 
@@ -33,14 +34,10 @@ const DaoPage = () => {
       </Head>
       <ContainerPage>
         <Box>
-          <Heading
-            as="h1"
-            fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
-            fontWeight="extrabold"
-            mb={3}
-          >
-            Dashboard
-          </Heading>
+          <PageHeader
+            title="Dashboard"
+            imgSource="/static/images/computer.png"
+          />
           {content}
         </Box>
       </ContainerPage>

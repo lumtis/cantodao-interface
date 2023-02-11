@@ -35,7 +35,7 @@ const Header = () => {
       >
         <Box p="4" display="flex" alignItems="center">
           <Link href="/">
-            <Image h="10" src="/static/images/planet.png" alt="logo" />
+            <Image h="10" src="/static/images/header.png" alt="logo" />
           </Link>
         </Box>
         {navLinks}

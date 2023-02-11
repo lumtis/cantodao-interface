@@ -23,18 +23,12 @@ export const Dao = ({
 
   return (
     <ContainerSpaced>
-      <Box display="flex" flexDirection="row" alignItems="flex-end">
+      <Box display="flex" flexDirection="row" alignItems="center">
         <Heading>{daoInfo?.name}</Heading>
-        <Box
-          margin={10}
-          border="4px"
-          borderColor="secondary"
-          borderRadius="50%"
-        >
+        <Box margin={10} border="4px" borderColor="secondary">
           <Image
-            src={"https://i.imgur.com/Mfq75Wv.png"}
+            src={"https://i.imgur.com/J2Awq0y.png"}
             alt="DAO logo"
-            borderRadius="50%"
             h={logoSize || 40}
             w={logoSize || 40}
           />

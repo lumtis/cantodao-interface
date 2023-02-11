@@ -6,17 +6,17 @@ import ContainerPage from "../components/ui/container-page";
 import PageHeader from "../components/ui/page-header";
 import Layout from "../layout/Layout";
 
-const CreatePage = () => {
+const ExplorePage = () => {
   return (
     <Layout>
       <ContainerPage>
         <Head>
-          <title>Create DAO</title>
+          <title>Explore</title>
         </Head>
         <Box textAlign="center">
           <PageHeader
-            title="Create new DAO"
-            imgSource="/static/images/rocket.png"
+            title="Explore DAOs"
+            imgSource="/static/images/scroll.png"
           />
         </Box>
       </ContainerPage>
@@ -24,4 +24,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default ExplorePage;
