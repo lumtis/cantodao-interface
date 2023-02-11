@@ -3,11 +3,11 @@ import { Box } from "@chakra-ui/react";
 const BoxW = ({ children, ...props }: any) => {
   return (
     <Box
-      border="2px"
+      border="4px"
       boxShadow="md"
       borderColor="primary"
       padding="30px"
-      borderRadius="md"
+      // backgroundColor="greydark"
       {...props}
     >
       {children}

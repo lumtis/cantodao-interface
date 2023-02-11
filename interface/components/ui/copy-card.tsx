@@ -63,7 +63,6 @@ export const CopyCard = ({
   address,
   walletIcon,
   isLoading,
-  isRound,
   size = "md",
   maxDisplayLength,
 }: any) => {
@@ -96,8 +95,8 @@ export const CopyCard = ({
       display="flex"
       alignItems="center"
       justifyContent="center"
-      borderRadius={isRound ? "full" : "lg"}
-      border="1px solid"
+      borderRadius={0}
+      border="2px"
       borderColor="secondary"
       w="full"
       h={SIZES[size as keyof typeof SIZES].height}

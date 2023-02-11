@@ -6,11 +6,11 @@ const ButtonW = ({ children, ...props }: any) => {
       bg="transparent"
       color="primary"
       _hover={{
-        bg: "primary",
-        color: "white",
+        bg: "primarydark",
+        color: "primary",
       }}
-      border="1px"
-      boxShadow="md"
+      border="4px"
+      borderRadius={0}
       _active={{
         bgImage: "linear-gradient(109.6deg, primary 11.2%, primary 83.1%)",
         opacity: 0.9,

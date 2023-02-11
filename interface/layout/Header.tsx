@@ -12,7 +12,7 @@ const Header = () => {
       <Heading size="lg" letterSpacing={"tighter"}>
         <Link
           _hover={{
-            color: "primary",
+            color: "primarydark",
             textDecoration: "none",
           }}
           href={link.href}
@@ -25,7 +25,7 @@ const Header = () => {
 
   // The header contains a string "hello" on the right side of the bar
   return (
-    <Box as="header" h="20" bg="black" p="15px">
+    <Box as="header" h="20" bg="dark" p="15px">
       <Box
         as="nav"
         paddingLeft="4"
@@ -35,7 +35,7 @@ const Header = () => {
       >
         <Box p="4" display="flex" alignItems="center">
           <Link href="/">
-            <Image h="10" src="images/logo.png" alt="logo" />
+            <Image h="10" src="/static/images/planet.png" alt="logo" />
           </Link>
         </Box>
         {navLinks}

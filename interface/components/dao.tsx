@@ -1,20 +1,24 @@
 import { Box, Heading, Image, Spinner } from "@chakra-ui/react";
 
-import useQueryDAOInfo from "../hooks/queries/useQueryDAOInfo";
+import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
+import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
 import ContainerSpaced from "./ui/container-spaced";
 import { CopyCard } from "./ui/copy-card";
 
-export const DAO = ({
+export const Dao = ({
   address,
+  daoInfo,
   logoSize,
 }: {
   address: string;
+  daoInfo?: DAOInfo;
   logoSize?: string;
 }) => {
-  const { daoInfo, error, isLoading } = useQueryDAOInfo(address);
+  const { tokenInfo, error, isLoading } = useQueryTokenInfo(daoInfo?.token);
 
-  if (isLoading || error || !daoInfo) {
-    return <Spinner />;
+  let tokenComp = <Spinner />;
+  if (!isLoading && !error && tokenInfo) {
+    tokenComp = <Box></Box>;
   }
 
   return (
@@ -23,7 +27,7 @@ export const DAO = ({
         <Heading>{daoInfo?.name}</Heading>
         <Box
           margin={10}
-          border="2px"
+          border="4px"
           borderColor="secondary"
           borderRadius="50%"
         >

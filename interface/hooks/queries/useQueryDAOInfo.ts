@@ -3,16 +3,19 @@ import { useContractReads } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
 
-type DAOInfo = {
+// Regular info of a DAO
+export type DAOInfo = {
   name?: string;
   quorumVotes?: BigNumber;
   proposalThreshold?: BigNumber;
   votingDelay?: BigNumber;
   votingPeriod?: BigNumber;
+  token?: string;
+  executor?: string;
 };
 
-// Query different info of the DAO, including name, quorum, etc...
-const useQueryDAOInfo = (contractAddress: string) => {
+// Query different info of the DAO
+const useQueryDAOInfo = (contractAddress?: string) => {
   const abi = DAOGovernor.abi;
   const address = contractAddress as `0x${string}`;
 
@@ -25,7 +28,7 @@ const useQueryDAOInfo = (contractAddress: string) => {
       },
       {
         address,
-        abi: DAOGovernor.abi,
+        abi,
         functionName: "quorumVotes",
       },
       {
@@ -43,6 +46,16 @@ const useQueryDAOInfo = (contractAddress: string) => {
         abi,
         functionName: "votingPeriod",
       },
+      {
+        address,
+        abi,
+        functionName: "token",
+      },
+      {
+        address,
+        abi,
+        functionName: "timelock",
+      },
     ],
   });
 
@@ -52,6 +65,8 @@ const useQueryDAOInfo = (contractAddress: string) => {
     proposalThreshold: data?.[2] as BigNumber,
     votingDelay: data?.[3] as BigNumber,
     votingPeriod: data?.[4] as BigNumber,
+    token: data?.[5] as string,
+    executor: data?.[6] as string,
   };
 
   return { daoInfo, error, isLoading };
