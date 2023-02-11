@@ -5,7 +5,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import ContainerPage from "../components/ui/container-page";
 import Layout from "../layout/Layout";
 
-export default function Home() {
+const HomePage = () => {
   return (
     <Layout>
       <ContainerPage>
@@ -27,4 +27,6 @@ export default function Home() {
       </ContainerPage>
     </Layout>
   );
-}
+};
+
+export default HomePage;

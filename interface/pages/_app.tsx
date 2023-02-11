@@ -1,19 +1,25 @@
 import "../styles/globals.css";
 import "@fontsource/vt323/400.css";
 
-import { getDefaultProvider } from "ethers";
 import type { AppProps } from "next/app";
-import { createClient, WagmiConfig } from "wagmi";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { localhost } from "wagmi/chains";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { publicProvider } from "wagmi/providers/public";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { defaultTheme } from "../config/theme";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  // EVM client
+  // Use localhost
+  // TODO: Implement mainnet support
+  const { chains, provider } = configureChains([localhost], [publicProvider()]);
+
   const client = createClient({
     autoConnect: true,
-    provider: getDefaultProvider(),
+    connectors: [new InjectedConnector({ chains })],
+    provider,
   });
 
   return (

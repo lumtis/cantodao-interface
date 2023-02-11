@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 
 import { GetAccountResult, Provider } from "@wagmi/core";
 
+// This is a wrapper of wagmi useAccount hook that fixes the hydration issue
 const useAccountWrapped = (): GetAccountResult<Provider> => {
   const config = useAccount();
 
