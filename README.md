@@ -1,13 +1,19 @@
-# Sample Hardhat Project
+# TODO
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+- Contracts
 
-Try running some of the following tasks:
+  - Add metadata into DAO
+  - Add indexing for proposals
+  - Add state for proposal content
+  - DAO factory
+  - SubDAO
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+- Interface
+
+  - DAO page
+  - DAO list
+  - Voting interface
+  - Style
+
+- Other
+  - Script for extracting ABI from artifacts into interface code
