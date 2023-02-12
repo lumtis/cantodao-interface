@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 
 import { Box, Spinner } from "@chakra-ui/react";
 
-import { Dao } from "../../components/Dao";
+import { Balances } from "../../components/balances";
+import { Dao } from "../../components/dao";
 import BoxW from "../../components/ui/box";
 import ContainerPage from "../../components/ui/container-page";
 import PageHeader from "../../components/ui/page-header";
@@ -19,10 +20,20 @@ const DaoPage = () => {
   let content = <Spinner />;
   if (!isLoading && !error && daoInfo) {
     content = (
-      <Box>
+      <Box display="flex" flexDirection="row" alignItems="center">
         <BoxW width="fit-content">
           <Dao address={address as string} daoInfo={daoInfo} />
         </BoxW>
+        <Box ml={20}>
+          <PageHeader title="Treasury" imgSource="/static/images/chest.png" />
+          <BoxW width="fit-content">
+            <Balances
+              holderAddress={daoInfo?.executor}
+              contractAddresses={daoInfo?.token ? [daoInfo?.token] : []}
+              includeNative={true}
+            />
+          </BoxW>
+        </Box>
       </Box>
     );
   }
