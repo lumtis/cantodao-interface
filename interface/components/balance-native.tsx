@@ -1,9 +1,8 @@
 import { useBalance } from "wagmi";
 
-import { Heading, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 
-import Code from "./ui/code";
-import ContainerSpaced from "./ui/container-spaced";
+import Param from "./ui/param";
 
 export const BalanceNative = ({ holderAddress }: { holderAddress: string }) => {
   const { data, isError, isLoading } = useBalance({
@@ -14,13 +13,7 @@ export const BalanceNative = ({ holderAddress }: { holderAddress: string }) => {
   let balanceComp = <Spinner />;
   if (!isError && !isLoading && data) {
     balanceComp = (
-      <ContainerSpaced>
-        <Heading>Native</Heading>
-        <Code textAlign="right">
-          {data?.formatted}
-          {data?.symbol}
-        </Code>
-      </ContainerSpaced>
+      <Param name="Canto" value={data?.formatted + " " + data?.symbol} />
     );
   }
 

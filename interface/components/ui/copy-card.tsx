@@ -36,6 +36,8 @@ const SIZES = {
   },
 };
 
+// TODO: improve rendering with width
+
 export function stringTruncateFromCenter(str: string, maxLength: number) {
   const midChar = "…"; // character to insert into the center of the result
 

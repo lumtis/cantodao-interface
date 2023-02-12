@@ -1,9 +1,8 @@
-import { Heading, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 
 import useQueryTokenBalance from "../hooks/queries/useTokenBalance";
 import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
-import Code from "./ui/code";
-import ContainerSpaced from "./ui/container-spaced";
+import Param from "./ui/param";
 
 export const Balance = ({
   contractAddress,
@@ -35,13 +34,10 @@ export const Balance = ({
     balance
   ) {
     balanceComp = (
-      <ContainerSpaced>
-        <Heading>{tokenInfo?.name}</Heading>
-        <Code textAlign="right">
-          {balance.toString()}
-          {tokenInfo?.symbol}
-        </Code>
-      </ContainerSpaced>
+      <Param
+        name={tokenInfo?.name}
+        value={balance.toString() + " " + tokenInfo?.symbol}
+      />
     );
   }
 

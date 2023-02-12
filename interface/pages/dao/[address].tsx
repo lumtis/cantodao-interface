@@ -20,13 +20,13 @@ const DaoPage = () => {
   let content = <Spinner />;
   if (!isLoading && !error && daoInfo) {
     content = (
-      <Box display="flex" flexDirection="row" alignItems="center">
-        <BoxW width="fit-content">
+      <Box display="flex" flexDirection="row" alignItems="flex-start">
+        <BoxW w="100%">
           <Dao address={address as string} daoInfo={daoInfo} />
         </BoxW>
-        <Box ml={20}>
+        <Box ml={20} w="100%">
           <PageHeader title="Treasury" imgSource="/static/images/chest.png" />
-          <BoxW width="fit-content">
+          <BoxW w="100%">
             <Balances
               holderAddress={daoInfo?.executor}
               contractAddresses={daoInfo?.token ? [daoInfo?.token] : []}
