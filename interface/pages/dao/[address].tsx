@@ -11,6 +11,7 @@ import ContainerPage from "../../components/ui/container-page";
 import ContainerSpaced from "../../components/ui/container-spaced";
 import Divider from "../../components/ui/divider";
 import PageHeader from "../../components/ui/page-header";
+import { VotingPower } from "../../components/voting-power";
 import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../layout/Layout";
 
@@ -28,7 +29,7 @@ const DaoPage = () => {
         </BoxW>
         <Box ml={20} w="100%">
           <PageHeader title="Treasury" imgSource="/static/images/chest.png" />
-          <BoxW w="100%">
+          <BoxW w="100%" mb="40px">
             <ContainerSpaced>
               <Balances
                 holderAddress={daoInfo?.executor}
@@ -41,6 +42,15 @@ const DaoPage = () => {
                 header="Fund DAO"
                 buttonText="Fund DAO"
               />
+            </ContainerSpaced>
+          </BoxW>
+          <PageHeader
+            title="Voting Power"
+            imgSource="/static/images/fist.png"
+          />
+          <BoxW w="100%">
+            <ContainerSpaced>
+              <VotingPower daoInfo={daoInfo} />
             </ContainerSpaced>
           </BoxW>
         </Box>
