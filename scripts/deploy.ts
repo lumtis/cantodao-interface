@@ -64,6 +64,32 @@ const main = async () => {
     ["DAO Executor", daoExecutor.address],
     ["DAO Governor", daoGovernor.address],
   ]);
+
+  // Create proposals
+
+  // Transfger tokens
+  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+    [daoToken.address],
+    [0],
+    [daoToken.interface.encodeFunctionData("transfer", [owner.address, 10000])],
+    "Transfering DAO tokens to myself"
+  );
+
+  // Transfer funds
+  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+    [owner.address],
+    [40],
+    ["0x"],
+    "Transfering fund to myself"
+  );
+
+  // Mint tokens
+  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+    [daoToken.address],
+    [0],
+    [daoToken.interface.encodeFunctionData("mint", [owner.address])],
+    "Minting DAO tokens"
+  );
 };
 
 // We recommend this pattern to be able to use async/await everywhere
