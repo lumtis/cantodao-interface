@@ -1,8 +1,11 @@
 import { Box, Divider } from "@chakra-ui/react";
 
-const DividerW = () => {
+const DividerW = ({ verticalPadding }: { verticalPadding?: string }) => {
   return (
-    <Box paddingTop="20px" paddingBottom="20px">
+    <Box
+      paddingTop={verticalPadding || "20px"}
+      paddingBottom={verticalPadding || "20px"}
+    >
       <Divider borderColor="primary" borderWidth={2} />
     </Box>
   );

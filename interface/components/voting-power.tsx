@@ -33,6 +33,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   });
 
   // TODO: hide self-delegation part if no token or already delegated
+  // TODO: relative voting power
   return (
     <ContainerSpaced>
       {isConnected && address && daoInfo?.token ? (

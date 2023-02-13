@@ -20,44 +20,6 @@ const DaoPage = () => {
   const { address } = router.query;
   const { daoInfo, error, isLoading } = useQueryDAOInfo(address as string);
 
-  let content = <Spinner />;
-  if (!isLoading && !error && daoInfo) {
-    content = (
-      <Box display="flex" flexDirection="row" alignItems="flex-start">
-        <BoxW w="100%">
-          <Dao address={address as string} daoInfo={daoInfo} />
-        </BoxW>
-        <Box ml={20} w="100%">
-          <PageHeader title="Treasury" imgSource="/static/images/chest.png" />
-          <BoxW w="100%" mb="40px">
-            <ContainerSpaced>
-              <Balances
-                holderAddress={daoInfo?.executor}
-                contractAddresses={daoInfo?.token ? [daoInfo?.token] : []}
-                includeNative={true}
-              />
-              <Divider />
-              <Fund
-                address={daoInfo.executor}
-                header="Fund DAO"
-                buttonText="Fund DAO"
-              />
-            </ContainerSpaced>
-          </BoxW>
-          <PageHeader
-            title="Voting Power"
-            imgSource="/static/images/fist.png"
-          />
-          <BoxW w="100%">
-            <ContainerSpaced>
-              <VotingPower daoInfo={daoInfo} />
-            </ContainerSpaced>
-          </BoxW>
-        </Box>
-      </Box>
-    );
-  }
-
   return (
     <>
       <Layout>
@@ -66,11 +28,60 @@ const DaoPage = () => {
         </Head>
         <ContainerPage>
           <Box>
-            <PageHeader
-              title="Dashboard"
-              imgSource="/static/images/computer.png"
-            />
-            {content}
+            {!isLoading && !error && daoInfo ? (
+              <Box>
+                <Box display="flex" flexDirection="row" alignItems="flex-start">
+                  <Box w="100%">
+                    <PageHeader
+                      title="Information"
+                      imgSource="/static/images/computer.png"
+                    />
+                    <BoxW w="100%">
+                      <Dao address={address as string} daoInfo={daoInfo} />
+                    </BoxW>
+                  </Box>
+                  <Box ml={20} w="100%">
+                    <PageHeader
+                      title="Treasury"
+                      imgSource="/static/images/chest.png"
+                    />
+                    <BoxW w="100%" mb="40px">
+                      <ContainerSpaced>
+                        <Balances
+                          holderAddress={daoInfo?.executor}
+                          contractAddresses={
+                            daoInfo?.token ? [daoInfo?.token] : []
+                          }
+                          includeNative={true}
+                        />
+                        <Divider />
+                        <Fund
+                          address={daoInfo.executor}
+                          header="Fund DAO"
+                          buttonText="Fund DAO"
+                        />
+                      </ContainerSpaced>
+                    </BoxW>
+                    <PageHeader
+                      title="Voting Power"
+                      imgSource="/static/images/fist.png"
+                    />
+                    <BoxW w="100%">
+                      <ContainerSpaced>
+                        <VotingPower daoInfo={daoInfo} />
+                      </ContainerSpaced>
+                    </BoxW>
+                  </Box>
+                </Box>
+                <Divider verticalPadding="50px" />
+                <PageHeader
+                  title="Proposals"
+                  imgSource="/static/images/scroll.png"
+                />
+              </Box>
+            ) : (
+              <Spinner />
+            )}
           </Box>
         </ContainerPage>
       </Layout>
