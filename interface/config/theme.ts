@@ -7,6 +7,20 @@ export const defaultThemeObject = {
         fontSize: "22px",
       },
     },
+    Modal: {
+      baseStyle: {
+        dialog: {
+          bg: "dark",
+          borderRadius: 0,
+        },
+        header: {
+          fontSize: "40px",
+        },
+        body: {
+          fontSize: "22px",
+        },
+      },
+    },
   },
   fonts: {
     body: "VT323, sans-serif",
