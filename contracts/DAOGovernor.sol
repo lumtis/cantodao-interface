@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
+import "./DAOExecutor.sol";
+
 // An implementation of governance for DAOs
 contract DAOGovernor is
     Governor,
@@ -21,9 +23,9 @@ contract DAOGovernor is
 
     constructor(
         string memory _name,
-        uint256 _quorumFraction,
         IVotes _token,
         TimelockController _timelock,
+        uint256 _quorumFraction,
         uint256 _votingDelay,
         uint256 _votingPeriod,
         uint256 _proposalThreshold

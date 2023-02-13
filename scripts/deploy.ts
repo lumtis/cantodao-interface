@@ -11,24 +11,21 @@ const main = async () => {
   await daoToken.deployed();
 
   // Deploy the timelock controller with deployer as admin
-  const TimelockController = await ethers.getContractFactory(
-    "TimelockController"
-  );
-  const timelockController = await TimelockController.deploy(
-    1,
+  const DAOExecutor = await ethers.getContractFactory("DAOExecutor");
+  const daoExecutor = await DAOExecutor.deploy(
     [owner.address],
     [],
     owner.address
   );
-  await timelockController.deployed();
+  await daoExecutor.deployed();
 
   // Deploy the governor
   const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
   const daoGovernor = await DAOGovernor.deploy(
     "cantodao",
-    4,
     daoToken.address,
-    timelockController.address,
+    daoExecutor.address,
+    4,
     0,
     600,
     0
@@ -36,30 +33,30 @@ const main = async () => {
   await daoGovernor.deployed();
 
   // Grant proposer role to the governor and renounce it from the owner
-  await timelockController.grantRole(
-    await timelockController.PROPOSER_ROLE(),
+  await daoExecutor.grantRole(
+    await daoExecutor.PROPOSER_ROLE(),
     daoGovernor.address
   );
-  await timelockController.grantRole(
-    await timelockController.EXECUTOR_ROLE(),
+  await daoExecutor.grantRole(
+    await daoExecutor.EXECUTOR_ROLE(),
     daoGovernor.address
   );
-  await timelockController.renounceRole(
-    await timelockController.PROPOSER_ROLE(),
+  await daoExecutor.renounceRole(
+    await daoExecutor.PROPOSER_ROLE(),
     owner.address
   );
-  await timelockController.renounceRole(
-    await timelockController.TIMELOCK_ADMIN_ROLE(),
+  await daoExecutor.renounceRole(
+    await daoExecutor.TIMELOCK_ADMIN_ROLE(),
     owner.address
   );
 
   // Transfer ownership of the token to the governor
-  await daoToken.transferOwnership(timelockController.address);
+  await daoToken.transferOwnership(daoExecutor.address);
 
   console.log("Contracts deployed");
   console.table([
     ["DAO Token", daoToken.address],
-    ["Timelock Controller", timelockController.address],
+    ["DAO Executor", daoExecutor.address],
     ["DAO Governor", daoGovernor.address],
   ]);
 };
