@@ -33,7 +33,7 @@ const DaoPage = () => {
                 <Box display="flex" flexDirection="row" alignItems="flex-start">
                   <Box w="100%">
                     <PageHeader
-                      title="Information"
+                      title="DAO"
                       imgSource="/static/images/computer.png"
                     />
                     <BoxW w="100%">

@@ -5,6 +5,7 @@ import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
 import useTxDelegate from "../hooks/txs/useTxDelegate";
 import useAccountWrapped from "../hooks/useAccount";
 import { Balance } from "./balance";
+import { TxInfo } from "./tx/tx-info";
 import Button from "./ui/button";
 import ContainerSpaced from "./ui/container-spaced";
 import Divider from "./ui/divider";
@@ -20,17 +21,11 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
 
   const {
     data,
-    isLoading: isLoadingDelegate,
-    isSuccess,
+    isLoading: isLoadingTx,
+    isSuccess: isSuccessTx,
     write,
   } = useTxDelegate(daoInfo?.token, address);
-
-  console.log({
-    data,
-    isLoadingDelegate,
-    isSuccess,
-    write,
-  });
+  const txHash = data?.hash;
 
   // TODO: hide self-delegation part if no token or already delegated
   // TODO: relative voting power
@@ -53,6 +48,11 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
           <Button w="fit-content" onClick={() => write()}>
             Self-Delegate
           </Button>
+          <TxInfo
+            isLoadingTx={isLoadingTx}
+            isSuccessTx={isSuccessTx}
+            txHash={txHash}
+          />
         </ContainerSpaced>
       ) : (
         <Spinner />

@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import { NativeToken } from "../config/chain";
+import { TxInfo } from "./tx/tx-info";
 import Button from "./ui/button";
 import ContainerSpaced from "./ui/container-spaced";
 import Input from "./ui/input";
@@ -29,6 +30,8 @@ export const Fund = ({
   buttonText: string;
   address?: string;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [amount, setAmount] = useState("0");
   const { config } = usePrepareSendTransaction({
     request: {
@@ -39,11 +42,10 @@ export const Fund = ({
   const {
     data,
     isLoading: isLoadingTx,
-    isSuccess,
+    isSuccess: isSuccessTx,
     sendTransaction,
   } = useSendTransaction(config);
-
-  const [isOpen, setIsOpen] = useState(false);
+  const txHash = data?.hash;
 
   return (
     <ContainerSpaced>
@@ -68,12 +70,19 @@ export const Fund = ({
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Button
-              disabled={!sendTransaction}
-              onClick={() => sendTransaction?.()}
-            >
-              Send
-            </Button>
+            {!isSuccessTx && !txHash && !isLoadingTx && (
+              <Button
+                disabled={!sendTransaction}
+                onClick={() => sendTransaction?.()}
+              >
+                Send
+              </Button>
+            )}
+            <TxInfo
+              isLoadingTx={isLoadingTx}
+              isSuccessTx={isSuccessTx}
+              txHash={txHash}
+            />
           </ModalFooter>
         </ModalContent>
       </Modal>
