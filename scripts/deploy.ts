@@ -7,7 +7,7 @@ const main = async () => {
 
   // Deploy the DAO token
   const DAOToken = await ethers.getContractFactory("DAOToken");
-  const daoToken = await DAOToken.deploy("foo", "FOO", supply);
+  const daoToken = await DAOToken.deploy("Foo", "FOO", supply);
   await daoToken.deployed();
 
   // Deploy the timelock controller with deployer as admin
@@ -22,7 +22,7 @@ const main = async () => {
   // Deploy the governor
   const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
   const daoGovernor = await DAOGovernor.deploy(
-    "cantodao",
+    "Cantodao",
     daoToken.address,
     daoExecutor.address,
     4,
@@ -52,6 +52,11 @@ const main = async () => {
 
   // Transfer ownership of the token to the governor
   await daoToken.transferOwnership(daoExecutor.address);
+
+  await owner.sendTransaction({
+    to: daoExecutor.address,
+    value: ethers.utils.parseEther("10"),
+  });
 
   console.log("Contracts deployed");
   console.table([

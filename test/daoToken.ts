@@ -7,11 +7,11 @@ describe("DAO Token", () => {
 
     // Deploy the contract
     const DAOToken = await ethers.getContractFactory("DAOToken");
-    const daoToken = await DAOToken.deploy("foo", "FOO", 10000);
+    const daoToken = await DAOToken.deploy("Foo", "FOO", 10000);
     await daoToken.deployed();
 
     // Values
-    expect(await daoToken.name()).to.equal("foo");
+    expect(await daoToken.name()).to.equal("Foo");
     expect(await daoToken.symbol()).to.equal("FOO");
     expect(await daoToken.totalSupply()).to.equal(10000);
 

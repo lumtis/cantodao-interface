@@ -34,7 +34,7 @@ describe("DAO Governor", () => {
 
     // Deploy the DAO token
     const DAOToken = await ethers.getContractFactory("DAOToken");
-    const daoToken = await DAOToken.deploy("foo", "FOO", supply);
+    const daoToken = await DAOToken.deploy("Foo", "FOO", supply);
     await daoToken.deployed();
 
     // Deploy the timelock controller with deployer as admin
@@ -102,13 +102,83 @@ describe("DAO Governor", () => {
     expect(await daoGovernor.proposalThreshold()).to.equal(0);
   });
 
+  it("Should allow to retrieve proposal contents", async () => {
+    const { owner, daoToken, daoGovernor } = await loadFixture(
+      deployGovernorFixture
+    );
+
+    // Proposal count is initially zero
+    expect(await daoGovernor.proposalCount()).to.equal(0);
+
+    const transferCalldata = daoToken.interface.encodeFunctionData("transfer", [
+      owner.address,
+      10000,
+    ]);
+
+    // Send a propposal and get ID
+    let tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+      [daoToken.address],
+      [0],
+      [transferCalldata],
+      proposalDescription
+    );
+    let receipt = await tx.wait();
+    let actualProposalId = ethers.BigNumber.from(
+      receipt.events?.[0].args?.proposalId
+    );
+
+    // Proposal count is incremented
+    expect(await daoGovernor.proposalCount()).to.equal(1);
+
+    // Proposal ID can be retrieved from index
+    let expectedProposalId = await daoGovernor.proposalIDs(0);
+    expect(expectedProposalId).to.equal(actualProposalId);
+
+    // Proposal content can be retrieved by ID
+    let proposalContent = await daoGovernor.getProposalContent(
+      expectedProposalId
+    );
+    expect(proposalContent[0][0]).to.equal(daoToken.address);
+    expect(proposalContent[1][0]).to.equal(0);
+    expect(proposalContent[2][0]).to.equal(transferCalldata);
+    expect(proposalContent[3]).to.equal(proposalDescription);
+
+    // Send a second proposal and check data
+    tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+      [owner.address],
+      [40],
+      ["0x"],
+      proposalDescription
+    );
+    receipt = await tx.wait();
+    actualProposalId = ethers.BigNumber.from(
+      receipt.events?.[0].args?.proposalId
+    );
+    expect(await daoGovernor.proposalCount()).to.equal(2);
+    expectedProposalId = await daoGovernor.proposalIDs(1);
+    expect(expectedProposalId).to.equal(actualProposalId);
+    proposalContent = await daoGovernor.getProposalContent(expectedProposalId);
+    expect(proposalContent[0][0]).to.equal(owner.address);
+    expect(proposalContent[1][0]).to.equal(40);
+    expect(proposalContent[2][0]).to.equal("0x");
+    expect(proposalContent[3]).to.equal(proposalDescription);
+  });
+
   it("Should allow to vote and reject a proposal", async () => {
     const { owner, daoToken, daoGovernor } = await loadFixture(
       deployGovernorFixture
     );
 
+    // Check votes is zero before delegating
+    let votes = await daoToken.getVotes(owner.address);
+    expect(votes).to.equal(0);
+
     // Delegate voting power to itself
     let tx = await daoToken.delegate(owner.address);
+
+    // Check votes is equal to delegated funds which is equal to total supply
+    votes = await daoToken.getVotes(owner.address);
+    expect(votes).to.equal(supply);
 
     // Send a propposal and get ID
     tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
@@ -226,13 +296,13 @@ describe("DAO Governor", () => {
     // Delegate voting power to itself
     await daoToken.delegate(owner.address);
 
-    // Send ethers to the timelock controller\
+    // Send ethers to the dao executor
     await owner.sendTransaction({
       to: daoExecutor.address,
       value: ethers.BigNumber.from(100),
     });
 
-    // Check the timelock controller ethers balance is updated
+    // Check the dao executor ethers balance is updated
     balance = await ethers.provider.getBalance(daoExecutor.address);
     expect(balance).to.equal(ethers.BigNumber.from(100));
 
@@ -240,7 +310,7 @@ describe("DAO Governor", () => {
     let tx = await daoGovernor["propose(address[],uint256[],bytes[],string)"](
       [sampleAddr],
       [40],
-      [ethers.utils.arrayify([])],
+      ["0x"],
       proposalDescription
     );
     let receipt = await tx.wait();
@@ -260,7 +330,7 @@ describe("DAO Governor", () => {
     tx = await daoGovernor["queue(address[],uint256[],bytes[],bytes32)"](
       [sampleAddr],
       [40],
-      [ethers.utils.arrayify([])],
+      ["0x"],
       proposalDescriptionHash
     );
 
@@ -269,7 +339,7 @@ describe("DAO Governor", () => {
     tx = await daoGovernor["execute(address[],uint256[],bytes[],bytes32)"](
       [sampleAddr],
       [40],
-      [ethers.utils.arrayify([])],
+      ["0x"],
       proposalDescriptionHash
     );
 

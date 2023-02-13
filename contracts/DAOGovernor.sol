@@ -17,9 +17,23 @@ contract DAOGovernor is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
+    struct ProposalContent {
+        address[] targets;
+        uint256[] values;
+        bytes[] calldatas;
+        string description;
+    }
+
     uint256 private _votingDelay_;
     uint256 private _votingPeriod_;
     uint256 private _proposalThreshold_;
+
+    // Theses values are not part of the contract template
+    // These add more on-chain data and causes the contract interaction to be more expensive
+    // The benefit is that no off-chain infrastructure is required to display the data
+    uint256 public proposalCount = 0;
+    mapping(uint256 => uint256) public proposalIDs;
+    mapping(uint256 => ProposalContent) public proposalContents;
 
     constructor(
         string memory _name,
@@ -40,6 +54,26 @@ contract DAOGovernor is
         _proposalThreshold_ = _proposalThreshold;
     }
 
+    function getProposalContent(
+        uint256 id
+    )
+        public
+        view
+        returns (
+            address[] memory,
+            uint256[] memory,
+            bytes[] memory,
+            string memory
+        )
+    {
+        return (
+            proposalContents[id].targets,
+            proposalContents[id].values,
+            proposalContents[id].calldatas,
+            proposalContents[id].description
+        );
+    }
+
     function votingDelay() public view override returns (uint256) {
         return _votingDelay_;
     }
@@ -52,18 +86,7 @@ contract DAOGovernor is
         return _proposalThreshold_;
     }
 
-    // The functions below are overrides required by Solidity
-    function state(
-        uint256 proposalId
-    )
-        public
-        view
-        override(Governor, IGovernor, GovernorTimelockControl)
-        returns (ProposalState)
-    {
-        return super.state(proposalId);
-    }
-
+    // propose add more onchain logic and storage for UX purposes
     function propose(
         address[] memory targets,
         uint256[] memory values,
@@ -74,7 +97,36 @@ contract DAOGovernor is
         override(Governor, GovernorCompatibilityBravo, IGovernor)
         returns (uint256)
     {
-        return super.propose(targets, values, calldatas, description);
+        uint256 proposalID = super.propose(
+            targets,
+            values,
+            calldatas,
+            description
+        );
+
+        // Store the new proposal content
+        proposalIDs[proposalCount] = proposalID;
+        proposalContents[proposalID] = ProposalContent(
+            targets,
+            values,
+            calldatas,
+            description
+        );
+        proposalCount++;
+
+        return proposalID;
+    }
+
+    // The functions below are overrides required by Solidity
+    function state(
+        uint256 proposalId
+    )
+        public
+        view
+        override(Governor, IGovernor, GovernorTimelockControl)
+        returns (ProposalState)
+    {
+        return super.state(proposalId);
     }
 
     function _execute(
