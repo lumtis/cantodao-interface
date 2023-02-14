@@ -1,0 +1,56 @@
+import { BigNumber } from "ethers";
+
+import { Box, Heading } from "@chakra-ui/react";
+
+import useQueryProposalID from "../hooks/queries/useQueryProposalID";
+import useQueryProposalState from "../hooks/queries/useQueryProposalState";
+import { ProposalState } from "../utils/proposal";
+import { ProposalStateBox } from "./proposal-state-box";
+import BoxW from "./ui/box";
+import { RouteCard } from "./ui/route-card";
+
+export const ProposalCard = ({
+  governorContract,
+  proposalIndex,
+}: {
+  governorContract?: string;
+  proposalIndex: BigNumber;
+}) => {
+  const {
+    proposalID,
+    error: errorID,
+    isLoading: isLoadingID,
+  } = useQueryProposalID(governorContract, proposalIndex);
+  let {
+    proposalState,
+    error: errorState,
+    isLoading: isLoadingState,
+  } = useQueryProposalState(governorContract, proposalID);
+
+  const route = (dao: string, proposalID: BigNumber) => {
+    return "/proposal/" + dao + "/" + proposalID.toString();
+  };
+
+  if (!proposalState) {
+    proposalState = ProposalState.Pending;
+  }
+
+  return (
+    <BoxW>
+      <Box display="flex" flexDirection="row" alignItems="center">
+        <Heading mr={4}>{"#" + proposalIndex.toString()}</Heading>
+        {!isLoadingID && !errorID && proposalID && (
+          <Box mr={4}>
+            <RouteCard
+              cardText={proposalID.toString()}
+              route={route(governorContract as string, proposalID)}
+            />
+          </Box>
+        )}
+        {!isLoadingState && !errorState && (
+          <ProposalStateBox proposalState={proposalState} />
+        )}
+      </Box>
+    </BoxW>
+  );
+};

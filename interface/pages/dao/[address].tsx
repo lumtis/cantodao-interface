@@ -6,6 +6,7 @@ import { Box, Spinner } from "@chakra-ui/react";
 import { Balances } from "../../components/balances";
 import { Dao } from "../../components/dao";
 import { Fund } from "../../components/fund";
+import { Proposals } from "../../components/proposals";
 import BoxW from "../../components/ui/box";
 import ContainerPage from "../../components/ui/container-page";
 import ContainerSpaced from "../../components/ui/container-spaced";
@@ -15,6 +16,7 @@ import { VotingPower } from "../../components/voting-power";
 import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../layout/Layout";
 
+// TODO: create a DAO balance component
 const DaoPage = () => {
   const router = useRouter();
   const { address } = router.query;
@@ -78,6 +80,7 @@ const DaoPage = () => {
                   title="Proposals"
                   imgSource="/static/images/scroll.png"
                 />
+                <Proposals governorContract={address as string} />
               </Box>
             ) : (
               <Spinner />

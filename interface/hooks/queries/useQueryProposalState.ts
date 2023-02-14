@@ -2,18 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-
-// Mirror of proposal states from IGovernor
-enum ProposalState {
-  Pending,
-  Active,
-  Canceled,
-  Defeated,
-  Succeeded,
-  Queued,
-  Expired,
-  Executed,
-}
+import { ProposalState } from "../../utils/proposal";
 
 const useQueryProposalState = (
   contractAddress?: string,
