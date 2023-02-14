@@ -1,16 +1,13 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 import Code from "./code";
 
-const Param = ({ children, name, value, ...props }: any) => {
+const Param = ({ name, value, ...props }: any) => {
   return (
-    <Text {...props}>
-      {name}:
-      <Code textAlign="right" float="right">
-        {value}
-      </Code>
-      {children}
-    </Text>
+    <Box display="flex" flexDirection="row" alignItems="center" {...props}>
+      <Text {...props}>{name}:</Text>
+      <Code ml="auto">{value}</Code>
+    </Box>
   );
 };
 
