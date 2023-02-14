@@ -11,11 +11,11 @@ const CreatePage = () => {
     <Layout>
       <ContainerPage>
         <Head>
-          <title>Create DAO</title>
+          <title>Create a DAO</title>
         </Head>
         <Box textAlign="center">
           <PageHeader
-            title="Create new DAO"
+            title="Create a new DAO"
             imgSource="/static/images/rocket.png"
           />
         </Box>

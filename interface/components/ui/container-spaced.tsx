@@ -2,7 +2,7 @@ import { Container, VStack } from "@chakra-ui/react";
 
 const ContainerSpaced = ({ children, ...props }: any) => {
   return (
-    <Container>
+    <Container {...props}>
       <VStack spacing={4} align="stretch">
         {children}
       </VStack>

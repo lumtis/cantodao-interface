@@ -7,11 +7,9 @@ import Param from "./ui/param";
 import ParamCopyCard from "./ui/param-copy-card";
 
 export const Dao = ({
-  address,
   daoInfo,
   logoSize,
 }: {
-  address: string;
   daoInfo?: DAOInfo;
   logoSize?: string;
 }) => {

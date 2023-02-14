@@ -39,7 +39,7 @@ const DaoPage = () => {
                       imgSource="/static/images/computer.png"
                     />
                     <BoxW w="100%">
-                      <Dao address={address as string} daoInfo={daoInfo} />
+                      <Dao daoInfo={daoInfo} />
                     </BoxW>
                   </Box>
                   <Box ml={20} w="100%">
@@ -65,7 +65,7 @@ const DaoPage = () => {
                       </ContainerSpaced>
                     </BoxW>
                     <PageHeader
-                      title="Voting Power"
+                      title="Membership"
                       imgSource="/static/images/fist.png"
                     />
                     <BoxW w="100%">
