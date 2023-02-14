@@ -12,6 +12,7 @@ export type DAOInfo = {
   votingPeriod?: BigNumber;
   token?: string;
   executor?: string;
+  imageURL?: string;
 };
 
 // Query different info of the DAO
@@ -56,6 +57,11 @@ const useQueryDAOInfo = (contractAddress?: string) => {
         abi,
         functionName: "timelock",
       },
+      {
+        address,
+        abi,
+        functionName: "imageURL",
+      },
     ],
   });
 
@@ -67,6 +73,7 @@ const useQueryDAOInfo = (contractAddress?: string) => {
     votingPeriod: data?.[4] as BigNumber,
     token: data?.[5] as string,
     executor: data?.[6] as string,
+    imageURL: data?.[7] as string,
   };
 
   return { daoInfo, error, isLoading };

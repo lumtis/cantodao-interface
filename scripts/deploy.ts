@@ -1,13 +1,31 @@
 import { ethers } from "hardhat";
 
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+
 const supply = 10000;
 
-const main = async () => {
-  const [owner] = await ethers.getSigners();
+const images = {
+  crocodile: "https://i.imgur.com/J2Awq0y.png",
+  blocks: "https://i.imgur.com/SAYLq5h.png",
+  foobar: "",
+  canto: "https://i.imgur.com/5dCmheE.png",
+  evmos: "https://i.imgur.com/xThllu4.png",
+};
 
+const deployDAO = async (
+  owner: SignerWithAddress,
+  daoName: string,
+  tokenName: string,
+  tokenDenom: string,
+  daoImage: string
+): Promise<{
+  daoToken: any;
+  daoExecutor: any;
+  daoGovernor: any;
+}> => {
   // Deploy the DAO token
   const DAOToken = await ethers.getContractFactory("DAOToken");
-  const daoToken = await DAOToken.deploy("Foo", "FOO", supply);
+  const daoToken = await DAOToken.deploy(tokenName, tokenDenom, supply);
   await daoToken.deployed();
 
   // Deploy the timelock controller with deployer as admin
@@ -22,7 +40,8 @@ const main = async () => {
   // Deploy the governor
   const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
   const daoGovernor = await DAOGovernor.deploy(
-    "Cantodao",
+    daoName,
+    daoImage,
     daoToken.address,
     daoExecutor.address,
     4,
@@ -58,15 +77,37 @@ const main = async () => {
     value: ethers.utils.parseEther("10"),
   });
 
-  console.log("Contracts deployed");
+  console.log(daoName + " deployed");
   console.table([
     ["DAO Token", daoToken.address],
     ["DAO Executor", daoExecutor.address],
     ["DAO Governor", daoGovernor.address],
   ]);
 
-  // Create proposals
+  return {
+    daoToken,
+    daoExecutor,
+    daoGovernor,
+  };
+};
 
+const main = async () => {
+  const [owner] = await ethers.getSigners();
+
+  // Create DAOs
+  const { daoToken, daoGovernor } = await deployDAO(
+    owner,
+    "Crocodile DAO",
+    "Crocodile",
+    "CROCODILE",
+    images.crocodile
+  );
+  await deployDAO(owner, "Cantodao", "Cantodao", "DAOX", images.blocks);
+  await deployDAO(owner, "Foobar", "Foo", "FOO", images.foobar);
+  await deployDAO(owner, "Canto", "Canto DAO Token", "Cantox", images.canto);
+  await deployDAO(owner, "Evmos", "Evmos DAO Token", "Evmosx", images.evmos);
+
+  // Create proposals
   // Transfger tokens
   await daoGovernor["propose(address[],uint256[],bytes[],string)"](
     [daoToken.address],

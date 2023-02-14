@@ -24,9 +24,13 @@ contract DAOGovernor is
         string description;
     }
 
+    // DAO parameters
     uint256 private _votingDelay_;
     uint256 private _votingPeriod_;
     uint256 private _proposalThreshold_;
+
+    // DAO data
+    string public imageURL;
 
     // Theses values are not part of the contract template
     // These add more on-chain data and causes the contract interaction to be more expensive
@@ -37,6 +41,7 @@ contract DAOGovernor is
 
     constructor(
         string memory _name,
+        string memory _imageURL,
         IVotes _token,
         TimelockController _timelock,
         uint256 _quorumFraction,
@@ -52,6 +57,7 @@ contract DAOGovernor is
         _votingDelay_ = _votingDelay;
         _votingPeriod_ = _votingPeriod;
         _proposalThreshold_ = _proposalThreshold;
+        imageURL = _imageURL;
     }
 
     function getProposalContent(

@@ -9,6 +9,8 @@ const proposalDescription = "A new proposal";
 const proposalDescriptionHash = ethers.utils.id(proposalDescription);
 const daoName = "cantodao";
 
+const image = "https://i.imgur.com/J2Awq0y.png";
+
 // Mirror of proposal states from IGovernor
 enum ProposalState {
   Pending,
@@ -50,6 +52,7 @@ describe("DAO Governor", () => {
     const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
     const daoGovernor = await DAOGovernor.deploy(
       daoName,
+      image,
       daoToken.address,
       daoExecutor.address,
       4,
@@ -100,6 +103,7 @@ describe("DAO Governor", () => {
     expect(await daoGovernor.votingDelay()).to.equal(0);
     expect(await daoGovernor.votingPeriod()).to.equal(600);
     expect(await daoGovernor.proposalThreshold()).to.equal(0);
+    expect(await daoGovernor.imageURL()).to.equal(image);
   });
 
   it("Should allow to retrieve proposal contents", async () => {
