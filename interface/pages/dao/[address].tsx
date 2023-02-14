@@ -6,6 +6,7 @@ import { Box, Spinner } from "@chakra-ui/react";
 import { Balances } from "../../components/balances";
 import { Dao } from "../../components/dao";
 import { Fund } from "../../components/fund";
+import { CreateProposal } from "../../components/proposal-create";
 import { Proposals } from "../../components/proposals";
 import BoxW from "../../components/ui/box";
 import ContainerPage from "../../components/ui/container-page";
@@ -80,7 +81,14 @@ const DaoPage = () => {
                   title="Proposals"
                   imgSource="/static/images/scroll.png"
                 />
-                <Proposals governorContract={address as string} />
+                <ContainerSpaced>
+                  <CreateProposal
+                    header="Create a new proposal"
+                    buttonText="New proposal"
+                    contractAddress={address as string}
+                  />
+                  <Proposals governorContract={address as string} />
+                </ContainerSpaced>
               </Box>
             ) : (
               <Spinner />
