@@ -67,6 +67,7 @@ export const CopyCard = ({
   isLoading,
   size = "md",
   maxDisplayLength,
+  ...props
 }: any) => {
   const { hasCopied, onCopy } = useClipboard(address ? address : "");
   const [displayAddress, setDisplayAddress] = useState("");
@@ -100,7 +101,7 @@ export const CopyCard = ({
       borderRadius={0}
       border="2px"
       borderColor="secondary"
-      w="full"
+      // w="full"
       h={SIZES[size as keyof typeof SIZES].height}
       minH="fit-content"
       pl={2}
@@ -131,6 +132,7 @@ export const CopyCard = ({
         },
       }}
       onClick={onCopy}
+      {...props}
     >
       {address && walletIcon && (
         <Box

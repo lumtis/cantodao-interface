@@ -1,3 +1,5 @@
+import { BigNumber, BytesLike } from "ethers";
+
 // Mirror of proposal states from IGovernor
 export enum ProposalState {
   Pending,
@@ -29,4 +31,46 @@ export const ProposalStateToString = (state: ProposalState): string => {
     case ProposalState.Executed:
       return "Executed";
   }
+};
+
+// The action associated with a proposal
+export type ProposalContent = {
+  targetAddress: string[];
+  amount: BigNumber[];
+  calldata: BytesLike[];
+  description: string;
+};
+
+export const NewProposalContent = (
+  targetAddress: string[],
+  amount: BigNumber[],
+  calldata: BytesLike[],
+  description: string
+): ProposalContent => {
+  return {
+    targetAddress,
+    amount,
+    calldata,
+    description,
+  };
+};
+
+export const ProposalActionCount = (
+  proposalContent: ProposalContent
+): number => {
+  return proposalContent.targetAddress.length;
+};
+
+// The general information associated with a proposal
+export type Proposal = {
+  id: BigNumber;
+  proposer: string;
+  startBlock: BigNumber;
+  endBlock: BigNumber;
+  forVotes: BigNumber;
+  againstVotes: BigNumber;
+  abstainVotes: BigNumber;
+  canceled: boolean;
+  executed: boolean;
+  eta: BigNumber;
 };

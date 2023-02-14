@@ -27,8 +27,8 @@ export const ProposalCard = ({
     isLoading: isLoadingState,
   } = useQueryProposalState(governorContract, proposalID);
 
-  const route = (dao: string, proposalID: BigNumber) => {
-    return "/proposal/" + dao + "/" + proposalID.toString();
+  const route = (dao: string, proposalIndex: BigNumber) => {
+    return "/proposal/" + dao + "/" + proposalIndex.toString();
   };
 
   if (!proposalState) {
@@ -43,7 +43,7 @@ export const ProposalCard = ({
           <Box mr={4}>
             <RouteCard
               cardText={proposalID.toString()}
-              route={route(governorContract as string, proposalID)}
+              route={route(governorContract as string, proposalIndex)}
             />
           </Box>
         )}

@@ -2,41 +2,34 @@ import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { NewProposalContent, ProposalContent } from "../../utils/proposal";
+import { Proposal } from "../../utils/proposal";
 
-const useQueryProposalContent = (
+const useQueryProposal = (
   contractAddress?: string,
   proposalId?: BigNumber
 ): {
-  proposalContent?: ProposalContent;
+  proposal?: Proposal;
   error: Error | null;
   isLoading: boolean;
 } => {
   const address = contractAddress as `0x${string}`;
 
   const {
-    data,
+    data: proposal,
     error,
     isLoading,
   }: {
-    data?: any;
+    data?: Proposal;
     error: Error | null;
     isLoading: boolean;
   } = useContractRead({
     address,
     abi: DAOGovernor.abi,
-    functionName: "getProposalContent",
+    functionName: "proposals",
     args: [proposalId || 0],
   });
 
-  const proposalContent = NewProposalContent(
-    data?.[0],
-    data?.[1],
-    data?.[2],
-    data?.[3]
-  );
-
-  return { proposalContent, error, isLoading };
+  return { proposal, error, isLoading };
 };
 
-export default useQueryProposalContent;
+export default useQueryProposal;

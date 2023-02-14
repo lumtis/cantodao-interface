@@ -3,8 +3,9 @@ import Code from "./ui/code";
 
 export const ProposalStateBox = ({
   proposalState,
+  ...props
 }: {
   proposalState: ProposalState;
 }) => {
-  return <Code>{ProposalStateToString(proposalState)}</Code>;
+  return <Code {...props}>{ProposalStateToString(proposalState)}</Code>;
 };
