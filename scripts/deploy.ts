@@ -1,6 +1,13 @@
+import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+
+import { DAOFactory } from "../typechain-types";
+import { DAOExecutor } from "../typechain-types/contracts/DAOExecutor";
+import { DAOGovernor } from "../typechain-types/contracts/DAOGovernor";
+import { DAOProposer } from "../typechain-types/contracts/DAOProposer";
+import { DAOToken } from "../typechain-types/contracts/DAOToken";
 
 const supply = 10000;
 
@@ -12,66 +19,113 @@ const images = {
   evmos: "https://i.imgur.com/xThllu4.png",
 };
 
+const getBytecodeSize = async (contract: any) => {
+  const contractCode = await ethers.provider.getCode(contract.address);
+  return contractCode.length / 2;
+};
+
+const deployFactory = async () => {
+  // Governor
+  const DAOGovernorDeployer = await ethers.getContractFactory(
+    "DAOGovernorDeployer"
+  );
+  const daoGovernorDeployer = await DAOGovernorDeployer.deploy();
+  await daoGovernorDeployer.deployed();
+
+  // Token
+  const DAOTokenDeployer = await ethers.getContractFactory("DAOTokenDeployer");
+  const daoTokenDeployer = await DAOTokenDeployer.deploy();
+  await daoTokenDeployer.deployed();
+
+  // Executor
+  const DAOExecutorDeployer = await ethers.getContractFactory(
+    "DAOExecutorDeployer"
+  );
+  const daoExecutorDeployer = await DAOExecutorDeployer.deploy();
+  await daoExecutorDeployer.deployed();
+
+  // Proposer
+  const DAOProposerDeployer = await ethers.getContractFactory(
+    "DAOProposerDeployer"
+  );
+  const daoProposerDeployer = await DAOProposerDeployer.deploy();
+  await daoProposerDeployer.deployed();
+
+  // Factory
+  const DAOFactory = await ethers.getContractFactory("DAOFactory");
+  const daoFactory = await DAOFactory.deploy(
+    daoGovernorDeployer.address,
+    daoExecutorDeployer.address,
+    daoTokenDeployer.address,
+    daoProposerDeployer.address
+  );
+  await daoFactory.deployed();
+
+  console.table([
+    [
+      "daoGovernorDeployer",
+      daoGovernorDeployer.address,
+      await getBytecodeSize(daoGovernorDeployer),
+    ],
+    [
+      "daoTokenDeployer",
+      daoTokenDeployer.address,
+      await getBytecodeSize(daoTokenDeployer),
+    ],
+    [
+      "daoExecutorDeployer",
+      daoExecutorDeployer.address,
+      await getBytecodeSize(daoExecutorDeployer),
+    ],
+    [
+      "daoProposerDeployer",
+      daoProposerDeployer.address,
+      await getBytecodeSize(daoProposerDeployer),
+    ],
+    ["daoFactory", daoFactory.address, await getBytecodeSize(daoFactory)],
+  ]);
+
+  return {
+    daoFactory,
+  };
+};
+
 const deployDAO = async (
   owner: SignerWithAddress,
+  daoFactory: DAOFactory,
   daoName: string,
+  daoImage: string,
   tokenName: string,
-  tokenDenom: string,
-  daoImage: string
+  tokenDenom: string
 ): Promise<{
-  daoToken: any;
-  daoExecutor: any;
-  daoGovernor: any;
+  daoToken: DAOToken;
+  daoExecutor: DAOExecutor;
+  daoGovernor: DAOGovernor;
+  daoProposer: DAOProposer;
 }> => {
-  // Deploy the DAO token
-  const DAOToken = await ethers.getContractFactory("DAOToken");
-  const daoToken = await DAOToken.deploy(tokenName, tokenDenom, supply);
-  await daoToken.deployed();
-
-  // Deploy the timelock controller with deployer as admin
-  const DAOExecutor = await ethers.getContractFactory("DAOExecutor");
-  const daoExecutor = await DAOExecutor.deploy(
-    [owner.address],
-    [],
-    owner.address
+  await daoFactory.createDAO(daoName, daoImage, tokenName, tokenDenom, supply);
+  const daoCount = await daoFactory.getDAOCount();
+  const newDaoAddress = await daoFactory.getDAO(
+    daoCount.sub(BigNumber.from(1))
   );
-  await daoExecutor.deployed();
 
-  // Deploy the governor
+  // Retrieve created contracts
   const DAOGovernor = await ethers.getContractFactory("DAOGovernor");
-  const daoGovernor = await DAOGovernor.deploy(
-    daoName,
-    daoImage,
-    daoToken.address,
-    daoExecutor.address,
-    4,
-    0,
-    600,
-    0
-  );
-  await daoGovernor.deployed();
+  const daoGovernor = await DAOGovernor.attach(newDaoAddress);
 
-  // Grant proposer role to the governor and renounce it from the owner
-  await daoExecutor.grantRole(
-    await daoExecutor.PROPOSER_ROLE(),
-    daoGovernor.address
-  );
-  await daoExecutor.grantRole(
-    await daoExecutor.EXECUTOR_ROLE(),
-    daoGovernor.address
-  );
-  await daoExecutor.renounceRole(
-    await daoExecutor.PROPOSER_ROLE(),
-    owner.address
-  );
-  await daoExecutor.renounceRole(
-    await daoExecutor.TIMELOCK_ADMIN_ROLE(),
-    owner.address
-  );
+  const daoProposerAddress = await daoGovernor.proposer();
+  const DAOProposer = await ethers.getContractFactory("DAOProposer");
+  const daoProposer = await DAOProposer.attach(daoProposerAddress);
 
-  // Transfer ownership of the token to the governor
-  await daoToken.transferOwnership(daoExecutor.address);
+  const daoExecutorAddress = await daoGovernor.timelock();
+  const DAOExecutor = await ethers.getContractFactory("DAOExecutor");
+  const daoExecutor = await DAOExecutor.attach(daoExecutorAddress);
 
+  const daoTokenAddress = await daoGovernor.token();
+  const DAOToken = await ethers.getContractFactory("DAOToken");
+  const daoToken = await DAOToken.attach(daoTokenAddress);
+
+  // Send some values to the DAO
   await owner.sendTransaction({
     to: daoExecutor.address,
     value: ethers.utils.parseEther("10"),
@@ -79,37 +133,63 @@ const deployDAO = async (
 
   console.log(daoName + " deployed");
   console.table([
-    ["DAO Token", daoToken.address],
-    ["DAO Executor", daoExecutor.address],
-    ["DAO Governor", daoGovernor.address],
+    ["DAO Token", daoToken.address, await getBytecodeSize(daoToken)],
+    ["DAO Executor", daoExecutor.address, await getBytecodeSize(daoExecutor)],
+    ["DAO Proposer", daoProposer.address, await getBytecodeSize(daoProposer)],
+    ["DAO Governor", daoGovernor.address, await getBytecodeSize(daoGovernor)],
   ]);
 
   return {
     daoToken,
     daoExecutor,
     daoGovernor,
+    daoProposer,
   };
 };
 
 const main = async () => {
   const [owner] = await ethers.getSigners();
 
+  const { daoFactory } = await deployFactory();
+
   // Create DAOs
-  const { daoToken, daoGovernor } = await deployDAO(
+  const { daoToken, daoGovernor, daoProposer } = await deployDAO(
     owner,
+    daoFactory,
     "Crocodile DAO",
+    images.crocodile,
     "Crocodile",
-    "CROCODILE",
-    images.crocodile
+    "CROCODILE"
   );
-  await deployDAO(owner, "Cantodao", "Cantodao", "DAOX", images.blocks);
-  await deployDAO(owner, "Foobar", "Foo", "FOO", images.foobar);
-  await deployDAO(owner, "Canto", "Canto DAO Token", "Cantox", images.canto);
-  await deployDAO(owner, "Evmos", "Evmos DAO Token", "Evmosx", images.evmos);
+  await deployDAO(
+    owner,
+    daoFactory,
+    "Cantodao",
+    images.blocks,
+    "Cantodao",
+    "DAOX"
+  );
+  await deployDAO(owner, daoFactory, "Foobar", images.foobar, "Foo", "FOO");
+  await deployDAO(
+    owner,
+    daoFactory,
+    "Canto",
+    images.canto,
+    "Canto DAO Token",
+    "Cantox"
+  );
+  await deployDAO(
+    owner,
+    daoFactory,
+    "Evmos",
+    images.evmos,
+    "Evmos DAO Token",
+    "Evmosx"
+  );
 
   // Create proposals
-  // Transfger tokens
-  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+  // Transfer tokens
+  await daoProposer.propose(
     [daoToken.address],
     [0],
     [daoToken.interface.encodeFunctionData("transfer", [owner.address, 10000])],
@@ -117,7 +197,7 @@ const main = async () => {
   );
 
   // Transfer funds
-  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+  await daoProposer.propose(
     [owner.address],
     [40],
     ["0x"],
@@ -125,7 +205,7 @@ const main = async () => {
   );
 
   // Mint tokens
-  await daoGovernor["propose(address[],uint256[],bytes[],string)"](
+  await daoProposer.propose(
     [daoToken.address],
     [0],
     [daoToken.interface.encodeFunctionData("mint", [owner.address])],
