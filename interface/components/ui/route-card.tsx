@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import { Box, Button, Icon, Image, Text, useColorMode } from "@chakra-ui/react";
 
@@ -56,6 +56,7 @@ export const RouteCard = ({
   isLoading,
   size = "md",
   maxDisplayLength,
+  arrowLeft = false,
 }: any) => {
   const [displayAddress, setDisplayAddress] = useState("");
   const { colorMode } = useColorMode();
@@ -146,7 +147,7 @@ export const RouteCard = ({
         </Text>
         {cardText && (
           <Icon
-            as={AiOutlineArrowRight}
+            as={arrowLeft ? AiOutlineArrowLeft : AiOutlineArrowRight}
             w={SIZES[size as keyof typeof SIZES].icon}
             h={SIZES[size as keyof typeof SIZES].icon}
             ml={2}

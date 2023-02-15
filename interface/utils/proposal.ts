@@ -1,6 +1,11 @@
 import { BigNumber, BytesLike } from "ethers";
 
-// Mirror of proposal states from IGovernor
+export enum Vote {
+  Against,
+  For,
+  Abstain,
+}
+
 export enum ProposalState {
   Pending,
   Active,
