@@ -129,6 +129,7 @@ describe("DAOFactory", function () {
     const DAOProposer = await ethers.getContractFactory("DAOProposer");
     const daoProposer = await DAOProposer.attach(daoProposerAddress);
     expect(await daoProposer.daoGovernor()).to.equal(daoAddress);
+    expect(await daoGovernor.proposer()).to.equal(daoProposerAddress);
 
     // Get dao executor contract with address and check values
     const daoExecutorAddress = await daoGovernor.timelock();
