@@ -8,7 +8,9 @@
     "test": "hardhat test",
     "console": "hardhat console",
     "network": "hardhat node",
-    "deploy:local": "hardhat run --network localhost scripts/deploy.ts"
+    "deploy:local": "hardhat run --network localhost scripts/deploy.ts",
+    "block-number": "hardhat run --network localhost scripts/blockNumber.ts",
+    "mine-blocks": "hardhat run --network localhost scripts/mineBlocks.ts"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.1",
