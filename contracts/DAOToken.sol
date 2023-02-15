@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: APACHE-2.0
 pragma solidity ^0.8.9;
 
-// Import nececcary contracts from OpenZeppelin for token voting
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
@@ -12,9 +11,10 @@ contract DAOToken is ERC20, ERC20Permit, ERC20Votes, Ownable {
     constructor(
         string memory _name,
         string memory _symbol,
+        address _fundedAddress,
         uint256 _initialSupply
     ) ERC20(_name, _symbol) ERC20Permit(_name) {
-        _mint(msg.sender, _initialSupply);
+        _mint(_fundedAddress, _initialSupply);
     }
 
     function mint(uint256 amount) public onlyOwner {
