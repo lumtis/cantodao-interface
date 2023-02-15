@@ -41,12 +41,12 @@ const ProposalPage = () => {
     proposalID,
     error: errorID,
     isLoading: isLoadingID,
-  } = useQueryProposalID(address as string, indexNumber);
+  } = useQueryProposalID(daoInfo?.proposer as string, indexNumber);
   const {
     proposalContent,
     error: errorContent,
     isLoading: isLoadingContent,
-  } = useQueryProposalContent(address as string, proposalID);
+  } = useQueryProposalContent(daoInfo?.proposer as string, proposalID);
   let {
     proposalState,
     error: errorState,

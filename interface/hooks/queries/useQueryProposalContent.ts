@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
+import DAOProposer from "../../abis/DAOProposer.json";
 import { NewProposalContent, ProposalContent } from "../../utils/proposal";
 
 const useQueryProposalContent = (
@@ -24,7 +24,7 @@ const useQueryProposalContent = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOGovernor.abi,
+    abi: DAOProposer.abi,
     functionName: "getProposalContent",
     args: [proposalId || 0],
   });

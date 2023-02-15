@@ -2,18 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractReads } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-
-// Regular info of a DAO
-export type DAOInfo = {
-  name?: string;
-  quorumVotes?: BigNumber;
-  proposalThreshold?: BigNumber;
-  votingDelay?: BigNumber;
-  votingPeriod?: BigNumber;
-  token?: string;
-  executor?: string;
-  imageURL?: string;
-};
+import { DAOInfo } from "../../utils/dao";
 
 // Query different info of the DAO
 const useQueryDAOInfo = (contractAddress?: string) => {
@@ -60,6 +49,11 @@ const useQueryDAOInfo = (contractAddress?: string) => {
       {
         address,
         abi,
+        functionName: "proposer",
+      },
+      {
+        address,
+        abi,
         functionName: "imageURL",
       },
     ],
@@ -73,7 +67,8 @@ const useQueryDAOInfo = (contractAddress?: string) => {
     votingPeriod: data?.[4] as BigNumber,
     token: data?.[5] as string,
     executor: data?.[6] as string,
-    imageURL: data?.[7] as string,
+    proposer: data?.[7] as string,
+    imageURL: data?.[8] as string,
   };
 
   return { daoInfo, error, isLoading };

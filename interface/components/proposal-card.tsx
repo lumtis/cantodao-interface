@@ -11,16 +11,18 @@ import { RouteCard } from "./ui/route-card";
 
 export const ProposalCard = ({
   governorContract,
+  proposerContract,
   proposalIndex,
 }: {
   governorContract?: string;
+  proposerContract?: string;
   proposalIndex: BigNumber;
 }) => {
   const {
     proposalID,
     error: errorID,
     isLoading: isLoadingID,
-  } = useQueryProposalID(governorContract, proposalIndex);
+  } = useQueryProposalID(proposerContract, proposalIndex);
   let {
     proposalState,
     error: errorState,

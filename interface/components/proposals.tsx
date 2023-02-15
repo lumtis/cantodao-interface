@@ -6,10 +6,12 @@ import ContainerSpaced from "./ui/container-spaced";
 
 export const Proposals = ({
   governorContract,
+  proposerContract,
 }: {
   governorContract?: string;
+  proposerContract?: string;
 }) => {
-  const { count, error, isLoading } = useQueryProposalCount(governorContract);
+  const { count, error, isLoading } = useQueryProposalCount(proposerContract);
 
   const getDescendingArray = (num: number): number[] => {
     const descendingArray = Array.from({ length: num }, (_, i) => num - i - 1);
@@ -26,6 +28,7 @@ export const Proposals = ({
           <ProposalCard
             key={proposalIndex}
             governorContract={governorContract}
+            proposerContract={proposerContract}
             proposalIndex={BigNumber.from(proposalIndex)}
           />
         ))}

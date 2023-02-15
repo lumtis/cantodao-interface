@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
+import DAOProposer from "../../abis/DAOProposer.json";
 
 const useQueryProposalCount = (
   contractAddress?: string
@@ -22,7 +22,7 @@ const useQueryProposalCount = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOGovernor.abi,
+    abi: DAOProposer.abi,
     functionName: "proposalCount",
   });
 

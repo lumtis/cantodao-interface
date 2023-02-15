@@ -1,7 +1,7 @@
 import { BigNumber, BytesLike } from "ethers";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
+import DAOProposer from "../../abis/DAOProposer.json";
 
 const useTxPropose = (
   contractAddress: string,
@@ -11,12 +11,12 @@ const useTxPropose = (
   description: string
 ) => {
   const address = contractAddress as `0x${string}`;
-  const abi = DAOGovernor.abi;
+  const abi = DAOProposer.abi;
 
   const { config } = usePrepareContractWrite({
     address,
     abi,
-    functionName: "propose(address[],uint256[],bytes[],string)",
+    functionName: "propose",
     args: [[targetAddress], [amount], [calldata], description],
   });
   const { data, isLoading, isSuccess, write } = useContractWrite(config);

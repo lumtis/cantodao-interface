@@ -85,9 +85,12 @@ const DaoPage = () => {
                   <CreateProposal
                     header="Create a new proposal"
                     buttonText="New proposal"
-                    contractAddress={address as string}
+                    contractAddress={daoInfo.proposer as string}
                   />
-                  <Proposals governorContract={address as string} />
+                  <Proposals
+                    proposerContract={daoInfo.proposer}
+                    governorContract={address as string}
+                  />
                 </ContainerSpaced>
               </Box>
             ) : (

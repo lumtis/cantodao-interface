@@ -15,14 +15,13 @@ contract DAOGovernor is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
-    address public proposer;
-
     // DAO parameters
     uint256 private _votingDelay_;
     uint256 private _votingPeriod_;
 
     // DAO data
     string public imageURL;
+    address public proposer;
 
     constructor(
         string memory _name,

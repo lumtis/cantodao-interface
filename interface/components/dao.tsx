@@ -36,10 +36,6 @@ export const Dao = ({
             value={daoInfo?.quorumVotes?.toString() + " vote(s)"}
           />
           <Param
-            name="Proposal threshold"
-            value={daoInfo?.proposalThreshold?.toString() + " vote(s)"}
-          />
-          <Param
             name="Voting delay"
             value={daoInfo?.votingDelay?.toString() + " block(s)"}
           />
