@@ -7,8 +7,6 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
-import "./DAOExecutor.sol";
-
 // An implementation of governance for DAOs
 contract DAOGovernor is
     Governor,
@@ -17,37 +15,24 @@ contract DAOGovernor is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
-    struct ProposalContent {
-        address[] targets;
-        uint256[] values;
-        bytes[] calldatas;
-        string description;
-    }
+    address public proposer;
 
     // DAO parameters
     uint256 private _votingDelay_;
     uint256 private _votingPeriod_;
-    uint256 private _proposalThreshold_;
 
     // DAO data
     string public imageURL;
-
-    // Theses values are not part of the contract template
-    // These add more on-chain data and causes the contract interaction to be more expensive
-    // The benefit is that no off-chain infrastructure is required to display the data
-    uint256 public proposalCount = 0;
-    mapping(uint256 => uint256) public proposalIDs;
-    mapping(uint256 => ProposalContent) public proposalContents;
 
     constructor(
         string memory _name,
         string memory _imageURL,
         IVotes _token,
         TimelockController _timelock,
+        address _proposer,
         uint256 _quorumFraction,
         uint256 _votingDelay,
-        uint256 _votingPeriod,
-        uint256 _proposalThreshold
+        uint256 _votingPeriod
     )
         Governor(_name)
         GovernorVotes(_token)
@@ -56,28 +41,16 @@ contract DAOGovernor is
     {
         _votingDelay_ = _votingDelay;
         _votingPeriod_ = _votingPeriod;
-        _proposalThreshold_ = _proposalThreshold;
         imageURL = _imageURL;
+        proposer = _proposer;
     }
 
-    function getProposalContent(
-        uint256 id
-    )
-        public
-        view
-        returns (
-            address[] memory,
-            uint256[] memory,
-            bytes[] memory,
-            string memory
-        )
-    {
-        return (
-            proposalContents[id].targets,
-            proposalContents[id].values,
-            proposalContents[id].calldatas,
-            proposalContents[id].description
+    modifier onlyProposer() {
+        require(
+            msg.sender == proposer,
+            "Only the proposer contract can execute this method"
         );
+        _;
     }
 
     function votingDelay() public view override returns (uint256) {
@@ -88,8 +61,9 @@ contract DAOGovernor is
         return _votingPeriod_;
     }
 
-    function proposalThreshold() public view override returns (uint256) {
-        return _proposalThreshold_;
+    // Proposal condition is controlled by the proposer contract
+    function proposalThreshold() public pure override returns (uint256) {
+        return 0;
     }
 
     // propose add more onchain logic and storage for UX purposes
@@ -101,6 +75,7 @@ contract DAOGovernor is
     )
         public
         override(Governor, GovernorCompatibilityBravo, IGovernor)
+        onlyProposer
         returns (uint256)
     {
         uint256 proposalID = super.propose(
@@ -109,16 +84,6 @@ contract DAOGovernor is
             calldatas,
             description
         );
-
-        // Store the new proposal content
-        proposalIDs[proposalCount] = proposalID;
-        proposalContents[proposalID] = ProposalContent(
-            targets,
-            values,
-            calldatas,
-            description
-        );
-        proposalCount++;
 
         return proposalID;
     }
