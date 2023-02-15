@@ -17,6 +17,10 @@ contract DAOTokenDeployer {
             _fundedAddress,
             _initialSupply
         );
+
+        // Transfer ownership of the token to the sender
+        daoToken.transferOwnership(msg.sender);
+
         return address(daoToken);
     }
 }

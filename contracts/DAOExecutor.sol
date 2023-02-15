@@ -3,6 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/governance/TimelockController.sol";
 
+// DAOExecutor encapsulates TimelockController with a time delay of 0
 contract DAOExecutor is TimelockController {
     constructor(
         address[] memory proposers,

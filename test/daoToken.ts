@@ -7,7 +7,7 @@ describe("DAO Token", () => {
 
     // Deploy the contract
     const DAOToken = await ethers.getContractFactory("DAOToken");
-    const daoToken = await DAOToken.deploy("Foo", "FOO", 10000);
+    const daoToken = await DAOToken.deploy("Foo", "FOO", owner.address, 10000);
     await daoToken.deployed();
 
     // Values

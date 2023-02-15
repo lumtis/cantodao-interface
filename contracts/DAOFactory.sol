@@ -66,7 +66,7 @@ contract DAOFactory {
 
         // Deploy executor
         TimelockController executor = executorDeployer.deployDAOExecutor(
-            msg.sender
+            address(this)
         );
 
         // Deploy the DAO governor
@@ -90,8 +90,8 @@ contract DAOFactory {
         // Grant roles for executors to the DAO in DAOExecutor
         executor.grantRole(executor.PROPOSER_ROLE(), address(dao));
         executor.grantRole(executor.EXECUTOR_ROLE(), address(dao));
-        executor.renounceRole(executor.PROPOSER_ROLE(), msg.sender);
-        executor.renounceRole(executor.TIMELOCK_ADMIN_ROLE(), msg.sender);
+        executor.renounceRole(executor.PROPOSER_ROLE(), address(this));
+        executor.renounceRole(executor.TIMELOCK_ADMIN_ROLE(), address(this));
 
         // Add the DAO to the array of DAOs
         daos.push(address(dao));
@@ -104,5 +104,15 @@ contract DAOFactory {
         );
 
         return address(this);
+    }
+
+    // Get a DAO from its index
+    function getDAO(uint256 _index) external view returns (address) {
+        return daos[_index];
+    }
+
+    // Get the number of DAOs
+    function getDAOCount() external view returns (uint256) {
+        return daos.length;
     }
 }
