@@ -80,7 +80,7 @@ const ProposalPage = () => {
             <Box w="100%">
               <PageHeader
                 title={"Proposal #" + indexNumber.toString()}
-                imgSource="/static/images/scroll.png"
+                imgSource="/static/images/satellite.png"
               />
               <BoxW>
                 <ContainerSpaced>
@@ -115,8 +115,11 @@ const ProposalPage = () => {
               </BoxW>
             </Box>
             <Box ml={20} w="100%">
-              <Heading mb={8}>Your vote</Heading>
-              <BoxW>
+              <PageHeader
+                title={"Your vote"}
+                imgSource="/static/images/letter.png"
+              />
+              <BoxW mt={8}>
                 <VoteDashboard
                   daoAddress={address as string}
                   daoInfo={daoInfo}

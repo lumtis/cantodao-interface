@@ -7,6 +7,7 @@ const PageHeader = ({
   imgWidth,
   fontSize,
   marginBottom,
+  ...props
 }: any) => {
   return (
     <Box
@@ -14,6 +15,7 @@ const PageHeader = ({
       flexDirection="row"
       alignItems="center"
       mb={marginBottom || 8}
+      {...props}
     >
       <Image src={imgSource} h={imgHeight || 10} w={imgWidth || 10} />
       <Heading
