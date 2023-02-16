@@ -5,6 +5,7 @@ import { useBlockNumber } from "wagmi";
 
 import { Box, Heading, Spinner, Text } from "@chakra-ui/react";
 
+import { ExecutionDashboard } from "../../../components/execution-dashboard";
 import { ProposalInfo } from "../../../components/proposal-info";
 import BoxW from "../../../components/ui/box";
 import ContainerPage from "../../../components/ui/container-page";
@@ -97,27 +98,6 @@ const ProposalPage = () => {
     ? VoteStateFromBlockNumber(proposal, blockNumber)
     : VoteState.NotStarted;
 
-  console.log({
-    isLoadingBlockNumber,
-    isErrorBlockNumber,
-    blockNumber,
-    isLoadingInfo,
-    errorInfo,
-    daoInfo,
-    isLoadingID,
-    errorID,
-    proposalID,
-    isLoadingContent,
-    errorContent,
-    proposalContent,
-    isLoadingState,
-    errorState,
-    proposalState,
-    isLoadingProposal,
-    errorProposal,
-    proposal,
-  });
-
   return (
     <Layout>
       {proposalDataReady ? (
@@ -159,6 +139,17 @@ const ProposalPage = () => {
                     daoInfo={daoInfo}
                     proposalID={proposalID}
                     proposal={proposal}
+                  />
+                </BoxW>
+              </Box>
+            )}
+            {voteState === VoteState.Ended && (
+              <Box ml={20}>
+                <BoxW mt={20}>
+                  <ExecutionDashboard
+                    daoAddress={address as string}
+                    proposalState={proposalState}
+                    proposalContent={proposalContent}
                   />
                 </BoxW>
               </Box>

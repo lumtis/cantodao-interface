@@ -1,4 +1,4 @@
-import { BigNumber } from "ethers";
+import { BigNumber, utils } from "ethers";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
 
@@ -18,6 +18,9 @@ export const ProposalInfo = ({
   proposalState: ProposalState;
   proposalContent: ProposalContent;
 }) => {
+  const amount = proposalContent?.amount?.[0];
+  const amountStr = amount ? utils.formatEther(amount) : "";
+
   return (
     <ContainerSpaced>
       <Heading>Info:</Heading>
@@ -36,7 +39,7 @@ export const ProposalInfo = ({
         <Text>Target address:</Text>
         <CopyCard address={proposalContent?.targetAddress?.[0]} />
       </Box>
-      <Text>Amount: {proposalContent?.amount?.[0]?.toString()}</Text>
+      <Text>Amount: {amountStr}</Text>
       <Text>Calldata: {proposalContent?.calldata?.[0]?.toString()}</Text>
     </ContainerSpaced>
   );
