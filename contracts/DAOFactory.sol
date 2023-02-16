@@ -14,9 +14,9 @@ import "./interfaces/IDAOProposer.sol";
 import "./DAOGovernor.sol";
 
 // Define constant for quorum fraction, voting delay, and voting period
-uint256 constant DEFAULT_QUORUM_FRACTION = 4;
+uint256 constant DEFAULT_QUORUM_FRACTION = 40;
 uint256 constant DEFAULT_VOTING_DELAY = 0;
-uint256 constant DEFAULT_VOTING_PERIOD = 600;
+uint256 constant DEFAULT_VOTING_PERIOD = 360; // around 30 minutes
 
 contract DAOFactory {
     // Deployer contracts

@@ -21,7 +21,7 @@ const DeployedPage = () => {
         </Head>
         <Box textAlign="center">
           <PageHeader
-            title="Deployed DAOs"
+            title="DAOs you deployed"
             imgSource="/static/images/satellite.png"
           />
           <Daos addresses={daos} />

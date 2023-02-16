@@ -129,7 +129,7 @@ describe("DAO Governor", () => {
     expect(await daoGovernor.timelock()).to.equal(daoExecutor.address);
     expect(await daoGovernor.name()).to.equal(daoName);
     expect(await daoGovernor.votingDelay()).to.equal(0);
-    expect(await daoGovernor.votingPeriod()).to.equal(600);
+    expect(await daoGovernor.votingPeriod()).to.equal(360);
     expect(await daoGovernor.proposalThreshold()).to.equal(0);
     expect(await daoGovernor.imageURL()).to.equal(image);
   });
