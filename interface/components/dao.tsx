@@ -1,7 +1,11 @@
+import { BigNumber } from "ethers";
+
 import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
+import { blockTime } from "../config/chain";
 import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
 import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
+import { BlocksToTime } from "../utils/evm";
 import ContainerSpaced from "./ui/container-spaced";
 import Param from "./ui/param";
 import ParamCopyCard from "./ui/param-copy-card";
@@ -14,6 +18,17 @@ export const Dao = ({
   logoSize?: string;
 }) => {
   const { tokenInfo, error, isLoading } = useQueryTokenInfo(daoInfo?.token);
+
+  // Get voting period
+  const votingPeriod = BlocksToTime(daoInfo?.votingPeriod || 0, blockTime);
+
+  // Get quorum
+  const quorumPercent =
+    daoInfo?.quorumVotes &&
+    tokenInfo?.totalSupply &&
+    !tokenInfo.totalSupply.isZero()
+      ? daoInfo?.quorumVotes?.mul(100).div(tokenInfo.totalSupply)
+      : BigNumber.from(0);
 
   return (
     <ContainerSpaced>
@@ -31,14 +46,8 @@ export const Dao = ({
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Parameters:</Heading>
       {daoInfo && (
         <ContainerSpaced>
-          <Param
-            name="Quorum votes"
-            value={daoInfo?.quorumVotes?.toString() + " vote(s)"}
-          />
-          <Param
-            name="Voting period"
-            value={daoInfo?.votingPeriod?.toString() + " block(s)"}
-          />
+          <Param name="Quorum percent" value={quorumPercent.toString() + "%"} />
+          <Param name="Voting period" value={votingPeriod} />
         </ContainerSpaced>
       )}
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Governance token:</Heading>

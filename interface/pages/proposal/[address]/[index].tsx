@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useBlockNumber } from "wagmi";
 
-import { Box, Heading, Spinner, Text } from "@chakra-ui/react";
+import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
 import { ExecutionDashboard } from "../../../components/execution-dashboard";
 import { ProposalInfo } from "../../../components/proposal-info";
@@ -124,9 +124,13 @@ const ProposalPage = () => {
                   proposalID={proposalID}
                   proposalState={proposalState}
                   proposalContent={proposalContent}
+                  blockNumber={blockNumber}
                 />
               </BoxW>
             </Box>
+            {voteState === VoteState.NotStarted && (
+              <Image m="auto" src="/static/images/space.png" maxWidth="500px" />
+            )}
             {voteState === VoteState.InProgress && (
               <Box ml={20}>
                 <PageHeader

@@ -1,5 +1,6 @@
+import { Text } from "@chakra-ui/react";
+
 import { ProposalState, ProposalStateToString } from "../utils/proposal";
-import Code from "./ui/code";
 
 export const ProposalStateBox = ({
   proposalState,
@@ -7,5 +8,5 @@ export const ProposalStateBox = ({
 }: {
   proposalState: ProposalState;
 }) => {
-  return <Code {...props}>{ProposalStateToString(proposalState)}</Code>;
+  return <Text {...props}>{ProposalStateToString(proposalState)}</Text>;
 };
