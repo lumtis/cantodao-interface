@@ -38,7 +38,7 @@ export const ProposalCard = ({
   }
 
   return (
-    <BoxW>
+    <BoxW margin={4}>
       <Box display="flex" flexDirection="row" alignItems="center">
         <Heading mr={4}>{"#" + proposalIndex.toString()}</Heading>
         {!isLoadingID && !errorID && proposalID && (

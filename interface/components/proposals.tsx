@@ -1,8 +1,9 @@
 import { BigNumber } from "ethers";
 
+import { Box, Grid } from "@chakra-ui/react";
+
 import useQueryProposalCount from "../hooks/queries/useQueryProposalCount";
 import { ProposalCard } from "./proposal-card";
-import ContainerSpaced from "./ui/container-spaced";
 
 export const Proposals = ({
   governorContract,
@@ -20,18 +21,19 @@ export const Proposals = ({
   const allIndexes = count ? getDescendingArray(count.toNumber()) : [];
 
   return (
-    <ContainerSpaced>
-      {!isLoading &&
-        !error &&
-        count &&
-        allIndexes.map((proposalIndex) => (
-          <ProposalCard
-            key={proposalIndex}
-            governorContract={governorContract}
-            proposerContract={proposerContract}
-            proposalIndex={BigNumber.from(proposalIndex)}
-          />
-        ))}
-    </ContainerSpaced>
+    <Box textAlign="center">
+      {!isLoading && !error && count && (
+        <Grid templateColumns="repeat(auto-fill, minmax(400px, 1fr))">
+          {allIndexes.map((proposalIndex) => (
+            <ProposalCard
+              governorContract={governorContract}
+              proposerContract={proposerContract}
+              proposalIndex={BigNumber.from(proposalIndex)}
+              key={proposalIndex}
+            />
+          ))}
+        </Grid>
+      )}
+    </Box>
   );
 };

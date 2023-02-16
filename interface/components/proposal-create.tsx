@@ -54,7 +54,11 @@ export const CreateProposal = ({
 
   return (
     <ContainerSpaced>
-      <Button w="fit-content" onClick={() => setIsOpen(true)}>
+      <Button
+        fontSize="20px"
+        minW="fit-content"
+        onClick={() => setIsOpen(true)}
+      >
         {buttonText}
       </Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

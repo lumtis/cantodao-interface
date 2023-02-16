@@ -77,21 +77,23 @@ const DaoPage = () => {
                   </Box>
                 </Box>
                 <Divider verticalPadding="50px" />
-                <PageHeader
-                  title="Proposals"
-                  imgSource="/static/images/scroll.png"
-                />
-                <ContainerSpaced>
+                <Box display="flex" flexDirection="row" alignItems="center">
+                  <PageHeader
+                    title="Proposals"
+                    imgSource="/static/images/scroll.png"
+                  />
                   <CreateProposal
                     header="Create a new proposal"
                     buttonText="New proposal"
                     contractAddress={daoInfo.proposer as string}
-                  />
+                  />{" "}
+                </Box>
+                <Box mt={10}>
                   <Proposals
                     proposerContract={daoInfo.proposer}
                     governorContract={address as string}
                   />
-                </ContainerSpaced>
+                </Box>
               </Box>
             ) : (
               <Spinner />
