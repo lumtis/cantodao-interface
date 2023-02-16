@@ -28,6 +28,7 @@ contract DAOFactory {
     address[] public daos;
 
     event DAOCreated(
+        address indexed deployer,
         address dao,
         address token,
         address executor,
@@ -97,6 +98,7 @@ contract DAOFactory {
         daos.push(address(dao));
 
         emit DAOCreated(
+            msg.sender,
             address(dao),
             address(token),
             address(executor),
