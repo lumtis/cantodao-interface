@@ -7,7 +7,6 @@ const BoxW = ({ children, ...props }: any) => {
       boxShadow="md"
       borderColor="primary"
       padding="30px"
-      // backgroundColor="greydark"
       {...props}
     >
       {children}

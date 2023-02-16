@@ -6,6 +6,27 @@ export enum Vote {
   Abstain,
 }
 
+export enum VoteState {
+  NotStarted,
+  InProgress,
+  Ended,
+}
+
+export const VoteStateFromBlockNumber = (
+  proposal: Proposal,
+  blockNumber: number
+): VoteState => {
+  const bn = BigNumber.from(blockNumber);
+
+  if (bn.lte(proposal.startBlock)) {
+    return VoteState.NotStarted;
+  } else if (bn.lte(proposal.endBlock)) {
+    return VoteState.InProgress;
+  } else {
+    return VoteState.Ended;
+  }
+};
+
 export enum ProposalState {
   Pending,
   Active,

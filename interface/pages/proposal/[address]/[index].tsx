@@ -1,24 +1,29 @@
 import { BigNumber } from "ethers";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useBlockNumber } from "wagmi";
 
 import { Box, Heading, Spinner, Text } from "@chakra-ui/react";
 
-import { ProposalStateBox } from "../../../components/proposal-state-box";
+import { ProposalInfo } from "../../../components/proposal-info";
 import BoxW from "../../../components/ui/box";
 import ContainerPage from "../../../components/ui/container-page";
-import ContainerSpaced from "../../../components/ui/container-spaced";
-import { CopyCard } from "../../../components/ui/copy-card";
 import PageHeader from "../../../components/ui/page-header";
 import { RouteCard } from "../../../components/ui/route-card";
 import { VoteDashboard } from "../../../components/vote-dashboard";
+import { VoteResults } from "../../../components/vote-results";
+import { VoteTurnout } from "../../../components/vote-turnout";
 import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
 import useQueryProposal from "../../../hooks/queries/useQueryProposal";
 import useQueryProposalContent from "../../../hooks/queries/useQueryProposalContent";
 import useQueryProposalID from "../../../hooks/queries/useQueryProposalID";
 import useQueryProposalState from "../../../hooks/queries/useQueryProposalState";
 import Layout from "../../../layout/Layout";
-import { ProposalState } from "../../../utils/proposal";
+import {
+  ProposalState,
+  VoteState,
+  VoteStateFromBlockNumber,
+} from "../../../utils/proposal";
 
 const ProposalPage = () => {
   const router = useRouter();
@@ -28,7 +33,12 @@ const ProposalPage = () => {
     ? BigNumber.from(index)
     : BigNumber.from(0);
 
-  Number();
+  const {
+    data: blockNumber,
+    isError: isErrorBlockNumber,
+    isLoading: isLoadingBlockNumber,
+  } = useBlockNumber();
+
   // DAO info
   const {
     daoInfo,
@@ -62,9 +72,55 @@ const ProposalPage = () => {
     proposalState = ProposalState.Pending;
   }
 
+  // Wait for all necessary data to render the page
+  const proposalDataReady =
+    !isLoadingBlockNumber &&
+    !isErrorBlockNumber &&
+    blockNumber &&
+    !isLoadingInfo &&
+    !errorInfo &&
+    daoInfo &&
+    !isLoadingID &&
+    !errorID &&
+    proposalID &&
+    !isLoadingContent &&
+    !errorContent &&
+    proposalContent &&
+    !isLoadingState &&
+    !errorState &&
+    proposalState != undefined &&
+    !isLoadingProposal &&
+    !errorProposal &&
+    proposal;
+
+  const voteState: VoteState = proposalDataReady
+    ? VoteStateFromBlockNumber(proposal, blockNumber)
+    : VoteState.NotStarted;
+
+  console.log({
+    isLoadingBlockNumber,
+    isErrorBlockNumber,
+    blockNumber,
+    isLoadingInfo,
+    errorInfo,
+    daoInfo,
+    isLoadingID,
+    errorID,
+    proposalID,
+    isLoadingContent,
+    errorContent,
+    proposalContent,
+    isLoadingState,
+    errorState,
+    proposalState,
+    isLoadingProposal,
+    errorProposal,
+    proposal,
+  });
+
   return (
     <Layout>
-      {!isLoadingInfo && !errorInfo && daoInfo ? (
+      {proposalDataReady ? (
         <ContainerPage>
           <Head>
             <title>Proposal</title>
@@ -77,56 +133,57 @@ const ProposalPage = () => {
             />
           </Box>
           <Box display="flex" flexDirection="row" alignItems="flex-start">
-            <Box w="100%">
+            <Box>
               <PageHeader
                 title={"Proposal #" + indexNumber.toString()}
                 imgSource="/static/images/satellite.png"
               />
               <BoxW>
-                <ContainerSpaced>
-                  <Heading>Info:</Heading>
-                  <Box display="flex" flexDirection="row" alignItems="flex-end">
-                    <Text>Proposal ID:</Text>
-                    <CopyCard address={proposalID?.toString()} />
-                  </Box>
-                  <Box display="flex" flexDirection="row" alignItems="flex-end">
-                    <Text>State: </Text>
-                    <ProposalStateBox proposalState={proposalState} />
-                  </Box>
-                  <Text>Description: {proposalContent?.description}</Text>
-
-                  <Heading>Action:</Heading>
-                  <Box display="flex" flexDirection="row" alignItems="flex-end">
-                    <Text>Target address:</Text>
-                    <CopyCard address={proposalContent?.targetAddress?.[0]} />
-                  </Box>
-                  <Text>
-                    Amount: {proposalContent?.amount?.[0]?.toString()}
-                  </Text>
-                  <Text>
-                    Calldata: {proposalContent?.calldata?.[0]?.toString()}
-                  </Text>
-
-                  <Heading>Result:</Heading>
-                  <Text>For: {proposal?.forVotes?.toString()}</Text>
-                  <Text>Against: {proposal?.againstVotes?.toString()}</Text>
-                  <Text>Abstain: {proposal?.abstainVotes?.toString()}</Text>
-                </ContainerSpaced>
-              </BoxW>
-            </Box>
-            <Box ml={20} w="100%">
-              <PageHeader
-                title={"Your vote"}
-                imgSource="/static/images/letter.png"
-              />
-              <BoxW mt={8}>
-                <VoteDashboard
-                  daoAddress={address as string}
-                  daoInfo={daoInfo}
+                <ProposalInfo
+                  proposal={proposal}
                   proposalID={proposalID}
+                  proposalState={proposalState}
+                  proposalContent={proposalContent}
                 />
               </BoxW>
             </Box>
+            {voteState === VoteState.InProgress && (
+              <Box ml={20}>
+                <PageHeader
+                  title={"Your vote"}
+                  imgSource="/static/images/letter.png"
+                />
+                <BoxW mt={8}>
+                  <VoteDashboard
+                    daoAddress={address as string}
+                    daoInfo={daoInfo}
+                    proposalID={proposalID}
+                    proposal={proposal}
+                  />
+                </BoxW>
+              </Box>
+            )}
+          </Box>
+          <Box>
+            <Heading>Results</Heading>
+            <BoxW mt={8}>
+              {voteState !== VoteState.NotStarted ? (
+                <Box display="flex" flexDirection="row" alignItems="flex-start">
+                  <Box w="40%">
+                    <VoteResults proposal={proposal} />
+                  </Box>
+                  <Box w="60%">
+                    <VoteTurnout
+                      proposal={proposal}
+                      daoInfo={daoInfo}
+                      finished={voteState === VoteState.Ended}
+                    />
+                  </Box>
+                </Box>
+              ) : (
+                <Text>Vote not started</Text>
+              )}
+            </BoxW>
           </Box>
         </ContainerPage>
       ) : (

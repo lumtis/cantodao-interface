@@ -4,24 +4,26 @@ import { BigNumber } from "ethers";
 
 import { Box, Radio, RadioGroup, Spinner, Text } from "@chakra-ui/react";
 
-import useQueryAvailableVotes from "../hooks/queries/useQueryAvailableVotes";
-import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
 import useQueryHasVoted from "../hooks/queries/useQueryHasVoted";
+import useQueryPastAvailableVotes from "../hooks/queries/useQueryPastAvailableVotes";
 import useTxCastVote from "../hooks/txs/ustTxCastVote";
 import useAccountWrapped from "../hooks/useAccount";
-import { Vote } from "../utils/proposal";
+import { DAOInfo } from "../utils/dao";
+import { Proposal, Vote } from "../utils/proposal";
 import { TxInfo } from "./tx/tx-info";
 import Button from "./ui/button";
 import ContainerSpaced from "./ui/container-spaced";
 
 export const VoteDashboard = ({
+  proposal,
   daoAddress,
   daoInfo,
   proposalID,
 }: {
-  daoAddress?: string;
-  daoInfo?: DAOInfo;
-  proposalID?: BigNumber;
+  proposal: Proposal;
+  daoAddress: string;
+  daoInfo: DAOInfo;
+  proposalID: BigNumber;
 }) => {
   const { address, isConnected } = useAccountWrapped();
 
@@ -35,7 +37,7 @@ export const VoteDashboard = ({
     votes,
     error: errorAvailableVotes,
     isLoading: isLoadingAvailableVotes,
-  } = useQueryAvailableVotes(daoInfo?.token, address);
+  } = useQueryPastAvailableVotes(daoInfo?.token, address, proposal.startBlock);
 
   const [selectedVote, setSelectedVote] = useState("for");
 
