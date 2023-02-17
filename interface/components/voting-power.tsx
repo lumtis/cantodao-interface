@@ -1,38 +1,41 @@
+import { useState } from "react";
+
+import { BigNumber } from "ethers";
+
 import { Spinner, Text } from "@chakra-ui/react";
 
 import useQueryAvailableVotes from "../hooks/queries/useQueryAvailableVotes";
-import useTxDelegate from "../hooks/txs/useTxDelegate";
 import useAccountWrapped from "../hooks/useAccount";
 import { DAOInfo } from "../utils/dao";
 import { Balance } from "./balance";
-import { TxInfo } from "./tx/tx-info";
-import Button from "./ui/button";
+import { Delegate } from "./delegate";
 import ContainerSpaced from "./ui/container-spaced";
 import Divider from "./ui/divider";
 import Param from "./ui/param";
 
 export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const { address, isConnected } = useAccountWrapped();
+  const [balance, setBalance] = useState<BigNumber | undefined>(undefined);
 
   const { votes, error, isLoading } = useQueryAvailableVotes(
     daoInfo?.token,
     address
   );
 
-  const {
-    data,
-    isLoading: isLoadingTx,
-    isSuccess: isSuccessTx,
-    write,
-  } = useTxDelegate(daoInfo?.token, address);
-  const txHash = data?.hash;
+  const selfDelegateAvailable = balance && votes && balance.gt(votes);
 
-  // TODO: hide self-delegation part if no token or already delegated
+  const shoudlAcquireToken =
+    balance && votes && balance.isZero() && votes.isZero();
+
   // TODO: relative voting power
   return (
     <ContainerSpaced>
       {isConnected && address && daoInfo?.token ? (
-        <Balance contractAddress={daoInfo?.token} holderAddress={address} />
+        <Balance
+          contractAddress={daoInfo?.token}
+          holderAddress={address}
+          setBalance={setBalance}
+        />
       ) : (
         <Spinner />
       )}
@@ -41,21 +44,23 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
       ) : (
         <Spinner />
       )}
-      {write ? (
+      {selfDelegateAvailable && (
         <ContainerSpaced>
           <Divider />
           <Text>Delegate your balance to yourself to acquire voting power</Text>
-          <Button w="fit-content" onClick={() => write()}>
-            Self-Delegate
-          </Button>
-          <TxInfo
-            isLoadingTx={isLoadingTx}
-            isSuccessTx={isSuccessTx}
-            txHash={txHash}
+          <Delegate
+            header={"Delegate voting power"}
+            buttonText="Delegate voting power"
+            address={daoInfo?.token}
+            defaultRecipient={address}
           />
         </ContainerSpaced>
-      ) : (
-        <Spinner />
+      )}
+      {shoudlAcquireToken && (
+        <ContainerSpaced>
+          <Divider />
+          <Text>Get governance tokens to acquire voting power.</Text>
+        </ContainerSpaced>
       )}
     </ContainerSpaced>
   );

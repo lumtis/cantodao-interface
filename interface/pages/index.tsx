@@ -2,7 +2,9 @@ import Head from "next/head";
 
 import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
 
+import TestnetDisclaimer from "../components/disclaimer-testnet";
 import ContainerPage from "../components/ui/container-page";
+import { CantoTestnetNetwork } from "../config/addresses";
 import Layout from "../layout/Layout";
 
 const welcomeText =
@@ -20,6 +22,9 @@ const HomePage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Box textAlign="center">
+          {process.env.NEXT_PUBLIC_NETWORK === CantoTestnetNetwork && (
+            <TestnetDisclaimer />
+          )}
           <Image m="auto" src="/static/images/man.png" maxW={20} maxH={20} />
           <Heading>Welcome to cantodao</Heading>
           <Box display="flex" flexDirection="row" alignItems="center">

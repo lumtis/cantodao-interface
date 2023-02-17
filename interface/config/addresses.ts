@@ -1,13 +1,14 @@
 // Used network
-export const defaultNetwork = "localhost";
+export const DefaultNetwork = "localhost";
+export const CantoTestnetNetwork = "cantotest";
 
 export const GetDaoFactoryAddress = (): `0x${string}` => {
-  const network = process.env.NEXT_PUBLIC_NETWORK || defaultNetwork;
+  const network = process.env.NEXT_PUBLIC_NETWORK || DefaultNetwork;
   return addresses[network].daoFactory;
 };
 
 export const GetDaoListAddresses = (): `0x${string}`[] => {
-  const network = process.env.NEXT_PUBLIC_NETWORK || defaultNetwork;
+  const network = process.env.NEXT_PUBLIC_NETWORK || DefaultNetwork;
   return addresses[network].daoList;
 };
 
@@ -30,6 +31,10 @@ const addresses: {
   },
   cantotest: {
     daoFactory: "0x29D47977E4e9Afbdd564bb90576e5Df21dD77453",
-    daoList: ["0x7E4F8B085fCf14a8e8f227Eb5c2700EB62ef0E38"],
+    daoList: [
+      "0x7E4F8B085fCf14a8e8f227Eb5c2700EB62ef0E38",
+      "0xFFFa69928C6B62254c1811A2Cb35110711ef777d",
+      "0x22887F9876F4D6Fb34813E336703bc771b082782",
+    ],
   },
 };

@@ -85,6 +85,7 @@ export const CreateProposal = ({
                   type="number"
                   id="amount"
                   name="amount"
+                  step="any"
                   value={amount}
                   onChange={(event: any) =>
                     setAmount(event.target.value || "0")
@@ -102,6 +103,10 @@ export const CreateProposal = ({
                 />
               </Box>
             </ContainerSpaced>
+            <Text>
+              Note: Only CANTO transfer from DAO treasury is supported right now
+              from the UI
+            </Text>
           </ModalBody>
           <ModalFooter>
             {!isSuccessTx && !txHash && !isLoadingTx && (

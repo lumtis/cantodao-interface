@@ -49,6 +49,7 @@ export function handleChangeColorModeValue(
   if (colorMode === "dark") return dark;
 }
 
+// TODO: Rename into LinkCard
 export const RouteCard = ({
   cardText,
   route,

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Spinner, Text } from "@chakra-ui/react";
 
 import { Balances } from "../../components/balances";
 import { Dao } from "../../components/dao";
@@ -57,6 +57,9 @@ const DaoPage = () => {
                           }
                           includeNative={true}
                         />
+                        <Divider />
+                        <Text>CSR tokens:</Text>
+                        <Text>coming soon...</Text>
                         <Divider />
                         <Fund
                           address={daoInfo.executor}

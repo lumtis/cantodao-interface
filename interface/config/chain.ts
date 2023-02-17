@@ -27,3 +27,13 @@ export const CantoTestnet = {
     },
   },
 };
+
+// Get explorer
+export const GetExplorer = (): string | null => {
+  switch (process.env.NEXT_PUBLIC_NETWORK) {
+    case "cantotest":
+      return "https://testnet-explorer.canto.neobase.one/tx/";
+    default:
+      return null;
+  }
+};

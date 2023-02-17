@@ -90,6 +90,9 @@ export const CreateDAO = () => {
           onChange={(event: any) => setTokenSupply(event.target.value || "0")}
         />
       </Box>
+      <Text>
+        Note: Initial Supply is entirely minted to the deployer address
+      </Text>
       {!isSuccessTx && !txHash && !isLoadingTx && (
         <Box m="auto" pt={8}>
           <Button disabled={!write} onClick={() => write?.()}>

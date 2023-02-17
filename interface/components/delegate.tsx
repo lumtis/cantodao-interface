@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-import { BigNumber, ethers } from "ethers";
-import { usePrepareSendTransaction, useSendTransaction } from "wagmi";
-
 import {
   Box,
   Modal,
@@ -15,38 +12,33 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { NativeToken } from "../config/chain";
+import useTxDelegate from "../hooks/txs/useTxDelegate";
+import { NullAddress } from "../utils/evm";
 import { TxInfo } from "./tx/tx-info";
 import Button from "./ui/button";
 import ContainerSpaced from "./ui/container-spaced";
 import Input from "./ui/input";
 
-export const Fund = ({
+export const Delegate = ({
   header,
   buttonText,
   address,
+  defaultRecipient,
 }: {
   header: string;
   buttonText: string;
   address?: string;
+  defaultRecipient?: string;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [recipient, setRecipient] = useState(defaultRecipient || NullAddress);
 
-  const [amount, setAmount] = useState("0");
-  const { config } = usePrepareSendTransaction({
-    request: {
-      to: address || "",
-      value: parseFloat(amount)
-        ? ethers.utils.parseEther(amount)
-        : BigNumber.from("0"),
-    },
-  });
   const {
     data,
     isLoading: isLoadingTx,
     isSuccess: isSuccessTx,
-    sendTransaction,
-  } = useSendTransaction(config);
+    write,
+  } = useTxDelegate(address, defaultRecipient);
   const txHash = data?.hash;
 
   return (
@@ -61,24 +53,20 @@ export const Fund = ({
           <ModalCloseButton />
           <ModalBody>
             <Box display="flex" flexDirection="row" alignItems="flex-end">
-              <Text>Amount ({NativeToken}): </Text>
+              <Text>Recipient: </Text>
               <Input
-                type="number"
-                id="amount"
-                name="amount"
-                step="any"
-                value={amount}
-                onChange={(event: any) => setAmount(event.target.value || "0")}
+                ml="auto"
+                id="recipient"
+                name="recipient"
+                value={recipient}
+                onChange={(event: any) => setRecipient(event.target.value)}
               />
             </Box>
           </ModalBody>
           <ModalFooter>
             {!isSuccessTx && !txHash && !isLoadingTx && (
-              <Button
-                disabled={!sendTransaction}
-                onClick={() => sendTransaction?.()}
-              >
-                Send
+              <Button disabled={!write} onClick={() => write?.()}>
+                Delegate
               </Button>
             )}
             <TxInfo
