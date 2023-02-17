@@ -3,15 +3,12 @@ import { ethers } from "hardhat";
 
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
-import { DAOFactory } from "../typechain-types";
 import { DAOExecutor } from "../typechain-types/contracts/DAOExecutor";
 import { DAOGovernor } from "../typechain-types/contracts/DAOGovernor";
 import { DAOProposer } from "../typechain-types/contracts/DAOProposer";
 import { DAOToken } from "../typechain-types/contracts/DAOToken";
 
-const supply = 10000;
-
-const images = {
+export const images = {
   crocodile: "https://i.imgur.com/J2Awq0y.png",
   blocks: "https://i.imgur.com/SAYLq5h.png",
   foobar: "",
@@ -24,7 +21,7 @@ const getBytecodeSize = async (contract: any) => {
   return contractCode.length / 2;
 };
 
-const deployFactory = async () => {
+export const DeployFactory = async () => {
   // Governor
   const DAOGovernorDeployer = await ethers.getContractFactory(
     "DAOGovernorDeployer"
@@ -90,20 +87,31 @@ const deployFactory = async () => {
   };
 };
 
-const deployDAO = async (
+export const DeployDAO = async (
   owner: SignerWithAddress,
-  daoFactory: DAOFactory,
+  daoFactoryAddress: string,
   daoName: string,
   daoImage: string,
   tokenName: string,
-  tokenDenom: string
+  tokenDenom: string,
+  supply: number
 ): Promise<{
   daoToken: DAOToken;
   daoExecutor: DAOExecutor;
   daoGovernor: DAOGovernor;
   daoProposer: DAOProposer;
 }> => {
-  await daoFactory.createDAO(daoName, daoImage, tokenName, tokenDenom, supply);
+  const DAOFactory = await ethers.getContractFactory("DAOFactory");
+  const daoFactory = await DAOFactory.attach(daoFactoryAddress);
+
+  const tx = await daoFactory.createDAO(
+    daoName,
+    daoImage,
+    tokenName,
+    tokenDenom,
+    supply
+  );
+  await tx.wait();
   const daoCount = await daoFactory.getDAOCount();
   const newDaoAddress = await daoFactory.getDAO(
     daoCount.sub(BigNumber.from(1))
@@ -146,74 +154,3 @@ const deployDAO = async (
     daoProposer,
   };
 };
-
-const main = async () => {
-  const [owner] = await ethers.getSigners();
-
-  const { daoFactory } = await deployFactory();
-
-  // Create DAOs
-  const { daoToken, daoGovernor, daoProposer } = await deployDAO(
-    owner,
-    daoFactory,
-    "Crocodile DAO",
-    images.crocodile,
-    "Crocodile",
-    "CROCODILE"
-  );
-  await deployDAO(
-    owner,
-    daoFactory,
-    "Cantodao",
-    images.blocks,
-    "Cantodao",
-    "DAOX"
-  );
-  await deployDAO(owner, daoFactory, "Foobar", images.foobar, "Foo", "FOO");
-  await deployDAO(
-    owner,
-    daoFactory,
-    "Canto",
-    images.canto,
-    "Canto DAO Token",
-    "Cantox"
-  );
-  await deployDAO(
-    owner,
-    daoFactory,
-    "Evmos",
-    images.evmos,
-    "Evmos DAO Token",
-    "Evmosx"
-  );
-
-  // Create proposals
-  // Transfer tokens
-  await daoProposer.propose(
-    [daoToken.address],
-    [0],
-    [daoToken.interface.encodeFunctionData("transfer", [owner.address, 10000])],
-    "Transfering DAO tokens to myself"
-  );
-
-  // Transfer funds
-  await daoProposer.propose(
-    [owner.address],
-    [40],
-    ["0x"],
-    "Transfering fund to myself"
-  );
-
-  // Mint tokens
-  await daoProposer.propose(
-    [daoToken.address],
-    [0],
-    [daoToken.interface.encodeFunctionData("mint", [owner.address])],
-    "Minting DAO tokens"
-  );
-};
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});

@@ -8,7 +8,9 @@
     "test": "hardhat test",
     "console": "hardhat console",
     "network": "hardhat node",
-    "deploy:local": "hardhat run --network localhost scripts/deploy.ts",
+    "deploy:local": "hardhat run --network localhost scripts/deployLocal.ts",
+    "deploy-factory:testnet": "hardhat run --network cantotest scripts/deployTestnetFactory.ts",
+    "deploy-daos:testnet": "hardhat run --network cantotest scripts/deployTestnetDaos.ts",
     "block-number": "hardhat run --network localhost scripts/blockNumber.ts",
     "mine-blocks": "hardhat run --network localhost scripts/mineBlocks.ts"
   },
