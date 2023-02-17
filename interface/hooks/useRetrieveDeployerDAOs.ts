@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
 
 import { ethers } from "ethers";
-import { useProvider } from "wagmi";
+import { useBlockNumber, useProvider } from "wagmi";
 
 import DAOFactory from "../abis/DAOFactory.json";
-import { addresses } from "../config/addresses";
+import { GetDaoFactoryAddress } from "../config/addresses";
 
-const useRetrieveDeployerDAOs = (deployer?: string) => {
+// Retrieved deployed DAOs by an address
+// blockCount is the number of last blocks to reach for the events
+const useRetrieveDeployerDAOs = (blockCount: number, deployer?: string) => {
   const provider = useProvider();
   const [daos, setDAOs] = useState<string[]>([]);
 
+  const { data: blockNumber, isError, isLoading } = useBlockNumber();
+
+  const startBlock =
+    blockNumber && !isError && !isLoading
+      ? blockNumber > blockCount
+        ? blockNumber - blockCount
+        : 0
+      : null;
+
   // factory address and abi
-  const factoryAddress = addresses.localhost.daoFactory;
+  const factoryAddress = GetDaoFactoryAddress();
   const factoryAbi = DAOFactory.abi;
 
   // create event filter
@@ -21,9 +32,9 @@ const useRetrieveDeployerDAOs = (deployer?: string) => {
   );
 
   useEffect(() => {
-    const getEvents = async (address: string) => {
+    const getEvents = async (address: string, fromBlock: number) => {
       const eventFilter: ethers.providers.Filter = {
-        fromBlock: 0,
+        fromBlock,
         address: factoryAddress,
         topics: [eventSignature, ethers.utils.hexZeroPad(address, 32)],
       };
@@ -37,10 +48,10 @@ const useRetrieveDeployerDAOs = (deployer?: string) => {
       setDAOs(retrievedDAOs);
     };
 
-    if (deployer) {
-      getEvents(deployer);
+    if (deployer && startBlock !== null) {
+      getEvents(deployer, startBlock);
     }
-  }, [deployer]);
+  }, [deployer, startBlock]);
 
   return daos;
 };
