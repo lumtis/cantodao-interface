@@ -9,12 +9,16 @@ import { publicProvider } from "wagmi/providers/public";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
+import { CantoTestnet } from "../config/chain";
 import { defaultTheme } from "../config/theme";
 
 const App = ({ Component, pageProps }: AppProps) => {
   // Use localhost
   // TODO: Implement mainnet support
-  const { chains, provider } = configureChains([localhost], [publicProvider()]);
+  const { chains, provider } = configureChains(
+    [localhost, CantoTestnet],
+    [publicProvider()]
+  );
 
   const client = createClient({
     autoConnect: true,

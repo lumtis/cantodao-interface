@@ -5,10 +5,12 @@ import { Box } from "@chakra-ui/react";
 import { Daos } from "../components/daos";
 import ContainerPage from "../components/ui/container-page";
 import PageHeader from "../components/ui/page-header";
-import { DaoList } from "../config/daos";
+import { GetDaoListAddresses } from "../config/addresses";
 import Layout from "../layout/Layout";
 
 const ExplorePage = () => {
+  const daoList = GetDaoListAddresses();
+
   return (
     <Layout>
       <ContainerPage>
@@ -20,7 +22,7 @@ const ExplorePage = () => {
             title="Explore DAOs"
             imgSource="/static/images/ship.png"
           />
-          <Daos addresses={DaoList} />
+          <Daos addresses={daoList} />
         </Box>
       </ContainerPage>
     </Layout>
