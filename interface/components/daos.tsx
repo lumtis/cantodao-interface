@@ -6,7 +6,7 @@ export const Daos = ({ addresses }: { addresses: string[] }) => {
   return (
     <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))">
       {addresses.map((address, i) => (
-        <DaoCard key={i} address={address} m={4} />
+        <DaoCard key={i} address={address} />
       ))}
     </Grid>
   );

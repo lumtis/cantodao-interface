@@ -3,8 +3,8 @@ import { BigNumber } from "ethers";
 import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
 import { blockTime } from "../config/chain";
-import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
 import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
+import { DAOInfo } from "../utils/dao";
 import { BlocksToTime } from "../utils/evm";
 import ContainerSpaced from "./ui/container-spaced";
 import Param from "./ui/param";
@@ -20,7 +20,10 @@ export const Dao = ({
   const { tokenInfo, error, isLoading } = useQueryTokenInfo(daoInfo?.token);
 
   // Get voting period
-  const votingPeriod = BlocksToTime(daoInfo?.votingPeriod || 0, blockTime);
+  const votingPeriod = BlocksToTime(
+    daoInfo?.votingPeriod?.toNumber() || 0,
+    blockTime
+  );
 
   // Get quorum
   const quorumPercent =

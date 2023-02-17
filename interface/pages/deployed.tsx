@@ -16,9 +16,7 @@ const DeployedPage = () => {
   return (
     <Layout>
       <ContainerPage>
-        <Head>
-          <title>Deployed DAOs</title>
-        </Head>
+        <Head>Deployed DAOs</Head>
         <Box textAlign="center">
           <PageHeader
             title="DAOs you deployed"

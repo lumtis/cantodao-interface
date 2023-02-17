@@ -25,8 +25,8 @@ export const Balances = ({
           <BalanceNative holderAddress={holderAddress} />
         </Box>
       )}
-      {contractAddresses.map((contractAddress) => (
-        <Box>
+      {contractAddresses.map((contractAddress, index) => (
+        <Box key={index}>
           <Balance
             contractAddress={contractAddress}
             holderAddress={holderAddress}

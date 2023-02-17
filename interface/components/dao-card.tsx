@@ -8,16 +8,14 @@ import { RouteCard } from "./ui/route-card";
 export const DaoCard = ({
   address,
   logoSize,
-  ...props
 }: {
   address: string;
   logoSize?: number;
-  props: any;
 }) => {
   const { daoInfo, error, isLoading } = useQueryDAOInfo(address);
 
   return (
-    <BoxW {...props}>
+    <BoxW m={4}>
       <ContainerSpaced>
         {!isLoading && !error && daoInfo ? (
           <ContainerSpaced>

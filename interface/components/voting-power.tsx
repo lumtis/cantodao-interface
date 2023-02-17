@@ -1,9 +1,9 @@
 import { Spinner, Text } from "@chakra-ui/react";
 
 import useQueryAvailableVotes from "../hooks/queries/useQueryAvailableVotes";
-import { DAOInfo } from "../hooks/queries/useQueryDAOInfo";
 import useTxDelegate from "../hooks/txs/useTxDelegate";
 import useAccountWrapped from "../hooks/useAccount";
+import { DAOInfo } from "../utils/dao";
 import { Balance } from "./balance";
 import { TxInfo } from "./tx/tx-info";
 import Button from "./ui/button";
