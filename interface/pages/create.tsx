@@ -18,6 +18,7 @@ const CreatePage = () => {
       <ContainerPage>
         <Head>
           <title>Create a DAO</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <Box textAlign="center">
           <PageHeader

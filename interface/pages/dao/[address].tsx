@@ -28,6 +28,7 @@ const DaoPage = () => {
       <Layout>
         <Head>
           <title>DAO</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <ContainerPage>
           <Box>

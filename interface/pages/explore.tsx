@@ -16,6 +16,7 @@ const ExplorePage = () => {
       <ContainerPage>
         <Head>
           <title>Explore</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <Box textAlign="center">
           <PageHeader

@@ -104,6 +104,7 @@ const ProposalPage = () => {
         <ContainerPage>
           <Head>
             <title>Proposal</title>
+            <link rel="icon" href="/favicon.ico" />
           </Head>
           <Box w="fit-content">
             <RouteCard
