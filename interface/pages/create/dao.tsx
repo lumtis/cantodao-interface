@@ -2,17 +2,17 @@ import Head from "next/head";
 
 import { Box } from "@chakra-ui/react";
 
-import { CreateDAO } from "../components/dao-create";
-import { RecentlyDeployed } from "../components/recently-deployed";
-import BoxW from "../components/ui/box";
-import ContainerPage from "../components/ui/container-page";
-import PageHeader from "../components/ui/page-header";
-import Layout from "../layout/Layout";
+import { CreateDAO } from "../../components/dao-create";
+import { RecentlyDeployed } from "../../components/recently-deployed";
+import BoxW from "../../components/ui/box";
+import ContainerPage from "../../components/ui/container-page";
+import PageHeader from "../../components/ui/page-header";
+import Layout from "../../layout/Layout";
 
 // Around 4 hours
 const BLOCK_COUNT = 3000;
 
-const CreatePage = () => {
+const CreateDAOPage = () => {
   return (
     <Layout>
       <ContainerPage>
@@ -43,4 +43,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateDAOPage;

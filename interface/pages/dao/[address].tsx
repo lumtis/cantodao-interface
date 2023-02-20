@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Box, Spinner, Text } from "@chakra-ui/react";
@@ -6,9 +7,9 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Balances } from "../../components/balances";
 import { Dao } from "../../components/dao";
 import { Fund } from "../../components/fund";
-import { CreateProposal } from "../../components/proposal-create";
 import { Proposals } from "../../components/proposals";
 import BoxW from "../../components/ui/box";
+import Button from "../../components/ui/button";
 import ContainerPage from "../../components/ui/container-page";
 import ContainerSpaced from "../../components/ui/container-spaced";
 import Divider from "../../components/ui/divider";
@@ -86,11 +87,11 @@ const DaoPage = () => {
                     title="Proposals"
                     imgSource="/static/images/scroll.png"
                   />
-                  <CreateProposal
-                    header="Create a new proposal"
-                    buttonText="New proposal"
-                    contractAddress={daoInfo.proposer as string}
-                  />{" "}
+                  <Link href={"/create/proposal/" + address}>
+                    <Button fontSize="20px" m="auto">
+                      Create a new proposal
+                    </Button>
+                  </Link>
                 </Box>
                 <Box mt={10}>
                   <Proposals

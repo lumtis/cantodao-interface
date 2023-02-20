@@ -1,6 +1,14 @@
+<pre>
+
+</pre>
+
 <div align="center">
 <img src="images/cantodao.png" alt="" width="300"/>
 </div>
+
+<pre>
+
+</pre>
 
 # Cantodao
 
@@ -103,7 +111,3 @@ The long term plan for the project includes the following:
   - Advanced permission structure for members
 - Add metadata management in DAOs
 - Provide packages for NFT or GameFi projects to integrate DAO in their UI
-
-<div align="center">
-<img src="images/space.png" alt="" width="400"/>
-</div>
