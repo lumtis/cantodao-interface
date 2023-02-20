@@ -4,15 +4,15 @@ import { BigNumber } from "ethers";
 
 import { Box, Radio, RadioGroup, Spinner, Text } from "@chakra-ui/react";
 
-import useQueryHasVoted from "../hooks/queries/useQueryHasVoted";
-import useQueryPastAvailableVotes from "../hooks/queries/useQueryPastAvailableVotes";
-import useTxCastVote from "../hooks/txs/ustTxCastVote";
-import useAccountWrapped from "../hooks/useAccount";
-import { DAOInfo } from "../utils/dao";
-import { Proposal, Vote } from "../utils/proposal";
-import { TxInfo } from "./tx/tx-info";
-import Button from "./ui/button";
-import ContainerSpaced from "./ui/container-spaced";
+import useQueryHasVoted from "../../hooks/queries/useQueryHasVoted";
+import useQueryPastAvailableVotes from "../../hooks/queries/useQueryPastAvailableVotes";
+import useTxCastVote from "../../hooks/txs/ustTxCastVote";
+import useAccountWrapped from "../../hooks/useAccount";
+import { DAOInfo } from "../../utils/dao";
+import { Proposal, Vote } from "../../utils/proposal";
+import { TxInfo } from "../tx/tx-info";
+import Button from "../ui/button";
+import ContainerSpaced from "../ui/container-spaced";
 
 export const VoteDashboard = ({
   proposal,

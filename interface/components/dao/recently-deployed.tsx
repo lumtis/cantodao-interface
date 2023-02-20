@@ -1,7 +1,7 @@
 import { Box, Spinner } from "@chakra-ui/react";
 
-import useAccountWrapped from "../hooks/useAccount";
-import useRetrieveDeployerDAOs from "../hooks/useRetrieveDeployerDAOs";
+import useAccountWrapped from "../../hooks/useAccount";
+import useRetrieveDeployerDAOs from "../../hooks/useRetrieveDeployerDAOs";
 import { Daos } from "./daos";
 
 export const RecentlyDeployed = ({ blockCount }: { blockCount: number }) => {

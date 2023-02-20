@@ -5,16 +5,16 @@ import { useRouter } from "next/router";
 import { Box, Spinner, Text } from "@chakra-ui/react";
 
 import { Balances } from "../../components/balances";
-import { Dao } from "../../components/dao";
-import { Fund } from "../../components/fund";
-import { Proposals } from "../../components/proposals";
+import { Dao } from "../../components/dao/dao";
+import { Fund } from "../../components/dao/fund";
+import { VotingPower } from "../../components/dao/voting-power";
+import { Proposals } from "../../components/proposal/proposals";
 import BoxW from "../../components/ui/box";
 import Button from "../../components/ui/button";
 import ContainerPage from "../../components/ui/container-page";
 import ContainerSpaced from "../../components/ui/container-spaced";
 import Divider from "../../components/ui/divider";
 import PageHeader from "../../components/ui/page-header";
-import { VotingPower } from "../../components/voting-power";
 import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../layout/Layout";
 

@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 
 import { Box, Grid } from "@chakra-ui/react";
 
-import useQueryProposalCount from "../hooks/queries/useQueryProposalCount";
+import useQueryProposalCount from "../../hooks/queries/useQueryProposalCount";
 import { ProposalCard } from "./proposal-card";
 
 export const Proposals = ({

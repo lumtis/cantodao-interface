@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
-import { ProposalState, ProposalStateToString } from "../utils/proposal";
+import { ProposalState, ProposalStateToString } from "../../utils/proposal";
 
 export const ProposalStateBox = ({
   proposalState,

@@ -1,9 +1,9 @@
 import { Box, Heading, Image, Spinner } from "@chakra-ui/react";
 
-import useQueryDAOInfo from "../hooks/queries/useQueryDAOInfo";
-import BoxW from "./ui/box";
-import ContainerSpaced from "./ui/container-spaced";
-import { RouteCard } from "./ui/route-card";
+import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
+import BoxW from "../ui/box";
+import ContainerSpaced from "../ui/container-spaced";
+import { RouteCard } from "../ui/route-card";
 
 export const DaoCard = ({
   address,

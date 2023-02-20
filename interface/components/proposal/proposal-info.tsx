@@ -2,12 +2,12 @@ import { BigNumber, utils } from "ethers";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-import { blockTime } from "../config/chain";
-import { BlockIntervalToTime } from "../utils/evm";
-import { Proposal, ProposalContent, ProposalState } from "../utils/proposal";
+import { blockTime } from "../../config/chain";
+import { BlockIntervalToTime } from "../../utils/evm";
+import { Proposal, ProposalContent, ProposalState } from "../../utils/proposal";
+import ContainerSpaced from "../ui/container-spaced";
+import { CopyCard } from "../ui/copy-card";
 import { ProposalStateBox } from "./proposal-state-box";
-import ContainerSpaced from "./ui/container-spaced";
-import { CopyCard } from "./ui/copy-card";
 
 export const ProposalInfo = ({
   proposal,

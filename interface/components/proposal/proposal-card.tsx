@@ -2,12 +2,12 @@ import { BigNumber } from "ethers";
 
 import { Box, Heading } from "@chakra-ui/react";
 
-import useQueryProposalID from "../hooks/queries/useQueryProposalID";
-import useQueryProposalState from "../hooks/queries/useQueryProposalState";
-import { ProposalState } from "../utils/proposal";
+import useQueryProposalID from "../../hooks/queries/useQueryProposalID";
+import useQueryProposalState from "../../hooks/queries/useQueryProposalState";
+import { ProposalState } from "../../utils/proposal";
+import BoxW from "../ui/box";
+import { RouteCard } from "../ui/route-card";
 import { ProposalStateBox } from "./proposal-state-box";
-import BoxW from "./ui/box";
-import { RouteCard } from "./ui/route-card";
 
 export const ProposalCard = ({
   governorContract,

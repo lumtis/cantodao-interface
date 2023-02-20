@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { Box, Spinner } from "@chakra-ui/react";
 
-import { CreateProposal } from "../../../components/proposal-create";
+import { CreateProposal } from "../../../components/proposal/proposal-create";
 import BoxW from "../../../components/ui/box";
 import ContainerPage from "../../../components/ui/container-page";
 import PageHeader from "../../../components/ui/page-header";

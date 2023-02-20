@@ -4,10 +4,10 @@ import { BigNumber } from "ethers";
 
 import { Box, Input, Text } from "@chakra-ui/react";
 
-import { TxInfo } from "../components/tx/tx-info";
-import Button from "../components/ui/button";
-import ContainerSpaced from "../components/ui/container-spaced";
-import useTxCreateDAO from "../hooks/txs/useTxCreateDAO";
+import useTxCreateDAO from "../../hooks/txs/useTxCreateDAO";
+import { TxInfo } from "../tx/tx-info";
+import Button from "../ui/button";
+import ContainerSpaced from "../ui/container-spaced";
 
 export const CreateDAO = () => {
   const [daoName, setDaoName] = useState("My DAO");

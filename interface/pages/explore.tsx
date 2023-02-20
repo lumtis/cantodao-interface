@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import { Box } from "@chakra-ui/react";
 
-import { Daos } from "../components/daos";
+import { Daos } from "../components/dao/daos";
 import ContainerPage from "../components/ui/container-page";
 import PageHeader from "../components/ui/page-header";
 import { GetDaoListAddresses } from "../config/addresses";

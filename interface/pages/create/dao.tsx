@@ -2,8 +2,8 @@ import Head from "next/head";
 
 import { Box } from "@chakra-ui/react";
 
-import { CreateDAO } from "../../components/dao-create";
-import { RecentlyDeployed } from "../../components/recently-deployed";
+import { CreateDAO } from "../../components/dao/dao-create";
+import { RecentlyDeployed } from "../../components/dao/recently-deployed";
 import BoxW from "../../components/ui/box";
 import ContainerPage from "../../components/ui/container-page";
 import PageHeader from "../../components/ui/page-header";

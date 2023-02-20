@@ -4,14 +4,14 @@ import { BigNumber } from "ethers";
 
 import { Spinner, Text } from "@chakra-ui/react";
 
-import useQueryAvailableVotes from "../hooks/queries/useQueryAvailableVotes";
-import useAccountWrapped from "../hooks/useAccount";
-import { DAOInfo } from "../utils/dao";
-import { Balance } from "./balance";
-import { Delegate } from "./delegate";
-import ContainerSpaced from "./ui/container-spaced";
-import Divider from "./ui/divider";
-import Param from "./ui/param";
+import useQueryAvailableVotes from "../../hooks/queries/useQueryAvailableVotes";
+import useAccountWrapped from "../../hooks/useAccount";
+import { DAOInfo } from "../../utils/dao";
+import { Balance } from "../balance";
+import { Delegate } from "../delegate";
+import ContainerSpaced from "../ui/container-spaced";
+import Divider from "../ui/divider";
+import Param from "../ui/param";
 
 export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const { address, isConnected } = useAccountWrapped();

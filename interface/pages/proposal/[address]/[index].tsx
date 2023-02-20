@@ -5,15 +5,15 @@ import { useBlockNumber } from "wagmi";
 
 import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
-import { ExecutionDashboard } from "../../../components/execution-dashboard";
-import { ProposalInfo } from "../../../components/proposal-info";
+import { ExecutionDashboard } from "../../../components/proposal/execution-dashboard";
+import { ProposalInfo } from "../../../components/proposal/proposal-info";
+import { VoteDashboard } from "../../../components/proposal/vote-dashboard";
+import { VoteResults } from "../../../components/proposal/vote-results";
+import { VoteTurnout } from "../../../components/proposal/vote-turnout";
 import BoxW from "../../../components/ui/box";
 import ContainerPage from "../../../components/ui/container-page";
 import PageHeader from "../../../components/ui/page-header";
 import { RouteCard } from "../../../components/ui/route-card";
-import { VoteDashboard } from "../../../components/vote-dashboard";
-import { VoteResults } from "../../../components/vote-results";
-import { VoteTurnout } from "../../../components/vote-turnout";
 import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
 import useQueryProposal from "../../../hooks/queries/useQueryProposal";
 import useQueryProposalContent from "../../../hooks/queries/useQueryProposalContent";
