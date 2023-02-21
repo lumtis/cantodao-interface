@@ -7,7 +7,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import { GetNoteAddress } from "../../config/addresses";
 import { NativeToken } from "../../config/chain";
 import useTxTransferTokens from "../../hooks/txs/useTxTransferTokens";
-import { NullAddress } from "../../utils/evm";
+import { NullAddress } from "../../types/evm";
 import { TokenSelector } from "../token-selector";
 import { TxInfo } from "../tx/tx-info";
 import Button from "../ui/button";

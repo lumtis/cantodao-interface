@@ -4,8 +4,8 @@ import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
 import { blockTime } from "../../config/chain";
 import useQueryTokenInfo from "../../hooks/queries/useTokenInfo";
-import { DAOInfo } from "../../utils/dao";
-import { BlocksToTime } from "../../utils/evm";
+import { DAOInfo } from "../../types/dao";
+import { BlocksToTime } from "../../types/evm";
 import ContainerSpaced from "../ui/container-spaced";
 import Param from "../ui/param";
 import ParamCopyCard from "../ui/param-copy-card";

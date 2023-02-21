@@ -3,8 +3,8 @@ import { BigNumber } from "ethers";
 import { Spinner, Text } from "@chakra-ui/react";
 
 import useQueryPastTotalSupply from "../../hooks/queries/useQueryPastTotalSupply";
-import { DAOInfo } from "../../utils/dao";
-import { Proposal } from "../../utils/proposal";
+import { DAOInfo } from "../../types/dao";
+import { Proposal } from "../../types/proposal";
 import ContainerSpaced from "../ui/container-spaced";
 import Progress from "../ui/progress";
 

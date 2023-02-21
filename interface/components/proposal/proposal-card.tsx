@@ -4,7 +4,7 @@ import { Box, Heading } from "@chakra-ui/react";
 
 import useQueryProposalID from "../../hooks/queries/useQueryProposalID";
 import useQueryProposalState from "../../hooks/queries/useQueryProposalState";
-import { ProposalState } from "../../utils/proposal";
+import { ProposalState } from "../../types/proposal";
 import BoxW from "../ui/box";
 import { RouteCard } from "../ui/route-card";
 import { ProposalStateBox } from "./proposal-state-box";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
 import { GetNoteAddress } from "../config/addresses";
-import { NullAddress } from "../utils/evm";
+import { NullAddress } from "../types/evm";
 import ContainerSpaced from "./ui/container-spaced";
 import Input from "./ui/input";
 import Radio from "./ui/radio";

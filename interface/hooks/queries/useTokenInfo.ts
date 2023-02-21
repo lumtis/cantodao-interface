@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers";
 import { erc20ABI, useContractReads } from "wagmi";
 
-import { TokenInfo } from "../../utils/token";
+import { TokenInfo } from "../../types/token";
 
 // Query general information of the token
 const useQueryTokenInfo = (contractAddress?: string) => {

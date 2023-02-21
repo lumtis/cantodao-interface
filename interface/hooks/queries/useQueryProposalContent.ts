@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
 import DAOProposer from "../../abis/DAOProposer.json";
-import { NewProposalContent, ProposalContent } from "../../utils/proposal";
+import { NewProposalContent, ProposalContent } from "../../types/proposal";
 
 const useQueryProposalContent = (
   contractAddress?: string,

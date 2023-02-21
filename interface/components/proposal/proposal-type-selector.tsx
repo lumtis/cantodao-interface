@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { ProposalType } from "../../utils/proposal";
+import { ProposalType } from "../../types/proposal";
 import Button from "../ui/button";
 import ContainerSpaced from "../ui/container-spaced";
 

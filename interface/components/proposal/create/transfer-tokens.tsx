@@ -6,7 +6,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 import { GetNoteAddress } from "../../../config/addresses";
 import useTxProposeTokens from "../../../hooks/txs/useTxProposeTokens";
-import { NullAddress } from "../../../utils/evm";
+import { NullAddress } from "../../../types/evm";
 import { TokenSelector } from "../../token-selector";
 import { TxInfo } from "../../tx/tx-info";
 import Button from "../../ui/button";

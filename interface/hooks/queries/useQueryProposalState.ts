@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { ProposalState } from "../../utils/proposal";
+import { ProposalState } from "../../types/proposal";
 
 const useQueryProposalState = (
   contractAddress?: string,

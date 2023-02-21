@@ -6,7 +6,7 @@ import { Spinner, Text } from "@chakra-ui/react";
 
 import useQueryAvailableVotes from "../../hooks/queries/useQueryAvailableVotes";
 import useAccountWrapped from "../../hooks/useAccount";
-import { DAOInfo } from "../../utils/dao";
+import { DAOInfo } from "../../types/dao";
 import { Balance } from "../balance";
 import { Delegate } from "../delegate";
 import ContainerSpaced from "../ui/container-spaced";

@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractReads } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { DAOInfo } from "../../utils/dao";
+import { DAOInfo } from "../../types/dao";
 
 // Query different info of the DAO
 const useQueryDAOInfo = (contractAddress?: string) => {

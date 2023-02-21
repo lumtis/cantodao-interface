@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { Vote } from "../../utils/proposal";
+import { Vote } from "../../types/proposal";
 
 const useTxCastVote = (
   contractAddress?: string,

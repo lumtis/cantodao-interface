@@ -2,7 +2,7 @@ import { utils } from "ethers";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { ProposalContent } from "../../utils/proposal";
+import { ProposalContent } from "../../types/proposal";
 
 const useTxQueueProposal = (
   contractAddress: string,

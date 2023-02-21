@@ -13,7 +13,7 @@ import ContainerPage from "../../../components/ui/container-page";
 import PageHeader from "../../../components/ui/page-header";
 import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../../layout/Layout";
-import { ProposalType } from "../../../utils/proposal";
+import { ProposalType } from "../../../types/proposal";
 
 const CreateProposalPage = () => {
   const router = useRouter();

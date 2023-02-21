@@ -6,7 +6,7 @@ import { Spinner } from "@chakra-ui/react";
 
 import useQueryTokenBalance from "../hooks/queries/useTokenBalance";
 import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
-import { FormatToken } from "../utils/token";
+import { FormatToken } from "../types/token";
 import Param from "./ui/param";
 
 export const Balance = ({

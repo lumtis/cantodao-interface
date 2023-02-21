@@ -6,7 +6,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 import { NativeToken } from "../../../config/chain";
 import useTxProposeTransferCoins from "../../../hooks/txs/useTxProposeCoins";
-import { NullAddress } from "../../../utils/evm";
+import { NullAddress } from "../../../types/evm";
 import { TxInfo } from "../../tx/tx-info";
 import Button from "../../ui/button";
 import ContainerSpaced from "../../ui/container-spaced";

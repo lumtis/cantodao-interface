@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 
 import useTxExecuteProposal from "../../hooks/txs/useTxExecuteProposal";
 import useTxQueueProposal from "../../hooks/txs/useTxQueueProposal";
-import { ProposalContent, ProposalState } from "../../utils/proposal";
+import { ProposalContent, ProposalState } from "../../types/proposal";
 import { TxInfo } from "../tx/tx-info";
 import Button from "../ui/button";
 import ContainerSpaced from "../ui/container-spaced";

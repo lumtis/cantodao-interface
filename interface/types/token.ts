@@ -1,5 +1,7 @@
 import { BigNumber, utils } from "ethers";
 
+export const DAOTokenDecinmals = 18;
+
 export type TokenInfo = {
   name?: string;
   symbol?: string;

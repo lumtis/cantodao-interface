@@ -24,7 +24,7 @@ import {
   ProposalState,
   VoteState,
   VoteStateFromBlockNumber,
-} from "../../../utils/proposal";
+} from "../../../types/proposal";
 
 const ProposalPage = () => {
   const router = useRouter();

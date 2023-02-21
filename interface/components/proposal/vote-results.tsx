@@ -1,6 +1,6 @@
 import { Heading, Text } from "@chakra-ui/react";
 
-import { Proposal } from "../../utils/proposal";
+import { Proposal } from "../../types/proposal";
 import ContainerSpaced from "../ui/container-spaced";
 
 export const VoteResults = ({ proposal }: { proposal?: Proposal }) => {

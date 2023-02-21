@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractRead } from "wagmi";
 
 import DAOGovernor from "../../abis/DAOGovernor.json";
-import { NullAddress } from "../../utils/evm";
+import { NullAddress } from "../../types/evm";
 
 const useQueryHasVoted = (
   contractAddress?: string,
