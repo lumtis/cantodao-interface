@@ -1,5 +1,11 @@
 import { BigNumber, BytesLike } from "ethers";
 
+export enum ProposalType {
+  TransferCanto,
+  TransferTokens,
+  MintGovernanceTokens,
+}
+
 export enum Vote {
   Against,
   For,

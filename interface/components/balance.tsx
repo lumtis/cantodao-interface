@@ -6,6 +6,7 @@ import { Spinner } from "@chakra-ui/react";
 
 import useQueryTokenBalance from "../hooks/queries/useTokenBalance";
 import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
+import { FormatToken } from "../utils/token";
 import Param from "./ui/param";
 
 export const Balance = ({
@@ -47,10 +48,7 @@ export const Balance = ({
     balance
   ) {
     balanceComp = (
-      <Param
-        name={tokenInfo?.name}
-        value={balance.toString() + " " + tokenInfo?.symbol}
-      />
+      <Param name={tokenInfo?.name} value={FormatToken(balance, tokenInfo)} />
     );
   }
 

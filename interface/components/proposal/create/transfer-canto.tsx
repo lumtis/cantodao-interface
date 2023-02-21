@@ -4,15 +4,15 @@ import { ethers } from "ethers";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-import { NativeToken } from "../../config/chain";
-import useTxProposeTransferCoins from "../../hooks/txs/useTxProposeCoins";
-import { NullAddress } from "../../utils/evm";
-import { TxInfo } from "../tx/tx-info";
-import Button from "../ui/button";
-import ContainerSpaced from "../ui/container-spaced";
-import Input from "../ui/input";
+import { NativeToken } from "../../../config/chain";
+import useTxProposeTransferCoins from "../../../hooks/txs/useTxProposeCoins";
+import { NullAddress } from "../../../utils/evm";
+import { TxInfo } from "../../tx/tx-info";
+import Button from "../../ui/button";
+import ContainerSpaced from "../../ui/container-spaced";
+import Input from "../../ui/input";
 
-export const CreateProposal = ({
+export const CreateProposalTransferCanto = ({
   proposerAddress,
 }: {
   proposerAddress: string;
@@ -36,7 +36,7 @@ export const CreateProposal = ({
   const txHash = data?.hash;
 
   return (
-    <ContainerSpaced>
+    <ContainerSpaced spacing={8}>
       <Heading m={4}>Canto transfer</Heading>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
         <Text>Recipient: </Text>
@@ -49,7 +49,7 @@ export const CreateProposal = ({
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text>Amount ({NativeToken}): </Text>
+        <Text marginRight={4}>Amount({NativeToken}): </Text>
         <Input
           ml="auto"
           type="number"
@@ -70,10 +70,6 @@ export const CreateProposal = ({
           onChange={(event: any) => setDescription(event.target.value)}
         />
       </Box>
-      <Text>
-        Note: Only CANTO transfer from DAO treasury is supported right now from
-        the UI
-      </Text>
       {!isSuccessTx && !txHash && !isLoadingTx && (
         <Button disabled={!write} onClick={() => write?.()}>
           Create proposal

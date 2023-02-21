@@ -6,7 +6,6 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 
 import { Balances } from "../../components/balances";
 import { Dao } from "../../components/dao/dao";
-import { Fund } from "../../components/dao/fund";
 import { VotingPower } from "../../components/dao/voting-power";
 import { Proposals } from "../../components/proposal/proposals";
 import BoxW from "../../components/ui/box";
@@ -62,12 +61,6 @@ const DaoPage = () => {
                         <Divider />
                         <Text>CSR tokens:</Text>
                         <Text>coming soon...</Text>
-                        <Divider />
-                        <Fund
-                          address={daoInfo.executor}
-                          header="Fund DAO"
-                          buttonText="Fund DAO"
-                        />
                       </ContainerSpaced>
                     </BoxW>
                     <PageHeader

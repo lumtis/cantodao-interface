@@ -1,12 +1,7 @@
 import { BigNumber } from "ethers";
 import { erc20ABI, useContractReads } from "wagmi";
 
-// Regular info of a DAO
-export type TokenInfo = {
-  name?: string;
-  symbol?: string;
-  totalSupply?: BigNumber;
-};
+import { TokenInfo } from "../../utils/token";
 
 // Query general information of the token
 const useQueryTokenInfo = (contractAddress?: string) => {
@@ -29,6 +24,11 @@ const useQueryTokenInfo = (contractAddress?: string) => {
         abi: erc20ABI,
         functionName: "totalSupply",
       },
+      {
+        address,
+        abi: erc20ABI,
+        functionName: "decimals",
+      },
     ],
   });
 
@@ -36,6 +36,7 @@ const useQueryTokenInfo = (contractAddress?: string) => {
     name: data?.[0] as string,
     symbol: data?.[1] as string,
     totalSupply: data?.[2] as BigNumber,
+    decimals: data?.[3],
   };
 
   return { tokenInfo, error, isLoading };

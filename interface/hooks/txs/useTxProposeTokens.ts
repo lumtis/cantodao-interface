@@ -10,9 +10,8 @@ const useTxProposeTransferTokens = (
   amount: BigNumber,
   description: string
 ) => {
-  // TODO: test this
-  const transferCalldata = utils.defaultAbiCoder.encode(erc20ABI as any, [
-    "transfer",
+  const iface = new utils.Interface(erc20ABI);
+  const transferCalldata = iface.encodeFunctionData("transfer", [
     recipient,
     amount,
   ]);
