@@ -1,18 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Text } from "@chakra-ui/react";
 
-import { GetNoteAddress } from "../config/addresses";
-import { NullAddress } from "../types/evm";
+import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
+import { TokenInfo } from "../types/token";
 import ContainerSpaced from "./ui/container-spaced";
 import Input from "./ui/input";
 import Radio from "./ui/radio";
-
-// TokenInfo is a type that contains and address of a token
-type TokenInfo = {
-  name: string;
-  address: `0x${string}`;
-};
 
 const NoteName = "Canto note";
 const Manual = "manual";
@@ -25,37 +19,43 @@ export const TokenSelector = ({
   setToken,
 }: {
   tokens: TokenInfo[];
-  setToken: (tokenAddress: string) => void;
+  setToken: (token: TokenInfo) => void;
 }) => {
   const [selected, setSelected] = useState(NoteName);
-  const [manualInput, setmManualInput] = useState(NullAddress);
+  const [manualInput, setManualInput] = useState("");
 
-  const allTokens = [
-    {
-      name: NoteName,
-      address: GetNoteAddress(),
-    },
-  ].concat(tokens);
+  const { tokenInfo, error, isLoading } = useQueryTokenInfo(manualInput);
 
+  useEffect(() => {
+    if (selected === Manual && !isLoading && !error && tokenInfo) {
+      setToken(tokenInfo);
+    }
+  }, [manualInput]);
+
+  // Radio button for token selection
   const TokenButton = ({ token }: { token: TokenInfo }) => {
     return (
-      <Radio
-        key={token.name}
-        isChecked={selected === token.name}
-        onChange={() => {
-          setSelected(token.name);
-          setToken(token.address);
-        }}
-      >
-        <Text>{token.name}</Text>
-      </Radio>
+      <>
+        {token && token.name && (
+          <Radio
+            key={token.name}
+            isChecked={selected === token.name}
+            onChange={() => {
+              setSelected(token.name || "");
+              setToken(token);
+            }}
+          >
+            <Text>{token.name}</Text>
+          </Radio>
+        )}
+      </>
     );
   };
 
   return (
     <ContainerSpaced>
-      {allTokens.map((token) => {
-        return <TokenButton token={token} />;
+      {tokens.map((token, i) => {
+        return <TokenButton key={i} token={token} />;
       })}
       <Box h="50px" display="flex" flexDirection="row" alignItems="center">
         <Radio
@@ -63,7 +63,9 @@ export const TokenSelector = ({
           isChecked={selected === Manual}
           onChange={() => {
             setSelected(Manual);
-            setToken(manualInput);
+            if (manualInput && !isLoading && !error && tokenInfo) {
+              setToken(tokenInfo);
+            }
           }}
         >
           <Text>Manual:</Text>
@@ -75,7 +77,7 @@ export const TokenSelector = ({
             id="manualinput"
             name="manualinput"
             value={manualInput}
-            onChange={(event: any) => setmManualInput(event.target.value)}
+            onChange={(event: any) => setManualInput(event.target.value)}
           />
         )}
       </Box>

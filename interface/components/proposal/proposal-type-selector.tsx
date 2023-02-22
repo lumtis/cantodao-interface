@@ -24,12 +24,7 @@ const ProposalTypeList = [
   {
     proposalType: ProposalType.TransferTokens,
     title: "Transfer Tokens",
-    description: "Transfer tokens from the DAO treasury to an address",
-  },
-  {
-    proposalType: ProposalType.MintGovernanceTokens,
-    title: "Mint Tokens",
-    description: "Mint DAO governance tokens into the DAO treasury",
+    description: "Transfer ERC20 tokens from the DAO treasury to an address",
   },
 ];
 
@@ -78,10 +73,10 @@ export const ProposalTypeSelector = ({
           <ModalHeader>Select a proposal type</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {ProposalTypeList.map((p) => (
-              <ProposalTypeButton p={p} />
+            {ProposalTypeList.map((p, i) => (
+              <ProposalTypeButton key={i} p={p} />
             ))}
-            <Text m={4}>More proposal types to come in the future!</Text>
+            <Text m={4}>More proposal types to come!</Text>
           </ModalBody>
         </ModalContent>
       </Modal>

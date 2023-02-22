@@ -37,20 +37,18 @@ export const Balance = ({
     }
   }, [balance, setBalance]);
 
-  // TODO: handle errors
-  let balanceComp = <Spinner />;
-  if (
-    !isLoadingInfo &&
-    !isLoadingBalance &&
-    !errorInfo &&
-    !errorBalance &&
-    tokenInfo &&
-    balance
-  ) {
-    balanceComp = (
-      <Param name={tokenInfo?.name} value={FormatToken(balance, tokenInfo)} />
-    );
-  }
-
-  return balanceComp;
+  return (
+    <>
+      {!isLoadingInfo &&
+      !isLoadingBalance &&
+      !errorInfo &&
+      !errorBalance &&
+      tokenInfo &&
+      balance ? (
+        <Param name={tokenInfo?.name} value={FormatToken(balance, tokenInfo)} />
+      ) : (
+        <Spinner />
+      )}
+    </>
+  );
 };

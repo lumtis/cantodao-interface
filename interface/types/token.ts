@@ -1,8 +1,9 @@
 import { BigNumber, utils } from "ethers";
 
-export const DAOTokenDecinmals = 18;
+export const DAOTokenDecimals = 18;
 
 export type TokenInfo = {
+  address?: string;
   name?: string;
   symbol?: string;
   totalSupply?: BigNumber;
@@ -14,10 +15,10 @@ export const FormatToken = (
   tokenInfo: TokenInfo
 ): string => {
   return (
-    utils.formatUnits(amount, tokenInfo.decimals) + " " + tokenInfo?.symbol
+    utils.formatUnits(amount, tokenInfo.decimals) + "$" + tokenInfo?.symbol
   );
 };
 
-export const ParseToken = (amount: string, tokenInfo: TokenInfo): BigNumber => {
-  return utils.parseUnits(amount, tokenInfo.decimals);
+export const ParseToken = (amount: string, decimals: number): BigNumber => {
+  return utils.parseUnits(amount, decimals);
 };

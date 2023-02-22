@@ -71,8 +71,8 @@ export const VoteTurnout = ({
   return (
     <ContainerSpaced>
       <Text>
-        {turnoutText}: {turnoutPercent.toString()}% - quorum:{" "}
-        {quorumPercent.toString()}%
+        {turnoutText}: {turnoutPercent.toString()}% (quorum:{" "}
+        {quorumPercent.toString()}%)
       </Text>
       <Progress
         value={turnoutPercent.toNumber()}

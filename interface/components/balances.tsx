@@ -4,7 +4,6 @@ import { Balance } from "./balance";
 import { BalanceNative } from "./balance-native";
 import ContainerSpaced from "./ui/container-spaced";
 import { CopyCard } from "./ui/copy-card";
-import Param from "./ui/param";
 
 export const Balances = ({
   contractAddresses,
@@ -27,7 +26,6 @@ export const Balances = ({
           <BalanceNative holderAddress={holderAddress} />
         </Box>
       )}
-      <Param name="Canto Notes" value="0 NOTE" />
       {contractAddresses.map((contractAddress, index) => (
         <Box key={index}>
           <Balance

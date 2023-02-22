@@ -11,6 +11,7 @@ import { ProposalTypeSelector } from "../../../components/proposal/proposal-type
 import BoxW from "../../../components/ui/box";
 import ContainerPage from "../../../components/ui/container-page";
 import PageHeader from "../../../components/ui/page-header";
+import { RouteCard } from "../../../components/ui/route-card";
 import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../../layout/Layout";
 import { ProposalType } from "../../../types/proposal";
@@ -32,7 +33,13 @@ const CreateProposalPage = () => {
           <title>Create a proposal</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
+        <Box w="fit-content">
+          <RouteCard
+            arrowLeft={true}
+            cardText="Back to DAO"
+            route={"/dao/" + address}
+          />
+        </Box>
         <PageHeader
           title="Create a new proposal"
           imgSource="/static/images/satellite.png"
@@ -46,9 +53,7 @@ const CreateProposalPage = () => {
                 />
               )}
               {proposalType === ProposalType.TransferTokens && (
-                <CreateProposalTransferTokens
-                  proposerAddress={daoInfo.proposer}
-                />
+                <CreateProposalTransferTokens daoAddress={address as string} />
               )}
             </BoxW>
           ) : (

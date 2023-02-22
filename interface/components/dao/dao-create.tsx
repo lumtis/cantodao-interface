@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { BigNumber } from "ethers";
-
-import { Box, Input, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 import useTxCreateDAO from "../../hooks/txs/useTxCreateDAO";
+import { DAOTokenDecimals, ParseToken } from "../../types/token";
 import { TxInfo } from "../tx/tx-info";
 import Button from "../ui/button";
 import ContainerSpaced from "../ui/container-spaced";
+import Input from "../ui/input";
 
 export const CreateDAO = () => {
   const [daoName, setDaoName] = useState("My DAO");
@@ -28,14 +28,17 @@ export const CreateDAO = () => {
     daoImage,
     tokenName,
     tokenSymbol,
-    !Number.isNaN(supply) ? BigNumber.from(supply) : BigNumber.from(0)
+    ParseToken(tokenSupply, DAOTokenDecimals)
+    // !Number.isNaN(supply) ? BigNumber.from(supply) : BigNumber.from(0)
   );
   const txHash = data?.hash;
 
   return (
     <ContainerSpaced>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text mr={6}>DAO name: </Text>
+        <Text w="200px" mr={6}>
+          DAO name:{" "}
+        </Text>
         <Input
           width="fit-content"
           ml="auto"
@@ -46,7 +49,9 @@ export const CreateDAO = () => {
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text mr={6}>DAO image URL: </Text>
+        <Text w="200px" mr={6}>
+          DAO image URL:{" "}
+        </Text>
         <Input
           width="fit-content"
           ml="auto"
@@ -57,7 +62,9 @@ export const CreateDAO = () => {
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text mr={6}>DAO token name: </Text>
+        <Text w="200px" mr={6}>
+          DAO token name:{" "}
+        </Text>
         <Input
           width="fit-content"
           ml="auto"
@@ -68,7 +75,9 @@ export const CreateDAO = () => {
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text mr={6}>DAO token symbol: </Text>
+        <Text w="200px" mr={6}>
+          DAO token symbol:{" "}
+        </Text>
         <Input
           width="fit-content"
           ml="auto"
@@ -79,7 +88,9 @@ export const CreateDAO = () => {
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text mr={6}>Initial supply: </Text>
+        <Text w="200px" mr={6}>
+          Initial supply:{" "}
+        </Text>
         <Input
           width="fit-content"
           ml="auto"
@@ -87,6 +98,7 @@ export const CreateDAO = () => {
           name="tokenSupply"
           value={tokenSupply}
           type="number"
+          step="any"
           onChange={(event: any) => setTokenSupply(event.target.value || "0")}
         />
       </Box>

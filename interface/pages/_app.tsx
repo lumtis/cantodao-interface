@@ -16,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   // Use localhost
   // TODO: Implement mainnet support
   const { chains, provider } = configureChains(
-    [localhost, CantoTestnet],
+    [CantoTestnet, localhost],
     [publicProvider()]
   );
 

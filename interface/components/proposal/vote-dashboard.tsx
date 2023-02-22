@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { BigNumber } from "ethers";
+import { BigNumber, utils } from "ethers";
 
 import { Box, Radio, RadioGroup, Spinner, Text } from "@chakra-ui/react";
 
@@ -10,6 +10,7 @@ import useTxCastVote from "../../hooks/txs/ustTxCastVote";
 import useAccountWrapped from "../../hooks/useAccount";
 import { DAOInfo } from "../../types/dao";
 import { Proposal, Vote } from "../../types/proposal";
+import { DAOTokenDecimals } from "../../types/token";
 import { TxInfo } from "../tx/tx-info";
 import Button from "../ui/button";
 import ContainerSpaced from "../ui/container-spaced";
@@ -90,7 +91,10 @@ export const VoteDashboard = ({
   ) {
     return (
       <ContainerSpaced>
-        <Text>You have a voting power of {votes.toString()} vote(s)</Text>
+        <Text>
+          You have a voting power of{" "}
+          {utils.formatUnits(votes, DAOTokenDecimals)} vote(s)
+        </Text>
         <Text>Select a vote:</Text>
         <RadioGroup
           value={selectedVote}
@@ -125,7 +129,6 @@ export const VoteDashboard = ({
   return <Spinner />;
 };
 
-// TODO: Use Chakra theme for the Radio styles
 const RadioW = ({ value, text }: { value: string; text: string }) => {
   return (
     <Box>

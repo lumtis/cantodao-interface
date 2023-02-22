@@ -7,6 +7,7 @@ import { BlockIntervalToTime } from "../../types/evm";
 import { Proposal, ProposalContent, ProposalState } from "../../types/proposal";
 import ContainerSpaced from "../ui/container-spaced";
 import { CopyCard } from "../ui/copy-card";
+import { ProposalAction } from "./proposal-action";
 import { ProposalStateBox } from "./proposal-state-box";
 
 export const ProposalInfo = ({
@@ -60,12 +61,14 @@ export const ProposalInfo = ({
       <Text>Start time: {startTime}</Text>
       <Text>End time: {endTime}</Text>
       <Heading>Action:</Heading>
+      <ProposalAction proposalContent={proposalContent} />
+      {/* <Heading>Action:</Heading>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
         <Text mr={4}>Target address:</Text>
         <CopyCard address={proposalContent?.targetAddress?.[0]} />
       </Box>
       <Text>Amount: {amountStr}</Text>
-      <Text>Calldata: {calldata}</Text>
+      <Text>Calldata: {calldata}</Text> */}
     </ContainerSpaced>
   );
 };

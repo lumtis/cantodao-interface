@@ -6,6 +6,7 @@ import { blockTime } from "../../config/chain";
 import useQueryTokenInfo from "../../hooks/queries/useTokenInfo";
 import { DAOInfo } from "../../types/dao";
 import { BlocksToTime } from "../../types/evm";
+import { FormatToken } from "../../types/token";
 import ContainerSpaced from "../ui/container-spaced";
 import Param from "../ui/param";
 import ParamCopyCard from "../ui/param-copy-card";
@@ -54,12 +55,12 @@ export const Dao = ({
         </ContainerSpaced>
       )}
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Governance token:</Heading>
-      {!isLoading && !error && tokenInfo && daoInfo ? (
+      {!isLoading && !error && tokenInfo && tokenInfo.totalSupply && daoInfo ? (
         <ContainerSpaced>
           <Text>Name: {tokenInfo?.name}</Text>
           <Param
             name="Total supply"
-            value={tokenInfo?.totalSupply?.toString() + " " + tokenInfo?.symbol}
+            value={FormatToken(tokenInfo.totalSupply, tokenInfo)}
           />
           <ParamCopyCard name="Address" value={daoInfo?.token} />
         </ContainerSpaced>

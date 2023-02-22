@@ -11,10 +11,16 @@ const useTxProposeTransferTokens = (
   description: string
 ) => {
   const iface = new utils.Interface(erc20ABI);
-  const transferCalldata = iface.encodeFunctionData("transfer", [
-    recipient,
-    amount,
-  ]);
+  let transferCalldata = "0x";
+
+  try {
+    transferCalldata = iface.encodeFunctionData("transfer", [
+      recipient,
+      amount,
+    ]);
+  } catch (_) {
+    // Do nothing
+  }
 
   const { data, isLoading, isSuccess, write } = useTxPropose(
     contractAddress,

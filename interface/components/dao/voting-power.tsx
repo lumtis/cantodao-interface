@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { BigNumber } from "ethers";
+import { BigNumber, utils } from "ethers";
 
 import { Spinner, Text } from "@chakra-ui/react";
 
 import useQueryAvailableVotes from "../../hooks/queries/useQueryAvailableVotes";
 import useAccountWrapped from "../../hooks/useAccount";
 import { DAOInfo } from "../../types/dao";
+import { DAOTokenDecimals } from "../../types/token";
 import { Balance } from "../balance";
 import { Delegate } from "../delegate";
 import ContainerSpaced from "../ui/container-spaced";
@@ -27,7 +28,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const shoudlAcquireToken =
     balance && votes && balance.isZero() && votes.isZero();
 
-  // TODO: relative voting power
+  // TODO: Support voting power display for other voting types
   return (
     <ContainerSpaced>
       {isConnected && address && daoInfo?.token ? (
@@ -40,7 +41,10 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
         <Spinner />
       )}
       {votes && !error && !isLoading ? (
-        <Param name="Voting power" value={votes.toString() + " vote(s)"} />
+        <Param
+          name="Voting power"
+          value={utils.formatUnits(votes, DAOTokenDecimals)}
+        />
       ) : (
         <Spinner />
       )}

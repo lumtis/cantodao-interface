@@ -33,6 +33,7 @@ const useQueryTokenInfo = (contractAddress?: string) => {
   });
 
   const tokenInfo: TokenInfo = {
+    address,
     name: data?.[0] as string,
     symbol: data?.[1] as string,
     totalSupply: data?.[2] as BigNumber,

@@ -2,7 +2,7 @@ import { useBalance } from "wagmi";
 
 import { Spinner } from "@chakra-ui/react";
 
-import { NativeSymbol, NativeToken } from "../config/chain";
+import { NativeToken } from "../config/chain";
 import Param from "./ui/param";
 
 export const BalanceNative = ({ holderAddress }: { holderAddress: string }) => {
@@ -13,9 +13,7 @@ export const BalanceNative = ({ holderAddress }: { holderAddress: string }) => {
   // TODO: handle errors
   let balanceComp = <Spinner />;
   if (!isError && !isLoading && data) {
-    balanceComp = (
-      <Param name={NativeToken} value={data?.formatted + " " + NativeSymbol} />
-    );
+    balanceComp = <Param name={NativeToken} value={"⋐" + data?.formatted} />;
   }
 
   return balanceComp;

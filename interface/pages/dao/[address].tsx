@@ -14,6 +14,7 @@ import ContainerPage from "../../components/ui/container-page";
 import ContainerSpaced from "../../components/ui/container-spaced";
 import Divider from "../../components/ui/divider";
 import PageHeader from "../../components/ui/page-header";
+import { GetNoteAddress } from "../../config/addresses";
 import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
 import Layout from "../../layout/Layout";
 
@@ -54,7 +55,9 @@ const DaoPage = () => {
                         <Balances
                           holderAddress={daoInfo?.executor}
                           contractAddresses={
-                            daoInfo?.token ? [daoInfo?.token] : []
+                            daoInfo?.token
+                              ? [GetNoteAddress(), daoInfo?.token]
+                              : [GetNoteAddress()]
                           }
                           includeNative={true}
                         />
