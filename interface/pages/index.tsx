@@ -8,7 +8,7 @@ import { CantoTestnetNetwork } from "../config/addresses";
 import Layout from "../layout/Layout";
 
 const welcomeText =
-  "Cantodao is a DAO system built on Canto network. Cantodao is fully open-source, impregnated with the freedom culture of Canto, and is aimed to become the simplest and easiest-to-use DAO system.";
+  "Cantodao is a DAO platform built on Canto network. Cantodao is fully open-source, impregnated with the freedom culture of Canto, and is aimed to become the simplest and easiest-to-use DAO platform.";
 
 const arrow = "->";
 
@@ -51,7 +51,7 @@ const HomePage = () => {
                   {arrow} Explore the listed DAOs
                 </Text>
               </Link>
-              <Link href="/create">
+              <Link href="/create/dao">
                 <Text textAlign="left" fontSize="30px">
                   {arrow} Create your own DAO
                 </Text>

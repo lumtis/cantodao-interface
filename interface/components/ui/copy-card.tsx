@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import { FaCheckCircle } from "react-icons/fa";
-import { FiCopy } from "react-icons/fi";
+import { FaCheckCircle } from 'react-icons/fa';
+import { FiCopy } from 'react-icons/fi';
 
 import {
   Box,
@@ -11,7 +14,7 @@ import {
   Text,
   useClipboard,
   useColorMode,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 // import { CopyAddressType } from "../types";
 
@@ -111,8 +114,7 @@ export const CopyCard = ({
       isDisabled={!address && true}
       isLoading={isLoading}
       _hover={{
-        bg: "rgba(142, 142, 142, 0.05)",
-        borderColor: "secondarydark",
+        bg: "primarydarker",
       }}
       _focus={{
         outline: "none",
@@ -120,7 +122,6 @@ export const CopyCard = ({
       _disabled={{
         opacity: 0.6,
         cursor: "not-allowed",
-        borderColor: "rgba(142, 142, 142, 0.1)",
         _hover: {
           bg: "transparent",
         },

@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import Link from "next/link";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import Link from 'next/link';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+} from 'react-icons/ai';
 
-import { Box, Button, Icon, Image, Text, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Icon,
+  Image,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 
 const SIZES = {
   lg: {
@@ -101,8 +114,7 @@ export const RouteCard = ({
         isDisabled={!cardText && true}
         isLoading={isLoading}
         _hover={{
-          bg: "rgba(142, 142, 142, 0.05)",
-          borderColor: "secondarydark",
+          bg: "primarydarker",
         }}
         _focus={{
           outline: "none",
@@ -110,7 +122,6 @@ export const RouteCard = ({
         _disabled={{
           opacity: 0.6,
           cursor: "not-allowed",
-          borderColor: "rgba(142, 142, 142, 0.1)",
           _hover: {
             bg: "transparent",
           },

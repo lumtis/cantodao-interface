@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from '@chakra-ui/react';
 
 const ButtonW = ({ children, ...props }: any) => {
   return (
@@ -6,7 +6,7 @@ const ButtonW = ({ children, ...props }: any) => {
       bg="transparent"
       color="primary"
       _hover={{
-        bg: "primarydark",
+        bg: "primarydarker",
         color: "primary",
       }}
       border="4px"
