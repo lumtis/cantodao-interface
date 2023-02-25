@@ -1,36 +1,35 @@
 {
   "name": "cantodao",
   "version": "0.0.1",
+  "description": "CantoDAO interface",
   "license": "Apache-2.0",
-  "description": "DAOs for Canto",
   "scripts": {
-    "build": "hardhat compile",
-    "test": "hardhat test",
-    "console": "hardhat console",
-    "network": "hardhat node",
-    "deploy:local": "hardhat run --network localhost scripts/deployLocal.ts",
-    "deploy-factory:testnet": "hardhat run --network cantotest scripts/deployTestnetFactory.ts",
-    "deploy-daos:testnet": "hardhat run --network cantotest scripts/deployTestnetDaos.ts",
-    "block-number": "hardhat run --network localhost scripts/blockNumber.ts",
-    "mine-blocks": "hardhat run --network localhost scripts/mineBlocks.ts"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "2.0.12",
+    "@chakra-ui/react": "2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/vt323": "^4.5.10",
+    "ethers": "^5",
+    "framer-motion": "7.6.12",
+    "next": "12.2.5",
+    "pretty-ms": "^8.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.6.0",
+    "wagmi": "^0.11.5"
   },
   "devDependencies": {
-    "@openzeppelin/contracts": "^4.8.1",
-    "@nomicfoundation/hardhat-chai-matchers": "^1.0.5",
-    "@nomicfoundation/hardhat-network-helpers": "^1.0.7",
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "@nomiclabs/hardhat-ethers": "^2.2.2",
-    "@nomiclabs/hardhat-etherscan": "^3.1.5",
-    "@typechain/ethers-v5": "^10.2.0",
-    "@typechain/hardhat": "^6.1.5",
-    "@types/mocha": "^10.0.1",
-    "chai": "^4.3.7",
-    "ethers": "^5.7.2",
-    "hardhat": "^2.12.6",
-    "hardhat-gas-reporter": "^1.0.9",
-    "solidity-coverage": "^0.8.2",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.1.1",
-    "typescript": "^4.9.5"
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "typescript": "4.9.3"
   }
 }
