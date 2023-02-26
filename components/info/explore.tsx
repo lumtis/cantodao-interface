@@ -17,7 +17,7 @@ export const ExploreInfo = () => {
       <Divider />
       <Text>
         To list all DAOs you can also run the front-end locally and set
-        `PERMISSIONLESS_LISTING` to `true` in the `.env` file
+        `NEXT_PUBLIC_PERMISSIONLESS` to `true` in the `.env` file
       </Text>
     </ContainerSpaced>
   );
