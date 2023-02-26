@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
 
 import TestnetDisclaimer from "../components/disclaimer-testnet";
+import AnimatedUpDown from "../components/ui/animated-updown";
 import ContainerPage from "../components/ui/container-page";
 import { CantoTestnetNetwork } from "../config/addresses";
 import Layout from "../layout/Layout";
@@ -25,7 +26,12 @@ const HomePage = () => {
           {process.env.NEXT_PUBLIC_NETWORK === CantoTestnetNetwork && (
             <TestnetDisclaimer />
           )}
-          <Image m="auto" src="/static/images/man.png" maxW={20} maxH={20} />
+          <Image
+            m="auto"
+            src="/static/images/greeting.png"
+            maxW={20}
+            maxH={20}
+          />
           <Heading>Welcome to cantodao</Heading>
           <Box display="flex" flexDirection="row" alignItems="center">
             <Text
@@ -38,10 +44,20 @@ const HomePage = () => {
             >
               {welcomeText}
             </Text>
-            <Image m="auto" src="/static/images/space.png" w={500} />
+            <AnimatedUpDown height={50} duration={1000}>
+              <Image m="auto" src="/static/images/space.png" w={300} />
+            </AnimatedUpDown>
           </Box>
           <Box display="flex" flexDirection="row" alignItems="flex-end">
-            <Image m="auto" src="/static/images/beach.png" w={300} />
+            <AnimatedUpDown
+              width={150}
+              margin="auto"
+              height={60}
+              duration={800}
+            >
+              <Image m="auto" src="/static/images/ship1.png" w={150} />
+            </AnimatedUpDown>
+
             <Box ml="40px" mt="20" mb="20" w={600}>
               <Text textAlign="left" fontSize="40px">
                 Getting started

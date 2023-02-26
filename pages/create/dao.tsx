@@ -32,7 +32,7 @@ const CreateDAOPage = () => {
         <Box>
           <PageHeader
             title="Recently deployed (last 4 hours)"
-            imgSource="/static/images/satellite.png"
+            imgSource="/static/images/ship2.png"
           />
           <Box m="auto">
             <RecentlyDeployed blockCount={BLOCK_COUNT} />

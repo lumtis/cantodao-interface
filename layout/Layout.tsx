@@ -8,7 +8,7 @@ const Layout = ({ children }: any) => {
   return (
     <>
       <Header />
-      <Box pt="10" backgroundColor={"dark"}>
+      <Box pt="10" backgroundColor={"dark"} minH="100vh">
         {children}
       </Box>
       <Footer />

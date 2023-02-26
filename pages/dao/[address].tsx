@@ -48,7 +48,7 @@ const DaoPage = () => {
                   <Box ml={20} w="100%">
                     <PageHeader
                       title="Treasury"
-                      imgSource="/static/images/chest.png"
+                      imgSource="/static/images/cart.png"
                     />
                     <BoxW w="100%" mb="40px">
                       <ContainerSpaced>
@@ -68,7 +68,7 @@ const DaoPage = () => {
                     </BoxW>
                     <PageHeader
                       title="Membership"
-                      imgSource="/static/images/fist.png"
+                      imgSource="/static/images/cosmonaut.png"
                     />
                     <BoxW w="100%">
                       <ContainerSpaced>
@@ -81,7 +81,7 @@ const DaoPage = () => {
                 <Box display="flex" flexDirection="row" alignItems="center">
                   <PageHeader
                     title="Proposals"
-                    imgSource="/static/images/scroll.png"
+                    imgSource="/static/images/satellite.png"
                   />
                   <Link href={"/create/proposal/" + address}>
                     <Button fontSize="20px" m="auto">

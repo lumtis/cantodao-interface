@@ -1,15 +1,27 @@
-import { Box } from "@chakra-ui/react";
+import { FaGithub } from "react-icons/fa";
+
+import { Box, Icon, Link, Text } from "@chakra-ui/react";
 
 // TODOHERE: implement regular footer
 const Footer = () => {
   return (
     <Box
       as="footer"
-      backgroundColor={"dark"}
+      backgroundColor={"darker"}
       textAlign="center"
-      p={20}
+      width="100%"
+      p={10}
+      top="100vh"
       bottom={0}
-    ></Box>
+      marginTop={20}
+    >
+      <Text>
+        cantodao |{" "}
+        <Link href="https://github.com/lumtis/cantodao">
+          <Icon as={FaGithub} color={"primary"} />
+        </Link>
+      </Text>
+    </Box>
   );
 };
 

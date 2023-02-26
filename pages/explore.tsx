@@ -1,15 +1,18 @@
-import Head from "next/head";
+import Head from 'next/head';
 
-import { Box } from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react';
 
-import { Daos } from "../components/dao/daos";
-import { FactoryDAOs } from "../components/dao/factory-daos";
-import { ExploreInfo } from "../components/info/explore";
-import InfoBox from "../components/infobox";
-import ContainerPage from "../components/ui/container-page";
-import PageHeader from "../components/ui/page-header";
-import { GetDaoFactoryAddress, GetDaoListAddresses } from "../config/addresses";
-import Layout from "../layout/Layout";
+import { Daos } from '../components/dao/daos';
+import { FactoryDAOs } from '../components/dao/factory-daos';
+import { ExploreInfo } from '../components/info/explore';
+import InfoBox from '../components/infobox';
+import ContainerPage from '../components/ui/container-page';
+import PageHeader from '../components/ui/page-header';
+import {
+  GetDaoFactoryAddress,
+  GetDaoListAddresses,
+} from '../config/addresses';
+import Layout from '../layout/Layout';
 
 const ExplorePage = () => {
   const daoList = GetDaoListAddresses();
@@ -27,7 +30,7 @@ const ExplorePage = () => {
           <Box display="flex" flexDirection="row" alignItems="flex-start">
             <PageHeader
               title="Explore DAOs"
-              imgSource="/static/images/ship.png"
+              imgSource="/static/images/explorer.png"
               mr={4}
             />
             <InfoBox heading="Explore DAOs">
