@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import {
   Box,
@@ -10,14 +10,14 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import useTxDelegate from "../hooks/txs/useTxDelegate";
-import { NullAddress } from "../types/evm";
-import { TxInfo } from "./tx/tx-info";
-import Button from "./ui/button";
-import ContainerSpaced from "./ui/container-spaced";
-import Input from "./ui/input";
+import useTxDelegate from '../hooks/txs/useTxDelegate';
+import { NullAddress } from '../types/evm';
+import { TxInfo } from './tx/tx-info';
+import Button from './ui/button';
+import ContainerSpaced from './ui/container-spaced';
+import Input from './ui/input';
 
 export const Delegate = ({
   header,
@@ -38,7 +38,7 @@ export const Delegate = ({
     isLoading: isLoadingTx,
     isSuccess: isSuccessTx,
     write,
-  } = useTxDelegate(address, defaultRecipient);
+  } = useTxDelegate(defaultRecipient || NullAddress, address);
   const txHash = data?.hash;
 
   return (

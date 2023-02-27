@@ -1,11 +1,11 @@
-import { BigNumber } from "ethers";
-import { useContractRead } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractRead } from 'wagmi';
 
-import DAOFactory from "../../abis/DAOFactory.json";
+import { DAOFactory__factory } from '../../types/ethers-contracts';
 
 export const useQueryFactoryDAO = (
-  factoryAddress: `0x${string}`,
-  daoIndex: BigNumber
+  daoIndex: BigNumber,
+  factoryAddress: `0x${string}`
 ) => {
   const {
     data: daoAddress,
@@ -17,7 +17,7 @@ export const useQueryFactoryDAO = (
     isLoading: boolean;
   } = useContractRead({
     address: factoryAddress,
-    abi: DAOFactory.abi,
+    abi: DAOFactory__factory.abi,
     functionName: "getDAO",
     args: [daoIndex],
   });

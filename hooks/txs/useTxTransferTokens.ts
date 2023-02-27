@@ -1,10 +1,14 @@
-import { BigNumber } from "ethers";
-import { erc20ABI, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { BigNumber } from 'ethers';
+import {
+  erc20ABI,
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi';
 
 const useTxTransferTokens = (
-  contractAddress: string,
   targetAddress: string,
-  amount: BigNumber
+  amount: BigNumber,
+  contractAddress?: string
 ) => {
   const address = contractAddress as `0x${string}`;
   const abi = erc20ABI;

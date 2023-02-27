@@ -1,9 +1,9 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Spinner } from "@chakra-ui/react";
+import { Spinner } from '@chakra-ui/react';
 
-import { useQueryFactoryDAO } from "../../hooks/queries/useQueryFactoryDAO";
-import { DaoCard } from "./dao-card";
+import { useQueryFactoryDAO } from '../../hooks/queries/useQueryFactoryDAO';
+import { DaoCard } from './dao-card';
 
 export const DaoCardFromId = ({
   daoId,
@@ -13,8 +13,8 @@ export const DaoCardFromId = ({
   daoFactoryAddress: `0x${string}`;
 }) => {
   const { daoAddress, error, isLoading } = useQueryFactoryDAO(
-    daoFactoryAddress,
-    daoId
+    daoId,
+    daoFactoryAddress
   );
   return (
     <>

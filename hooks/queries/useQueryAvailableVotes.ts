@@ -1,11 +1,11 @@
-import { BigNumber } from "ethers";
-import { useContractRead } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractRead } from 'wagmi';
 
-import DAOToken from "../../abis/DAOToken.json";
+import { DAOToken__factory } from '../../types/ethers-contracts';
 
 const useQueryAvailableVotes = (
-  contractAddress?: string,
-  holderAddress?: string
+  holderAddress: string,
+  contractAddress?: string
 ): {
   votes?: BigNumber;
   error: Error | null;
@@ -23,9 +23,9 @@ const useQueryAvailableVotes = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOToken.abi,
+    abi: DAOToken__factory.abi,
     functionName: "getVotes",
-    args: [holderAddress],
+    args: [holderAddress as `0x${string}`],
   });
 
   return { votes, error, isLoading };

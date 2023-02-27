@@ -1,8 +1,11 @@
-import { erc20ABI, useContractRead } from "wagmi";
+import {
+  erc20ABI,
+  useContractRead,
+} from 'wagmi';
 
 const useQueryTokenBalance = (
-  contractAddress?: string,
   holderAddress?: string
+  contractAddress?: string,
 ) => {
   const address = contractAddress as `0x${string}`;
 

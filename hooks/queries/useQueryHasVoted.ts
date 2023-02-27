@@ -1,13 +1,13 @@
-import { BigNumber } from "ethers";
-import { useContractRead } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractRead } from 'wagmi';
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
-import { NullAddress } from "../../types/evm";
+import { DAOGovernor__factory } from '../../types/ethers-contracts';
+import { NullAddress } from '../../types/evm';
 
 const useQueryHasVoted = (
-  contractAddress?: string,
   proposalId?: BigNumber,
-  voter?: string
+  voter?: string,
+  contractAddress?: string
 ): {
   voted?: boolean;
   error: Error | null;
@@ -25,9 +25,12 @@ const useQueryHasVoted = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOGovernor.abi,
+    abi: DAOGovernor__factory.abi,
     functionName: "hasVoted",
-    args: [proposalId || 0, voter || NullAddress],
+    args: [
+      proposalId || BigNumber.from(0),
+      (voter as `0x${string}`) || NullAddress,
+    ],
   });
 
   return { voted, error, isLoading };

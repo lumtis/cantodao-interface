@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { BigNumber, utils } from "ethers";
+import {
+  BigNumber,
+  utils,
+} from 'ethers';
 
-import { Spinner, Text } from "@chakra-ui/react";
+import {
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryAvailableVotes from "../../hooks/queries/useQueryAvailableVotes";
-import useAccountWrapped from "../../hooks/useAccount";
-import { DAOInfo } from "../../types/dao";
-import { DAOTokenDecimals } from "../../types/token";
-import { Balance } from "../balance";
-import { Delegate } from "../delegate";
-import ContainerSpaced from "../ui/container-spaced";
-import Divider from "../ui/divider";
-import Param from "../ui/param";
+import useQueryAvailableVotes from '../../hooks/queries/useQueryAvailableVotes';
+import useAccountWrapped from '../../hooks/useAccount';
+import { DAOInfo } from '../../types/dao';
+import { NullAddress } from '../../types/evm';
+import { DAOTokenDecimals } from '../../types/token';
+import { Balance } from '../balance';
+import { Delegate } from '../delegate';
+import ContainerSpaced from '../ui/container-spaced';
+import Divider from '../ui/divider';
+import Param from '../ui/param';
 
 export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const { address, isConnected } = useAccountWrapped();
   const [balance, setBalance] = useState<BigNumber | undefined>(undefined);
 
   const { votes, error, isLoading } = useQueryAvailableVotes(
-    daoInfo?.token,
-    address
+    address || NullAddress,
+    daoInfo?.token
   );
 
   const selfDelegateAvailable = balance && votes && balance.gt(votes);

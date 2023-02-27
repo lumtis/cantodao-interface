@@ -1,12 +1,16 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Spinner, Text } from "@chakra-ui/react";
+import {
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryPastTotalSupply from "../../hooks/queries/useQueryPastTotalSupply";
-import { DAOInfo } from "../../types/dao";
-import { Proposal } from "../../types/proposal";
-import ContainerSpaced from "../ui/container-spaced";
-import Progress from "../ui/progress";
+import useQueryPastTotalSupply
+  from '../../hooks/queries/useQueryPastTotalSupply';
+import { DAOInfo } from '../../types/dao';
+import { Proposal } from '../../types/proposal';
+import ContainerSpaced from '../ui/container-spaced';
+import Progress from '../ui/progress';
 
 export const VoteTurnout = ({
   proposal,
@@ -21,7 +25,10 @@ export const VoteTurnout = ({
     pastTotalSupply,
     error: errorTotalSupply,
     isLoading: isLoadingTotalSupply,
-  } = useQueryPastTotalSupply(daoInfo?.token, proposal?.startBlock);
+  } = useQueryPastTotalSupply(
+    proposal?.startBlock || BigNumber.from(0),
+    daoInfo?.token
+  );
 
   // Compute quorum
   const quorumPercent =

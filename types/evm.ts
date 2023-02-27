@@ -1,6 +1,7 @@
-import ms from "pretty-ms";
+import ms from 'pretty-ms';
 
-export const NullAddress = "0x0000000000000000000000000000000000000000";
+export const NullAddress: `0x${string}` =
+  "0x0000000000000000000000000000000000000000";
 
 export const BlocksToTime = (blocks: number, blockTime: number): string => {
   return ms(blocks * blockTime * 1000);

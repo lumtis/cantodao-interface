@@ -1,8 +1,13 @@
-import { BigNumber } from "ethers";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { BigNumber } from 'ethers';
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi';
 
-import DAOFactory from "../../abis/DAOFactory.json";
-import { GetDaoFactoryAddress } from "../../config/addresses";
+import { GetDaoFactoryAddress } from '../../config/addresses';
+import {
+  DAOFactory__factory,
+} from '../../types/ethers-contracts/factories/DAOFactory__factory';
 
 const useTxCreateDAO = (
   daoName: string,
@@ -13,7 +18,7 @@ const useTxCreateDAO = (
 ) => {
   const { config } = usePrepareContractWrite({
     address: GetDaoFactoryAddress(),
-    abi: DAOFactory.abi,
+    abi: DAOFactory__factory.abi,
     functionName: "createDAO",
     args: [daoName, imageURL, tokenName, tokenSymbol, tokenSupply],
   });

@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from 'react';
 
-import { ethers } from "ethers";
-import { useBlockNumber, useProvider } from "wagmi";
+import { ethers } from 'ethers';
+import {
+  useBlockNumber,
+  useProvider,
+} from 'wagmi';
 
-import DAOFactory from "../abis/DAOFactory.json";
-import { GetDaoFactoryAddress } from "../config/addresses";
+import { GetDaoFactoryAddress } from '../config/addresses';
+import { DAOFactory__factory } from '../types/ethers-contracts';
 
 // Retrieved deployed DAOs by an address
 // blockCount is the number of last blocks to reach for the events
@@ -23,10 +29,13 @@ const useRetrieveDeployerDAOs = (blockCount: number, deployer?: string) => {
 
   // factory address and abi
   const factoryAddress = GetDaoFactoryAddress();
-  const factoryAbi = DAOFactory.abi;
 
   // create event filter
-  const contract = new ethers.Contract(factoryAddress, factoryAbi, provider);
+  const contract = new ethers.Contract(
+    factoryAddress,
+    DAOFactory__factory.abi,
+    provider
+  );
   const eventSignature = ethers.utils.id(
     "DAOCreated(address,address,address,address,address)"
   );

@@ -1,12 +1,12 @@
-import { BigNumber } from "ethers";
-import { useContractReads } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractReads } from 'wagmi';
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
-import { DAOInfo } from "../../types/dao";
+import { DAOInfo } from '../../types/dao';
+import { DAOGovernor__factory } from '../../types/ethers-contracts';
 
 // Query different info of the DAO
 const useQueryDAOInfo = (contractAddress?: string) => {
-  const abi = DAOGovernor.abi;
+  const abi = DAOGovernor__factory.abi;
   const address = contractAddress as `0x${string}`;
 
   const { data, error, isLoading } = useContractReads({
@@ -44,11 +44,6 @@ const useQueryDAOInfo = (contractAddress?: string) => {
       {
         address,
         abi,
-        functionName: "timelock",
-      },
-      {
-        address,
-        abi,
         functionName: "proposer",
       },
       {
@@ -66,9 +61,8 @@ const useQueryDAOInfo = (contractAddress?: string) => {
     votingDelay: data?.[3] as BigNumber,
     votingPeriod: data?.[4] as BigNumber,
     token: data?.[5] as string,
-    executor: data?.[6] as string,
-    proposer: data?.[7] as string,
-    imageURL: data?.[8] as string,
+    proposer: data?.[6] as string,
+    imageURL: data?.[7] as string,
   };
 
   return { daoInfo, error, isLoading };

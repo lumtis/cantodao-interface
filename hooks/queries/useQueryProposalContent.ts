@@ -1,12 +1,15 @@
-import { BigNumber } from "ethers";
-import { useContractRead } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractRead } from 'wagmi';
 
-import DAOProposer from "../../abis/DAOProposer.json";
-import { NewProposalContent, ProposalContent } from "../../types/proposal";
+import { DAOProposer__factory } from '../../types/ethers-contracts';
+import {
+  NewProposalContent,
+  ProposalContent,
+} from '../../types/proposal';
 
 const useQueryProposalContent = (
-  contractAddress?: string,
-  proposalId?: BigNumber
+  proposalId?: BigNumber,
+  contractAddress?: string
 ): {
   proposalContent?: ProposalContent;
   error: Error | null;
@@ -24,9 +27,9 @@ const useQueryProposalContent = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOProposer.abi,
+    abi: DAOProposer__factory.abi,
     functionName: "getProposalContent",
-    args: [proposalId || 0],
+    args: [proposalId || BigNumber.from(0)],
   });
 
   const proposalContent = NewProposalContent(

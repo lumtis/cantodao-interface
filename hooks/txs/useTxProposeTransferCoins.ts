@@ -1,19 +1,19 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import useTxPropose from "./useTxPropose";
+import useTxPropose from './useTxPropose';
 
 const useTxProposeTransferCoins = (
-  contractAddress: string,
   recipient: string,
   amount: BigNumber,
-  description: string
+  description: string,
+  contractAddress: string
 ) => {
   const { data, isLoading, isSuccess, write } = useTxPropose(
-    contractAddress,
     recipient,
     amount,
     "0x",
-    description
+    description,
+    contractAddress
   );
 
   return { data, isLoading, isSuccess, write };

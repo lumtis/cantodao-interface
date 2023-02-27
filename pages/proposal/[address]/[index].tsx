@@ -1,30 +1,40 @@
-import { BigNumber } from "ethers";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useBlockNumber } from "wagmi";
+import { BigNumber } from 'ethers';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useBlockNumber } from 'wagmi';
 
-import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Image,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import { ExecutionDashboard } from "../../../components/proposal/execution-dashboard";
-import { ProposalInfo } from "../../../components/proposal/proposal-info";
-import { VoteDashboard } from "../../../components/proposal/vote-dashboard";
-import { VoteResults } from "../../../components/proposal/vote-results";
-import { VoteTurnout } from "../../../components/proposal/vote-turnout";
-import BoxW from "../../../components/ui/box";
-import ContainerPage from "../../../components/ui/container-page";
-import PageHeader from "../../../components/ui/page-header";
-import { RouteCard } from "../../../components/ui/route-card";
-import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
-import useQueryProposal from "../../../hooks/queries/useQueryProposal";
-import useQueryProposalContent from "../../../hooks/queries/useQueryProposalContent";
-import useQueryProposalID from "../../../hooks/queries/useQueryProposalID";
-import useQueryProposalState from "../../../hooks/queries/useQueryProposalState";
-import Layout from "../../../layout/Layout";
+import {
+  ExecutionDashboard,
+} from '../../../components/proposal/execution-dashboard';
+import { ProposalInfo } from '../../../components/proposal/proposal-info';
+import { VoteDashboard } from '../../../components/proposal/vote-dashboard';
+import { VoteResults } from '../../../components/proposal/vote-results';
+import { VoteTurnout } from '../../../components/proposal/vote-turnout';
+import BoxW from '../../../components/ui/box';
+import ContainerPage from '../../../components/ui/container-page';
+import PageHeader from '../../../components/ui/page-header';
+import { RouteCard } from '../../../components/ui/route-card';
+import useQueryDAOInfo from '../../../hooks/queries/useQueryDAOInfo';
+import useQueryProposal from '../../../hooks/queries/useQueryProposal';
+import useQueryProposalContent
+  from '../../../hooks/queries/useQueryProposalContent';
+import useQueryProposalID from '../../../hooks/queries/useQueryProposalID';
+import useQueryProposalState
+  from '../../../hooks/queries/useQueryProposalState';
+import Layout from '../../../layout/Layout';
 import {
   ProposalState,
   VoteState,
   VoteStateFromBlockNumber,
-} from "../../../types/proposal";
+} from '../../../types/proposal';
 
 const ProposalPage = () => {
   const router = useRouter();
@@ -52,22 +62,22 @@ const ProposalPage = () => {
     proposalID,
     error: errorID,
     isLoading: isLoadingID,
-  } = useQueryProposalID(daoInfo?.proposer as string, indexNumber);
+  } = useQueryProposalID(indexNumber, daoInfo?.proposer as string);
   const {
     proposalContent,
     error: errorContent,
     isLoading: isLoadingContent,
-  } = useQueryProposalContent(daoInfo?.proposer as string, proposalID);
+  } = useQueryProposalContent(proposalID, daoInfo?.proposer as string);
   let {
     proposalState,
     error: errorState,
     isLoading: isLoadingState,
-  } = useQueryProposalState(address as string, proposalID);
+  } = useQueryProposalState(proposalID, address as string);
   const {
     proposal,
     error: errorProposal,
     isLoading: isLoadingProposal,
-  } = useQueryProposal(address as string, proposalID);
+  } = useQueryProposal(proposalID, address as string);
 
   if (!proposalState) {
     proposalState = ProposalState.Pending;
