@@ -1,22 +1,26 @@
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import { Balances } from "../../components/balances";
-import { Dao } from "../../components/dao/dao";
-import { VotingPower } from "../../components/dao/voting-power";
-import { Proposals } from "../../components/proposal/proposals";
-import BoxW from "../../components/ui/box";
-import Button from "../../components/ui/button";
-import ContainerPage from "../../components/ui/container-page";
-import ContainerSpaced from "../../components/ui/container-spaced";
-import Divider from "../../components/ui/divider";
-import PageHeader from "../../components/ui/page-header";
-import { GetNoteAddress } from "../../config/addresses";
-import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
-import Layout from "../../layout/Layout";
+import { Balances } from '../../components/balances';
+import { Dao } from '../../components/dao/dao';
+import { VotingPower } from '../../components/dao/voting-power';
+import { Proposals } from '../../components/proposal/proposals';
+import BoxW from '../../components/ui/box';
+import Button from '../../components/ui/button';
+import ContainerPage from '../../components/ui/container-page';
+import ContainerSpaced from '../../components/ui/container-spaced';
+import Divider from '../../components/ui/divider';
+import PageHeader from '../../components/ui/page-header';
+import { GetNoteAddress } from '../../config/addresses';
+import useQueryDAOInfo from '../../hooks/queries/useQueryDAOInfo';
+import Layout from '../../layout/Layout';
 
 // TODO: create a DAO balance component
 const DaoPage = () => {
@@ -53,7 +57,7 @@ const DaoPage = () => {
                     <BoxW w="100%" mb="40px">
                       <ContainerSpaced>
                         <Balances
-                          holderAddress={daoInfo?.executor}
+                          holderAddress={address as string}
                           contractAddresses={
                             daoInfo?.token
                               ? [GetNoteAddress(), daoInfo?.token]

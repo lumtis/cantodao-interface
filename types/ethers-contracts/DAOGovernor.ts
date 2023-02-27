@@ -58,6 +58,7 @@ export interface DAOGovernorInterface extends utils.Interface {
     "quorumDenominator()": FunctionFragment;
     "quorumNumerator(uint256)": FunctionFragment;
     "quorumNumerator()": FunctionFragment;
+    "quorumVotes(uint256)": FunctionFragment;
     "relay(address,uint256,bytes)": FunctionFragment;
     "state(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
@@ -98,6 +99,7 @@ export interface DAOGovernorInterface extends utils.Interface {
       | "quorumDenominator"
       | "quorumNumerator(uint256)"
       | "quorumNumerator()"
+      | "quorumVotes"
       | "relay"
       | "state"
       | "supportsInterface"
@@ -271,6 +273,10 @@ export interface DAOGovernorInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "quorumVotes",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "relay",
     values: [
       PromiseOrValue<string>,
@@ -384,6 +390,10 @@ export interface DAOGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "quorumNumerator()",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "quorumVotes",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "relay", data: BytesLike): Result;
@@ -702,6 +712,11 @@ export interface DAOGovernor extends BaseContract {
 
     "quorumNumerator()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    quorumVotes(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     relay(
       target: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
@@ -892,6 +907,11 @@ export interface DAOGovernor extends BaseContract {
 
   "quorumNumerator()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  quorumVotes(
+    proposalId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   relay(
     target: PromiseOrValue<string>,
     value: PromiseOrValue<BigNumberish>,
@@ -1081,6 +1101,11 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<BigNumber>;
 
     "quorumNumerator()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    quorumVotes(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     relay(
       target: PromiseOrValue<string>,
@@ -1339,6 +1364,11 @@ export interface DAOGovernor extends BaseContract {
 
     "quorumNumerator()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    quorumVotes(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     relay(
       target: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
@@ -1525,6 +1555,11 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     "quorumNumerator()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    quorumVotes(
+      proposalId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

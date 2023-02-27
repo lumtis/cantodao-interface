@@ -27,8 +27,10 @@ export interface DAOProposerInterface extends utils.Interface {
   functions: {
     "daoGovernor()": FunctionFragment;
     "getProposalContent(uint256)": FunctionFragment;
+    "getProposalCreator(uint256)": FunctionFragment;
     "proposalContents(uint256)": FunctionFragment;
     "proposalCount()": FunctionFragment;
+    "proposalCreator(uint256)": FunctionFragment;
     "proposalIDs(uint256)": FunctionFragment;
     "propose(address[],uint256[],bytes[],string)": FunctionFragment;
     "setGovernor(address)": FunctionFragment;
@@ -38,8 +40,10 @@ export interface DAOProposerInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "daoGovernor"
       | "getProposalContent"
+      | "getProposalCreator"
       | "proposalContents"
       | "proposalCount"
+      | "proposalCreator"
       | "proposalIDs"
       | "propose"
       | "setGovernor"
@@ -54,12 +58,20 @@ export interface DAOProposerInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getProposalCreator",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "proposalContents",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "proposalCount",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "proposalCreator",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "proposalIDs",
@@ -88,11 +100,19 @@ export interface DAOProposerInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getProposalCreator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "proposalContents",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "proposalCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "proposalCreator",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -142,12 +162,22 @@ export interface DAOProposer extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string[], BigNumber[], string[], string]>;
 
+    getProposalCreator(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string] & { description: string }>;
 
     proposalCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    proposalCreator(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     proposalIDs(
       arg0: PromiseOrValue<BigNumberish>,
@@ -175,12 +205,22 @@ export interface DAOProposer extends BaseContract {
     overrides?: CallOverrides
   ): Promise<[string[], BigNumber[], string[], string]>;
 
+  getProposalCreator(
+    id: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   proposalContents(
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
 
   proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  proposalCreator(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   proposalIDs(
     arg0: PromiseOrValue<BigNumberish>,
@@ -208,12 +248,22 @@ export interface DAOProposer extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string[], BigNumber[], string[], string]>;
 
+    getProposalCreator(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proposalCreator(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     proposalIDs(
       arg0: PromiseOrValue<BigNumberish>,
@@ -244,12 +294,22 @@ export interface DAOProposer extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getProposalCreator(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proposalCreator(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     proposalIDs(
       arg0: PromiseOrValue<BigNumberish>,
@@ -278,12 +338,22 @@ export interface DAOProposer extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getProposalCreator(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     proposalCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    proposalCreator(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     proposalIDs(
       arg0: PromiseOrValue<BigNumberish>,
