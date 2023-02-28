@@ -1,15 +1,21 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Image,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import { blockTime } from "../../config/chain";
-import useQueryTokenInfo from "../../hooks/queries/useTokenInfo";
-import { DAOInfo } from "../../types/dao";
-import { BlocksToTime } from "../../types/evm";
-import { FormatToken } from "../../types/token";
-import ContainerSpaced from "../ui/container-spaced";
-import Param from "../ui/param";
-import ParamCopyCard from "../ui/param-copy-card";
+import { blockTime } from '../../config/chain';
+import useQueryTokenInfo from '../../hooks/queries/useTokenInfo';
+import { DAOInfo } from '../../types/dao';
+import { BlocksToTime } from '../../types/evm';
+import { FormatToken } from '../../types/token';
+import ContainerSpaced from '../ui/container-spaced';
+import Param from '../ui/param';
+import ParamCopyCard from '../ui/param-copy-card';
 
 export const Dao = ({
   daoInfo,
@@ -27,12 +33,7 @@ export const Dao = ({
   );
 
   // Get quorum
-  const quorumPercent =
-    daoInfo?.quorumVotes &&
-    tokenInfo?.totalSupply &&
-    !tokenInfo.totalSupply.isZero()
-      ? daoInfo?.quorumVotes?.mul(100).div(tokenInfo.totalSupply)
-      : BigNumber.from(0);
+  const quorumPercent = daoInfo?.quorumNumerator || BigNumber.from(0);
 
   return (
     <ContainerSpaced>

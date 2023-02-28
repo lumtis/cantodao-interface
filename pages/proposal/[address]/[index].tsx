@@ -180,6 +180,7 @@ const ProposalPage = () => {
                   </Box>
                   <Box w="60%">
                     <VoteTurnout
+                      proposalID={proposalID}
                       proposal={proposal}
                       daoInfo={daoInfo}
                       finished={voteState === VoteState.Ended}

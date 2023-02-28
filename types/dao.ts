@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 // Regular info of a DAO
 export type DAOInfo = {
   name?: string;
-  quorumVotes?: BigNumber;
+  quorumNumerator?: BigNumber;
   proposalThreshold?: BigNumber;
   votingDelay?: BigNumber;
   votingPeriod?: BigNumber;
