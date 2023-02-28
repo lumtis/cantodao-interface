@@ -23,14 +23,14 @@ export const ProposalCard = ({
   proposalIndex: BigNumber;
 }) => {
   const { proposalID, error, isLoading } = useQueryProposalID(
-    proposerContract,
-    proposalIndex
+    proposalIndex,
+    proposerContract
   );
   let {
     proposalState,
     error: errorState,
     isLoading: isLoadingState,
-  } = useQueryProposalState(governorContract, proposalID);
+  } = useQueryProposalState(proposalID, governorContract);
 
   const route = (dao: string, proposalIndex: BigNumber) => {
     return "/proposal/" + dao + "/" + proposalIndex.toString();

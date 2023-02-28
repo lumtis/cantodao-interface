@@ -1,26 +1,29 @@
-import { utils } from "ethers";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { utils } from 'ethers';
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi';
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
-import { ProposalContent } from "../../types/proposal";
+import { DAOGovernor__factory } from '../../types/ethers-contracts';
+import { ProposalContent } from '../../types/proposal';
 
 const useTxExecuteProposal = (
-  contractAddress: string,
-  proposalContent: ProposalContent
+  proposalContent: ProposalContent,
+  contractAddress: string
 ) => {
   const address = contractAddress as `0x${string}`;
-  const abi = DAOGovernor.abi;
+  const abi = DAOGovernor__factory.abi;
   const descriptionHash = utils.id(proposalContent.description);
 
   const { config } = usePrepareContractWrite({
     address,
     abi,
-    functionName: "execute(address[],uint256[],bytes[],bytes32)",
+    functionName: "execute",
     args: [
-      proposalContent.targetAddress,
+      proposalContent.targetAddress as `0x${string}`[],
       proposalContent.amount,
-      proposalContent.calldata,
-      descriptionHash,
+      proposalContent.calldata as `0x${string}`[],
+      descriptionHash as `0x${string}`,
     ],
   });
   const { data, isLoading, isSuccess, write } = useContractWrite(config);

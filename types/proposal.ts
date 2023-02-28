@@ -1,4 +1,7 @@
-import { BigNumber, BytesLike } from "ethers";
+import {
+  BigNumber,
+  BytesLike,
+} from 'ethers';
 
 export enum ProposalType {
   TransferCanto,
@@ -95,14 +98,9 @@ export const ProposalActionCount = (
 
 // The general information associated with a proposal
 export type Proposal = {
-  id: BigNumber;
-  proposer: string;
   startBlock: BigNumber;
   endBlock: BigNumber;
   forVotes: BigNumber;
   againstVotes: BigNumber;
   abstainVotes: BigNumber;
-  canceled: boolean;
-  executed: boolean;
-  eta: BigNumber;
 };

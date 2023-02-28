@@ -1,16 +1,19 @@
-import { BigNumber } from "ethers";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { BigNumber } from 'ethers';
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi';
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
-import { Vote } from "../../types/proposal";
+import { DAOGovernor__factory } from '../../types/ethers-contracts';
+import { Vote } from '../../types/proposal';
 
 const useTxCastVote = (
-  contractAddress?: string,
-  proposalID?: BigNumber,
-  vote?: Vote
+  proposalID: BigNumber,
+  vote: Vote,
+  contractAddress?: string
 ) => {
   const address = contractAddress as `0x${string}`;
-  const abi = DAOGovernor.abi;
+  const abi = DAOGovernor__factory.abi;
 
   const { config } = usePrepareContractWrite({
     address,

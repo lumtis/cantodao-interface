@@ -2,38 +2,35 @@ import { BigNumber } from 'ethers';
 import { useContractRead } from 'wagmi';
 
 import { DAOGovernor__factory } from '../../types/ethers-contracts';
-import { NullAddress } from '../../types/evm';
 
-const useQueryHasVoted = (
+// useQueryQuorumVotes returns the number of votes necessary to reach quorum for a proposal
+const useQueryQuorumVotes = (
   proposalId?: BigNumber,
-  voter?: string,
   contractAddress?: string
 ): {
-  voted?: boolean;
+  quorumVotes?: BigNumber;
   error: Error | null;
   isLoading: boolean;
 } => {
+  const abi = DAOGovernor__factory.abi;
   const address = contractAddress as `0x${string}`;
 
   const {
-    data: voted,
+    data: quorumVotes,
     error,
     isLoading,
   }: {
-    data?: boolean;
+    data?: BigNumber;
     error: Error | null;
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOGovernor__factory.abi,
-    functionName: "hasVoted",
-    args: [
-      proposalId || BigNumber.from(0),
-      (voter as `0x${string}`) || NullAddress,
-    ],
+    abi,
+    functionName: "quorumVotes",
+    args: [proposalId || BigNumber.from(0)],
   });
 
-  return { voted, error, isLoading };
+  return { quorumVotes, error, isLoading };
 };
 
-export default useQueryHasVoted;
+export default useQueryQuorumVotes;

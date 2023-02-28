@@ -1,18 +1,27 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Spinner, Text } from "@chakra-ui/react";
+import {
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryPastTotalSupply from "../../hooks/queries/useQueryPastTotalSupply";
-import { DAOInfo } from "../../types/dao";
-import { Proposal } from "../../types/proposal";
-import ContainerSpaced from "../ui/container-spaced";
-import Progress from "../ui/progress";
+import useQueryPastTotalSupply
+  from '../../hooks/queries/useQueryPastTotalSupply';
+import useQueryQuorumVotes from '../../hooks/queries/useQueryQuorumVotes';
+import { DAOInfo } from '../../types/dao';
+import { Proposal } from '../../types/proposal';
+import ContainerSpaced from '../ui/container-spaced';
+import Progress from '../ui/progress';
 
 export const VoteTurnout = ({
+  daoAddress,
+  proposalID,
   proposal,
   daoInfo,
   finished,
 }: {
+  daoAddress?: string;
+  proposalID?: BigNumber;
   proposal?: Proposal;
   daoInfo?: DAOInfo;
   finished?: boolean;
@@ -21,12 +30,21 @@ export const VoteTurnout = ({
     pastTotalSupply,
     error: errorTotalSupply,
     isLoading: isLoadingTotalSupply,
-  } = useQueryPastTotalSupply(daoInfo?.token, proposal?.startBlock);
+  } = useQueryPastTotalSupply(
+    proposal?.startBlock || BigNumber.from(0),
+    daoInfo?.token
+  );
+
+  const {
+    quorumVotes,
+    error: errorQuorumVotes,
+    isLoading: isLoadingQuorumVotes,
+  } = useQueryQuorumVotes(proposalID, daoAddress);
 
   // Compute quorum
   const quorumPercent =
     pastTotalSupply && !pastTotalSupply.isZero()
-      ? daoInfo?.quorumVotes?.mul(100).div(pastTotalSupply)
+      ? quorumVotes?.mul(100).div(pastTotalSupply)
       : null;
 
   // Compute turnout
@@ -39,9 +57,7 @@ export const VoteTurnout = ({
       ? totalVotes?.mul(100).div(pastTotalSupply)
       : null;
 
-  const quorumReached = daoInfo?.quorumVotes
-    ? totalVotes?.gte(daoInfo?.quorumVotes)
-    : false;
+  const quorumReached = quorumVotes ? totalVotes?.gte(quorumVotes) : false;
 
   // Compute yes percent
   const yesPlusNo = proposal?.forVotes?.add(proposal?.againstVotes);
@@ -61,6 +77,8 @@ export const VoteTurnout = ({
   if (
     errorTotalSupply ||
     isLoadingTotalSupply ||
+    errorQuorumVotes ||
+    isLoadingQuorumVotes ||
     !turnoutPercent ||
     !quorumPercent ||
     !yesPercent

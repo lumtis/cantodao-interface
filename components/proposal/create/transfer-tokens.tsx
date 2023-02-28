@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Box, Heading, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import { GetNoteAddress } from "../../../config/addresses";
-import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
-import useQueryTokenInfo from "../../../hooks/queries/useTokenInfo";
-import useTxProposeTokens from "../../../hooks/txs/useTxProposeTokens";
-import { NullAddress } from "../../../types/evm";
-import { ParseToken, TokenInfo } from "../../../types/token";
-import { TokenSelector } from "../../token-selector";
-import { TxInfo } from "../../tx/tx-info";
-import Button from "../../ui/button";
-import ContainerSpaced from "../../ui/container-spaced";
-import Input from "../../ui/input";
+import { GetNoteAddress } from '../../../config/addresses';
+import useQueryDAOInfo from '../../../hooks/queries/useQueryDAOInfo';
+import useQueryTokenInfo from '../../../hooks/queries/useTokenInfo';
+import useTxProposeTokens from '../../../hooks/txs/useTxProposeTransferTokens';
+import { NullAddress } from '../../../types/evm';
+import {
+  ParseToken,
+  TokenInfo,
+} from '../../../types/token';
+import { TokenSelector } from '../../token-selector';
+import { TxInfo } from '../../tx/tx-info';
+import Button from '../../ui/button';
+import ContainerSpaced from '../../ui/container-spaced';
+import Input from '../../ui/input';
 
 export const CreateProposalTransferTokens = ({
   daoAddress,
@@ -50,11 +58,11 @@ export const CreateProposalTransferTokens = ({
     isSuccess: isSuccessTx,
     write,
   } = useTxProposeTokens(
-    daoInfo?.proposer || "",
     token.address || "",
     recipient,
     ParseToken(amount, token.decimals || 18),
-    description
+    description,
+    daoInfo?.proposer || ""
   );
   const txHash = data?.hash;
 

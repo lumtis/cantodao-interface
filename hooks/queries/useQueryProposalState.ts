@@ -1,12 +1,14 @@
-import { BigNumber } from "ethers";
-import { useContractRead } from "wagmi";
+import { BigNumber } from 'ethers';
+import { useContractRead } from 'wagmi';
 
-import DAOGovernor from "../../abis/DAOGovernor.json";
-import { ProposalState } from "../../types/proposal";
+import {
+  DAOGovernor__factory,
+} from '../../types/ethers-contracts/factories/DAOGovernor__factory';
+import { ProposalState } from '../../types/proposal';
 
 const useQueryProposalState = (
-  contractAddress?: string,
-  proposalId?: BigNumber
+  proposalId?: BigNumber,
+  contractAddress?: string
 ): {
   proposalState?: ProposalState;
   error: Error | null;
@@ -24,9 +26,9 @@ const useQueryProposalState = (
     isLoading: boolean;
   } = useContractRead({
     address,
-    abi: DAOGovernor.abi,
+    abi: DAOGovernor__factory.abi,
     functionName: "state",
-    args: [proposalId || 0],
+    args: [proposalId || BigNumber.from(0)],
   });
 
   return { proposalState, error, isLoading };

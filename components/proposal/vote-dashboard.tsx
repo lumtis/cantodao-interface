@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { BigNumber, utils } from "ethers";
+import {
+  BigNumber,
+  utils,
+} from 'ethers';
 
-import { Box, Radio, RadioGroup, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Radio,
+  RadioGroup,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryHasVoted from "../../hooks/queries/useQueryHasVoted";
-import useQueryPastAvailableVotes from "../../hooks/queries/useQueryPastAvailableVotes";
-import useTxCastVote from "../../hooks/txs/ustTxCastVote";
-import useAccountWrapped from "../../hooks/useAccount";
-import { DAOInfo } from "../../types/dao";
-import { Proposal, Vote } from "../../types/proposal";
-import { DAOTokenDecimals } from "../../types/token";
-import { TxInfo } from "../tx/tx-info";
-import Button from "../ui/button";
-import ContainerSpaced from "../ui/container-spaced";
+import useQueryHasVoted from '../../hooks/queries/useQueryHasVoted';
+import useQueryPastAvailableVotes
+  from '../../hooks/queries/useQueryPastAvailableVotes';
+import useTxCastVote from '../../hooks/txs/ustTxCastVote';
+import useAccountWrapped from '../../hooks/useAccount';
+import { DAOInfo } from '../../types/dao';
+import { NullAddress } from '../../types/evm';
+import {
+  Proposal,
+  Vote,
+} from '../../types/proposal';
+import { DAOTokenDecimals } from '../../types/token';
+import { TxInfo } from '../tx/tx-info';
+import Button from '../ui/button';
+import ContainerSpaced from '../ui/container-spaced';
 
 export const VoteDashboard = ({
   proposal,
@@ -32,13 +46,17 @@ export const VoteDashboard = ({
     voted,
     error: errorVoted,
     isLoading: isLoadingVoted,
-  } = useQueryHasVoted(daoAddress, proposalID, address);
+  } = useQueryHasVoted(proposalID, address, daoAddress);
 
   const {
     votes,
     error: errorAvailableVotes,
     isLoading: isLoadingAvailableVotes,
-  } = useQueryPastAvailableVotes(daoInfo?.token, address, proposal.startBlock);
+  } = useQueryPastAvailableVotes(
+    address || NullAddress,
+    proposal.startBlock,
+    daoInfo?.token
+  );
 
   const [selectedVote, setSelectedVote] = useState("for");
 
@@ -47,7 +65,7 @@ export const VoteDashboard = ({
     isLoading: isLoadingTx,
     isSuccess: isSuccessTx,
     write,
-  } = useTxCastVote(daoAddress, proposalID, convertVote(selectedVote));
+  } = useTxCastVote(proposalID, convertVote(selectedVote), daoAddress);
   const txHash = data?.hash;
 
   // Already voted
@@ -71,7 +89,7 @@ export const VoteDashboard = ({
       <ContainerSpaced>
         <Text>You have no voting power for this proposal</Text>
         <Text>
-          NOte: If you got voting power after proposal start time, those are not
+          Note: If you got voting power after proposal start time, those are not
           available for this one
         </Text>
       </ContainerSpaced>

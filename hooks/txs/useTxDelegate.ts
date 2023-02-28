@@ -1,15 +1,18 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi';
 
-import DAOToken from "../../abis/DAOToken.json";
+import { DAOToken__factory } from '../../types/ethers-contracts';
 
-const useTxDelegate = (contractAddress?: string, holderAddress?: string) => {
+const useTxDelegate = (holderAddress: string, contractAddress?: string) => {
   const address = contractAddress as `0x${string}`;
 
   const { config } = usePrepareContractWrite({
     address,
-    abi: DAOToken.abi,
+    abi: DAOToken__factory.abi,
     functionName: "delegate",
-    args: [holderAddress],
+    args: [holderAddress as `0x${string}`],
   });
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
