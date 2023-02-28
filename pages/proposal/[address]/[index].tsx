@@ -180,6 +180,7 @@ const ProposalPage = () => {
                   </Box>
                   <Box w="60%">
                     <VoteTurnout
+                      daoAddress={address as string}
                       proposalID={proposalID}
                       proposal={proposal}
                       daoInfo={daoInfo}

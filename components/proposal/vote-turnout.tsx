@@ -14,11 +14,13 @@ import ContainerSpaced from '../ui/container-spaced';
 import Progress from '../ui/progress';
 
 export const VoteTurnout = ({
+  daoAddress,
   proposalID,
   proposal,
   daoInfo,
   finished,
 }: {
+  daoAddress?: string;
   proposalID?: BigNumber;
   proposal?: Proposal;
   daoInfo?: DAOInfo;
@@ -37,7 +39,7 @@ export const VoteTurnout = ({
     quorumVotes,
     error: errorQuorumVotes,
     isLoading: isLoadingQuorumVotes,
-  } = useQueryQuorumVotes(proposalID);
+  } = useQueryQuorumVotes(proposalID, daoAddress);
 
   // Compute quorum
   const quorumPercent =

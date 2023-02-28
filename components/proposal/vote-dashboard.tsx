@@ -89,7 +89,7 @@ export const VoteDashboard = ({
       <ContainerSpaced>
         <Text>You have no voting power for this proposal</Text>
         <Text>
-          NOte: If you got voting power after proposal start time, those are not
+          Note: If you got voting power after proposal start time, those are not
           available for this one
         </Text>
       </ContainerSpaced>
