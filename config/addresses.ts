@@ -26,15 +26,9 @@ const addresses: {
   };
 } = {
   localhost: {
-    note: "0xbf9fBFf01664500A33080Da5d437028b07DFcC55",
-    daoFactory: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-    daoList: [
-      "0xa16E02E87b7454126E5E10d957A927A7F5B5d2be",
-      "0xB7A5bd0345EF1Cc5E66bf61BdeC17D2461fBd968",
-      "0xeEBe00Ac0756308ac4AaBfD76c05c4F3088B8883",
-      "0x10C6E9530F1C1AF873a391030a1D9E8ed0630D26",
-      "0x603E1BD79259EbcbAaeD0c83eeC09cA0B89a5bcC",
-    ],
+    note: "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+    daoFactory: "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+    daoList: [],
   },
   cantotest: {
     note: "0x79EF7FA6bfb942D7036E8397D1611710BC8AE774",

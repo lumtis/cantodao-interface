@@ -4,8 +4,8 @@ import {
 } from 'wagmi';
 
 const useQueryTokenBalance = (
-  holderAddress?: string
-  contractAddress?: string,
+  holderAddress?: string,
+  contractAddress?: string
 ) => {
   const address = contractAddress as `0x${string}`;
 
