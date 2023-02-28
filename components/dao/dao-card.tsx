@@ -34,7 +34,7 @@ export const DaoCard = ({
             <ContainerSpaced>
               <Box margin={4} border="4px" borderColor="secondary">
                 <Image
-                  src={daoInfo?.imageURL || "/static/images/planet.png"}
+                  src={daoInfo?.imageURL || "/static/images/logo2.png"}
                   alt="DAO logo"
                   minH={logoSize || 20}
                   minW={logoSize || 20}

@@ -41,7 +41,7 @@ export const Dao = ({
         <Heading>{daoInfo?.name}</Heading>
         <Box margin={10} border="4px" borderColor="secondary">
           <Image
-            src={daoInfo?.imageURL || "/static/images/planet.png"}
+            src={daoInfo?.imageURL || "/static/images/logo2.png"}
             alt="DAO logo"
             minH={logoSize || 30}
             minW={logoSize || 30}
