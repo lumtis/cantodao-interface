@@ -1,9 +1,11 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Spinner,
+} from '@chakra-ui/react';
 
-import { Balance } from "./balance";
-import { BalanceNative } from "./balance-native";
-import ContainerSpaced from "./ui/container-spaced";
-import { CopyCard } from "./ui/copy-card";
+import { Balance } from './balance';
+import { BalanceNative } from './balance-native';
+import ContainerSpaced from './ui/container-spaced';
 
 export const Balances = ({
   contractAddresses,
@@ -34,8 +36,6 @@ export const Balances = ({
           />
         </Box>
       ))}
-      <Text>Treasury Address:</Text>
-      <CopyCard address={holderAddress} />
     </ContainerSpaced>
   );
 };

@@ -32,7 +32,7 @@ export const ProposalCard = ({
     isLoading: isLoadingState,
   } = useQueryProposalState(proposalID, governorContract);
 
-  const route = (dao: string, proposalIndex: BigNumber) => {
+  const proposalPageRoute = (dao: string, proposalIndex: BigNumber) => {
     return "/proposal/" + dao + "/" + proposalIndex.toString();
   };
 
@@ -41,7 +41,7 @@ export const ProposalCard = ({
   }
 
   return (
-    <Link href={route(governorContract as string, proposalIndex)}>
+    <Link href={proposalPageRoute(governorContract as string, proposalIndex)}>
       <BoxW
         m={4}
         _hover={{
