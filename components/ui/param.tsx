@@ -1,6 +1,9 @@
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+} from '@chakra-ui/react';
 
-import Code from "./code";
+import Code from './code';
 
 const Param = ({ name, value, ...props }: any) => {
   return (

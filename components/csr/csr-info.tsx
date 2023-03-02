@@ -26,9 +26,7 @@ export const CSRInfo = ({
       {!isLoading && !error && balance ? (
         <Box display="flex" flexDirection="row" alignItems="flex-start">
           <Heading>#{tokenId.toString()}</Heading>
-          <Text fontSize="30px" m="auto">
-            {"⋐" + balance?.toString()}
-          </Text>
+          <Text m="auto">{"⋐" + balance?.toString()}</Text>
         </Box>
       ) : (
         <Spinner />

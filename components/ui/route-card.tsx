@@ -109,7 +109,7 @@ export const RouteCard = ({
         minH="fit-content"
         pl={2}
         pr={2}
-        color="white"
+        color="primary"
         transition="all .3s ease-in-out"
         isDisabled={!cardText && true}
         isLoading={isLoading}
@@ -148,13 +148,7 @@ export const RouteCard = ({
             <Image alt={displayAddress} src={walletIcon} />
           </Box>
         )}
-        <Text
-          fontSize={SIZES[size as keyof typeof SIZES].fontSize}
-          fontWeight="normal"
-          letterSpacing="0.4px"
-          opacity={0.75}
-          color="white"
-        >
+        <Text fontWeight="normal" letterSpacing="0.4px" color="primary">
           {displayAddress}
         </Text>
         {cardText && (

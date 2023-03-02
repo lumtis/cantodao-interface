@@ -26,10 +26,8 @@ export const CSRList = ({
       {!isLoadingBalance && !errorBalance && balance && (
         <>
           <Box display="flex" flexDirection="row" alignItems="flex-start">
-            <Text fontSize="30px">Token Id</Text>
-            <Text fontSize="30px" m="auto">
-              Earned fees
-            </Text>
+            <Text>CSR ID</Text>
+            <Text m="auto">Earned fees</Text>
           </Box>
           {Array.from(Array(balance.toNumber()).keys()).map((index) => (
             <CSRInfoFromIndex

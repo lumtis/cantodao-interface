@@ -86,6 +86,7 @@ const TreasuryPage = () => {
               </Box>
               <Box mt={8}>
                 <PageHeader title="NFTs" imgSource="/static/images/gem.png" />
+                <Text>The DAO has no NFT</Text>
               </Box>
             </Box>
           ) : (
