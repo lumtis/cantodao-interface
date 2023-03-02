@@ -8,13 +8,17 @@ import {
 } from '@chakra-ui/react';
 
 import { Balances } from '../../components/balances';
+import { CSRList } from '../../components/csr/csr-list';
 import BoxW from '../../components/ui/box';
 import ContainerPage from '../../components/ui/container-page';
 import ContainerSpaced from '../../components/ui/container-spaced';
 import { CopyCard } from '../../components/ui/copy-card';
 import PageHeader from '../../components/ui/page-header';
 import { RouteCard } from '../../components/ui/route-card';
-import { GetNoteAddress } from '../../config/addresses';
+import {
+  GetNoteAddress,
+  GetTurnstileAddress,
+} from '../../config/addresses';
 import useQueryDAOInfo from '../../hooks/queries/useQueryDAOInfo';
 import Layout from '../../layout/Layout';
 
@@ -37,6 +41,7 @@ const TreasuryPage = () => {
             route={"/dao/" + address}
           />
         </Box>
+        <PageHeader title="Treasury" imgSource="/static/images/vault.png" />
         <Box display="flex" flexDirection="row" alignItems="flex-start">
           <Text fontSize="30px" mr={8}>
             Treasury Address:
@@ -50,7 +55,7 @@ const TreasuryPage = () => {
                 <Box w="100%">
                   <PageHeader
                     title="Tokens"
-                    imgSource="/static/images/computer.png"
+                    imgSource="/static/images/coins.png"
                   />
                   <BoxW w="100%">
                     <ContainerSpaced>
@@ -67,9 +72,20 @@ const TreasuryPage = () => {
                   </BoxW>
                 </Box>
                 <Box ml={20} w="100%">
-                  <PageHeader title="CSR" imgSource="/static/images/cart.png" />
-                  <BoxW w="100%" mb="40px"></BoxW>
+                  <PageHeader
+                    title="CSR"
+                    imgSource="/static/images/nuclear.png"
+                  />
+                  <BoxW w="100%" mb="40px">
+                    <CSRList
+                      holderAddress={address as string}
+                      csrContract={GetTurnstileAddress()}
+                    />
+                  </BoxW>
                 </Box>
+              </Box>
+              <Box mt={8}>
+                <PageHeader title="NFTs" imgSource="/static/images/gem.png" />
               </Box>
             </Box>
           ) : (

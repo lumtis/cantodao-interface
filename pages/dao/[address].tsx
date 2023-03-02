@@ -52,7 +52,7 @@ const DaoPage = () => {
                     >
                       <PageHeader
                         title="Treasury"
-                        imgSource="/static/images/cart.png"
+                        imgSource="/static/images/vault.png"
                         marginBottom="0px"
                         fontSize="40px"
                       />

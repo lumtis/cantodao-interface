@@ -45,9 +45,15 @@ export const Dao = ({
             alt="DAO logo"
             minH={logoSize || 30}
             minW={logoSize || 30}
+            maxH={logoSize || 150}
+            maxW={logoSize || 150}
           />
         </Box>
       </Box>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </Text>
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Parameters:</Heading>
       {daoInfo && (
         <ContainerSpaced>

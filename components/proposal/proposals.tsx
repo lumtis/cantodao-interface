@@ -1,9 +1,13 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Box, Grid } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryProposalCount from "../../hooks/queries/useQueryProposalCount";
-import { ProposalCard } from "./proposal-card";
+import useQueryProposalCount from '../../hooks/queries/useQueryProposalCount';
+import { ProposalCard } from './proposal-card';
 
 export const Proposals = ({
   governorContract,
@@ -33,6 +37,9 @@ export const Proposals = ({
             />
           ))}
         </Grid>
+      )}
+      {!isLoading && !error && count?.isZero() && (
+        <Text>No proposal yet for the DAO</Text>
       )}
     </Box>
   );

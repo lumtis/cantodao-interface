@@ -2,6 +2,11 @@
 export const DefaultNetwork = "localhost";
 export const CantoTestnetNetwork = "cantotest";
 
+export const GetTurnstileAddress = (): `0x${string}` => {
+  const network = process.env.NEXT_PUBLIC_NETWORK || DefaultNetwork;
+  return addresses[network].turnstile;
+};
+
 export const GetNoteAddress = (): `0x${string}` => {
   const network = process.env.NEXT_PUBLIC_NETWORK || DefaultNetwork;
   return addresses[network].note;
@@ -30,7 +35,7 @@ const addresses: {
     note: "0x0165878a594ca255338adfa4d48449f69242eb8f",
     daoFactory: "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
     daoList: [],
-    turnstile: "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+    turnstile: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
   },
   cantotest: {
     note: "0xba42601EF6d6C4fe615A4Fc6D54677cC680C788C",
