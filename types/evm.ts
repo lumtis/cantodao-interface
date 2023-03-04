@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers';
 import ms from 'pretty-ms';
 
 export const NullAddress: `0x${string}` =
@@ -19,4 +20,8 @@ export const BlockIntervalToTime = (
   } else {
     return "now";
   }
+};
+
+export const TimeToBlocks = (time: string, blockTime: number): BigNumber => {
+  return BigNumber.from(time).div(blockTime);
 };

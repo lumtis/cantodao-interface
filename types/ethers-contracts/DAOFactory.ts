@@ -27,9 +27,45 @@ import type {
   PromiseOrValue,
 } from "./common";
 
+export type DaoDataStruct = {
+  name: PromiseOrValue<string>;
+  description: PromiseOrValue<string>;
+  image: PromiseOrValue<string>;
+};
+
+export type DaoDataStructOutput = [string, string, string] & {
+  name: string;
+  description: string;
+  image: string;
+};
+
+export type DaoTokenStruct = {
+  name: PromiseOrValue<string>;
+  symbol: PromiseOrValue<string>;
+  initialSupply: PromiseOrValue<BigNumberish>;
+};
+
+export type DaoTokenStructOutput = [string, string, BigNumber] & {
+  name: string;
+  symbol: string;
+  initialSupply: BigNumber;
+};
+
+export type DaoParamsStruct = {
+  quorumFraction: PromiseOrValue<BigNumberish>;
+  votingDelay: PromiseOrValue<BigNumberish>;
+  votingPeriod: PromiseOrValue<BigNumberish>;
+};
+
+export type DaoParamsStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  quorumFraction: BigNumber;
+  votingDelay: BigNumber;
+  votingPeriod: BigNumber;
+};
+
 export interface DAOFactoryInterface extends utils.Interface {
   functions: {
-    "createDAO(string,string,string,string,uint256)": FunctionFragment;
+    "createDAO((string,string,string),(string,string,uint256),(uint256,uint256,uint256))": FunctionFragment;
     "daos(uint256)": FunctionFragment;
     "getDAO(uint256)": FunctionFragment;
     "getDAOCount()": FunctionFragment;
@@ -51,13 +87,7 @@ export interface DAOFactoryInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "createDAO",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [DaoDataStruct, DaoTokenStruct, DaoParamsStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "daos",
@@ -152,11 +182,9 @@ export interface DAOFactory extends BaseContract {
 
   functions: {
     createDAO(
-      _daoName: PromiseOrValue<string>,
-      _daoImage: PromiseOrValue<string>,
-      _tokenName: PromiseOrValue<string>,
-      _tokenSymbol: PromiseOrValue<string>,
-      _tokenInitialSupply: PromiseOrValue<BigNumberish>,
+      _data: DaoDataStruct,
+      _token: DaoTokenStruct,
+      _params: DaoParamsStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -180,11 +208,9 @@ export interface DAOFactory extends BaseContract {
   };
 
   createDAO(
-    _daoName: PromiseOrValue<string>,
-    _daoImage: PromiseOrValue<string>,
-    _tokenName: PromiseOrValue<string>,
-    _tokenSymbol: PromiseOrValue<string>,
-    _tokenInitialSupply: PromiseOrValue<BigNumberish>,
+    _data: DaoDataStruct,
+    _token: DaoTokenStruct,
+    _params: DaoParamsStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -208,11 +234,9 @@ export interface DAOFactory extends BaseContract {
 
   callStatic: {
     createDAO(
-      _daoName: PromiseOrValue<string>,
-      _daoImage: PromiseOrValue<string>,
-      _tokenName: PromiseOrValue<string>,
-      _tokenSymbol: PromiseOrValue<string>,
-      _tokenInitialSupply: PromiseOrValue<BigNumberish>,
+      _data: DaoDataStruct,
+      _token: DaoTokenStruct,
+      _params: DaoParamsStruct,
       overrides?: CallOverrides
     ): Promise<[string, string, string]>;
 
@@ -252,11 +276,9 @@ export interface DAOFactory extends BaseContract {
 
   estimateGas: {
     createDAO(
-      _daoName: PromiseOrValue<string>,
-      _daoImage: PromiseOrValue<string>,
-      _tokenName: PromiseOrValue<string>,
-      _tokenSymbol: PromiseOrValue<string>,
-      _tokenInitialSupply: PromiseOrValue<BigNumberish>,
+      _data: DaoDataStruct,
+      _token: DaoTokenStruct,
+      _params: DaoParamsStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -281,11 +303,9 @@ export interface DAOFactory extends BaseContract {
 
   populateTransaction: {
     createDAO(
-      _daoName: PromiseOrValue<string>,
-      _daoImage: PromiseOrValue<string>,
-      _tokenName: PromiseOrValue<string>,
-      _tokenSymbol: PromiseOrValue<string>,
-      _tokenInitialSupply: PromiseOrValue<BigNumberish>,
+      _data: DaoDataStruct,
+      _token: DaoTokenStruct,
+      _params: DaoParamsStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

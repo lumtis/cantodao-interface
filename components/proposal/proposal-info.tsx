@@ -1,14 +1,22 @@
-import { BigNumber, utils } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { Box, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+} from '@chakra-ui/react';
 
-import { blockTime } from "../../config/chain";
-import { BlockIntervalToTime } from "../../types/evm";
-import { Proposal, ProposalContent, ProposalState } from "../../types/proposal";
-import ContainerSpaced from "../ui/container-spaced";
-import { CopyCard } from "../ui/copy-card";
-import { ProposalAction } from "./proposal-action";
-import { ProposalStateBox } from "./proposal-state-box";
+import { blockTime } from '../../config/chain';
+import { BlockIntervalToTime } from '../../types/evm';
+import {
+  Proposal,
+  ProposalContent,
+  ProposalState,
+} from '../../types/proposal';
+import ContainerSpaced from '../ui/container-spaced';
+import { CopyCard } from '../ui/copy-card';
+import { ProposalAction } from './proposal-action';
+import { ProposalStateBox } from './proposal-state-box';
 
 export const ProposalInfo = ({
   proposal,
@@ -25,7 +33,6 @@ export const ProposalInfo = ({
 }) => {
   // Get amount to be sent
   const amount = proposalContent?.amount?.[0];
-  const amountStr = amount ? utils.formatEther(amount) : "";
 
   // Get start time
   const startTime = BlockIntervalToTime(

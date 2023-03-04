@@ -38,6 +38,7 @@ export interface DAOGovernorInterface extends utils.Interface {
     "castVoteWithReason(uint256,uint8,string)": FunctionFragment;
     "castVoteWithReasonAndParams(uint256,uint8,string,bytes)": FunctionFragment;
     "castVoteWithReasonAndParamsBySig(uint256,uint8,string,bytes,uint8,bytes32,bytes32)": FunctionFragment;
+    "description()": FunctionFragment;
     "execute(address[],uint256[],bytes[],bytes32)": FunctionFragment;
     "getVotes(address,uint256)": FunctionFragment;
     "getVotesWithParams(address,uint256,bytes)": FunctionFragment;
@@ -63,7 +64,13 @@ export interface DAOGovernorInterface extends utils.Interface {
     "state(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "token()": FunctionFragment;
+    "updateDescription(string)": FunctionFragment;
+    "updateImageURL(string)": FunctionFragment;
+    "updateProposer(address)": FunctionFragment;
+    "updateQuorumFraction(uint256)": FunctionFragment;
     "updateQuorumNumerator(uint256)": FunctionFragment;
+    "updateVotingDelay(uint256)": FunctionFragment;
+    "updateVotingPeriod(uint256)": FunctionFragment;
     "version()": FunctionFragment;
     "votingDelay()": FunctionFragment;
     "votingPeriod()": FunctionFragment;
@@ -79,6 +86,7 @@ export interface DAOGovernorInterface extends utils.Interface {
       | "castVoteWithReason"
       | "castVoteWithReasonAndParams"
       | "castVoteWithReasonAndParamsBySig"
+      | "description"
       | "execute"
       | "getVotes"
       | "getVotesWithParams"
@@ -104,7 +112,13 @@ export interface DAOGovernorInterface extends utils.Interface {
       | "state"
       | "supportsInterface"
       | "token"
+      | "updateDescription"
+      | "updateImageURL"
+      | "updateProposer"
+      | "updateQuorumFraction"
       | "updateQuorumNumerator"
+      | "updateVotingDelay"
+      | "updateVotingPeriod"
       | "version"
       | "votingDelay"
       | "votingPeriod"
@@ -164,6 +178,10 @@ export interface DAOGovernorInterface extends utils.Interface {
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "description",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "execute",
@@ -294,7 +312,31 @@ export interface DAOGovernorInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "updateDescription",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateImageURL",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateProposer",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateQuorumFraction",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "updateQuorumNumerator",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateVotingDelay",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateVotingPeriod",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
@@ -334,6 +376,10 @@ export interface DAOGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "castVoteWithReasonAndParamsBySig",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "description",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
@@ -404,7 +450,31 @@ export interface DAOGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "updateDescription",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateImageURL",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateProposer",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateQuorumFraction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "updateQuorumNumerator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateVotingDelay",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateVotingPeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
@@ -600,6 +670,8 @@ export interface DAOGovernor extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    description(overrides?: CallOverrides): Promise<[string]>;
+
     execute(
       targets: PromiseOrValue<string>[],
       values: PromiseOrValue<BigNumberish>[],
@@ -689,10 +761,10 @@ export interface DAOGovernor extends BaseContract {
     >;
 
     propose(
-      targets: PromiseOrValue<string>[],
-      values: PromiseOrValue<BigNumberish>[],
-      calldatas: PromiseOrValue<BytesLike>[],
-      description: PromiseOrValue<string>,
+      _targets: PromiseOrValue<string>[],
+      _values: PromiseOrValue<BigNumberish>[],
+      _calldatas: PromiseOrValue<BytesLike>[],
+      _description: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -725,19 +797,49 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<ContractTransaction>;
 
     state(
-      proposalId: PromiseOrValue<BigNumberish>,
+      _proposalId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[number]>;
 
     supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
+      _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     token(overrides?: CallOverrides): Promise<[string]>;
 
+    updateDescription(
+      _description: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    updateImageURL(
+      _imageURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    updateProposer(
+      _proposer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    updateQuorumFraction(
+      _fraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     updateQuorumNumerator(
       newQuorumNumerator: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    updateVotingDelay(
+      _votingDelay: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    updateVotingPeriod(
+      _votingPeriod: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -794,6 +896,8 @@ export interface DAOGovernor extends BaseContract {
     s: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  description(overrides?: CallOverrides): Promise<string>;
 
   execute(
     targets: PromiseOrValue<string>[],
@@ -884,10 +988,10 @@ export interface DAOGovernor extends BaseContract {
   >;
 
   propose(
-    targets: PromiseOrValue<string>[],
-    values: PromiseOrValue<BigNumberish>[],
-    calldatas: PromiseOrValue<BytesLike>[],
-    description: PromiseOrValue<string>,
+    _targets: PromiseOrValue<string>[],
+    _values: PromiseOrValue<BigNumberish>[],
+    _calldatas: PromiseOrValue<BytesLike>[],
+    _description: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -920,19 +1024,49 @@ export interface DAOGovernor extends BaseContract {
   ): Promise<ContractTransaction>;
 
   state(
-    proposalId: PromiseOrValue<BigNumberish>,
+    _proposalId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<number>;
 
   supportsInterface(
-    interfaceId: PromiseOrValue<BytesLike>,
+    _interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   token(overrides?: CallOverrides): Promise<string>;
 
+  updateDescription(
+    _description: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  updateImageURL(
+    _imageURL: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  updateProposer(
+    _proposer: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  updateQuorumFraction(
+    _fraction: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   updateQuorumNumerator(
     newQuorumNumerator: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  updateVotingDelay(
+    _votingDelay: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  updateVotingPeriod(
+    _votingPeriod: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -989,6 +1123,8 @@ export interface DAOGovernor extends BaseContract {
       s: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    description(overrides?: CallOverrides): Promise<string>;
 
     execute(
       targets: PromiseOrValue<string>[],
@@ -1079,10 +1215,10 @@ export interface DAOGovernor extends BaseContract {
     >;
 
     propose(
-      targets: PromiseOrValue<string>[],
-      values: PromiseOrValue<BigNumberish>[],
-      calldatas: PromiseOrValue<BytesLike>[],
-      description: PromiseOrValue<string>,
+      _targets: PromiseOrValue<string>[],
+      _values: PromiseOrValue<BigNumberish>[],
+      _calldatas: PromiseOrValue<BytesLike>[],
+      _description: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1115,19 +1251,49 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<void>;
 
     state(
-      proposalId: PromiseOrValue<BigNumberish>,
+      _proposalId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<number>;
 
     supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
+      _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     token(overrides?: CallOverrides): Promise<string>;
 
+    updateDescription(
+      _description: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateImageURL(
+      _imageURL: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateProposer(
+      _proposer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateQuorumFraction(
+      _fraction: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     updateQuorumNumerator(
       newQuorumNumerator: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateVotingDelay(
+      _votingDelay: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateVotingPeriod(
+      _votingPeriod: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1258,6 +1424,8 @@ export interface DAOGovernor extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    description(overrides?: CallOverrides): Promise<BigNumber>;
+
     execute(
       targets: PromiseOrValue<string>[],
       values: PromiseOrValue<BigNumberish>[],
@@ -1341,10 +1509,10 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<BigNumber>;
 
     propose(
-      targets: PromiseOrValue<string>[],
-      values: PromiseOrValue<BigNumberish>[],
-      calldatas: PromiseOrValue<BytesLike>[],
-      description: PromiseOrValue<string>,
+      _targets: PromiseOrValue<string>[],
+      _values: PromiseOrValue<BigNumberish>[],
+      _calldatas: PromiseOrValue<BytesLike>[],
+      _description: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1377,19 +1545,49 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<BigNumber>;
 
     state(
-      proposalId: PromiseOrValue<BigNumberish>,
+      _proposalId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
+      _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
+    updateDescription(
+      _description: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    updateImageURL(
+      _imageURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    updateProposer(
+      _proposer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    updateQuorumFraction(
+      _fraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     updateQuorumNumerator(
       newQuorumNumerator: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    updateVotingDelay(
+      _votingDelay: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    updateVotingPeriod(
+      _votingPeriod: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1449,6 +1647,8 @@ export interface DAOGovernor extends BaseContract {
       s: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    description(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     execute(
       targets: PromiseOrValue<string>[],
@@ -1533,10 +1733,10 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     propose(
-      targets: PromiseOrValue<string>[],
-      values: PromiseOrValue<BigNumberish>[],
-      calldatas: PromiseOrValue<BytesLike>[],
-      description: PromiseOrValue<string>,
+      _targets: PromiseOrValue<string>[],
+      _values: PromiseOrValue<BigNumberish>[],
+      _calldatas: PromiseOrValue<BytesLike>[],
+      _description: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1571,19 +1771,49 @@ export interface DAOGovernor extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     state(
-      proposalId: PromiseOrValue<BigNumberish>,
+      _proposalId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
+      _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    updateDescription(
+      _description: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateImageURL(
+      _imageURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateProposer(
+      _proposer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateQuorumFraction(
+      _fraction: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     updateQuorumNumerator(
       newQuorumNumerator: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateVotingDelay(
+      _votingDelay: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateVotingPeriod(
+      _votingPeriod: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

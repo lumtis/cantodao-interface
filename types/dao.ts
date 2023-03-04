@@ -10,4 +10,5 @@ export type DAOInfo = {
   token?: string;
   proposer?: string;
   imageURL?: string;
+  description?: string;
 };

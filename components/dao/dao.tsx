@@ -32,6 +32,12 @@ export const Dao = ({
     blockTime
   );
 
+  // Get voting delay
+  const votingDelay = BlocksToTime(
+    daoInfo?.votingDelay?.toNumber() || 0,
+    blockTime
+  );
+
   // Get quorum
   const quorumPercent = daoInfo?.quorumNumerator || BigNumber.from(0);
 
@@ -50,14 +56,12 @@ export const Dao = ({
           />
         </Box>
       </Box>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </Text>
+      <Text>{daoInfo?.description}</Text>
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Parameters:</Heading>
       {daoInfo && (
         <ContainerSpaced>
           <Param name="Quorum percent" value={quorumPercent.toString() + "%"} />
+          <Param name="Voting delay" value={votingDelay} />
           <Param name="Voting period" value={votingPeriod} />
         </ContainerSpaced>
       )}

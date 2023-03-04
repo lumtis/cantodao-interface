@@ -11,16 +11,36 @@ import {
 
 const useTxCreateDAO = (
   daoName: string,
+  daoDescription: string,
   imageURL: string,
   tokenName: string,
   tokenSymbol: string,
-  tokenSupply: BigNumber
+  initialSupply: BigNumber,
+  quorumFraction: BigNumber,
+  votingDelay: BigNumber,
+  votingPeriod: BigNumber
 ) => {
   const { config } = usePrepareContractWrite({
     address: GetDaoFactoryAddress(),
     abi: DAOFactory__factory.abi,
     functionName: "createDAO",
-    args: [daoName, imageURL, tokenName, tokenSymbol, tokenSupply],
+    args: [
+      {
+        name: daoName,
+        description: daoDescription,
+        image: imageURL,
+      },
+      {
+        name: tokenName,
+        symbol: tokenSymbol,
+        initialSupply,
+      },
+      {
+        quorumFraction,
+        votingDelay,
+        votingPeriod,
+      },
+    ],
   });
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 

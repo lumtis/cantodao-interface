@@ -67,6 +67,7 @@ export interface DAOTokenInterface extends utils.Interface {
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "turnstileTokenId()": FunctionFragment;
   };
 
   getFunction(
@@ -97,6 +98,7 @@ export interface DAOTokenInterface extends utils.Interface {
       | "transfer"
       | "transferFrom"
       | "transferOwnership"
+      | "turnstileTokenId"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -210,6 +212,10 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "turnstileTokenId",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "DOMAIN_SEPARATOR",
@@ -271,6 +277,10 @@ export interface DAOTokenInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "turnstileTokenId",
     data: BytesLike
   ): Result;
 
@@ -507,6 +517,8 @@ export interface DAOToken extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    turnstileTokenId(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
@@ -640,6 +652,8 @@ export interface DAOToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
 
@@ -769,6 +783,8 @@ export interface DAOToken extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -957,6 +973,8 @@ export interface DAOToken extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1090,5 +1108,7 @@ export interface DAOToken extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    turnstileTokenId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

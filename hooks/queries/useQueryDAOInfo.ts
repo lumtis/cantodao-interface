@@ -1,8 +1,5 @@
 import { BigNumber } from 'ethers';
-import {
-  useBlockNumber,
-  useContractReads,
-} from 'wagmi';
+import { useContractReads } from 'wagmi';
 
 import { DAOInfo } from '../../types/dao';
 import { DAOGovernor__factory } from '../../types/ethers-contracts';
@@ -11,11 +8,6 @@ import { DAOGovernor__factory } from '../../types/ethers-contracts';
 const useQueryDAOInfo = (contractAddress?: string) => {
   const abi = DAOGovernor__factory.abi;
   const address = contractAddress as `0x${string}`;
-  const {
-    data: blockNumber,
-    isError: isErrorBlockNumber,
-    isLoading: isLoadingBlockNumber,
-  } = useBlockNumber();
 
   const { data, error, isLoading } = useContractReads({
     contracts: [
@@ -28,11 +20,6 @@ const useQueryDAOInfo = (contractAddress?: string) => {
         address,
         abi,
         functionName: "quorumNumerator",
-        args: [
-          !isLoadingBlockNumber && !isErrorBlockNumber && blockNumber
-            ? BigNumber.from(blockNumber - 1)
-            : BigNumber.from(0),
-        ],
       },
       {
         address,
@@ -64,6 +51,11 @@ const useQueryDAOInfo = (contractAddress?: string) => {
         abi,
         functionName: "imageURL",
       },
+      {
+        address,
+        abi,
+        functionName: "description",
+      },
     ],
   });
 
@@ -76,6 +68,7 @@ const useQueryDAOInfo = (contractAddress?: string) => {
     token: data?.[5] as string,
     proposer: data?.[6] as string,
     imageURL: data?.[7] as string,
+    description: data?.[8],
   };
 
   return { daoInfo, error, isLoading };
