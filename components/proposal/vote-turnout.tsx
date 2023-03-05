@@ -32,7 +32,7 @@ export const VoteTurnout = ({
     isLoading: isLoadingTotalSupply,
   } = useQueryPastTotalSupply(
     proposal?.startBlock || BigNumber.from(0),
-    daoInfo?.token
+    daoInfo?.votingModule
   );
 
   const {

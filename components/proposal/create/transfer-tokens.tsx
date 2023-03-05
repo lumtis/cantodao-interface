@@ -42,7 +42,7 @@ export const CreateProposalTransferTokens = ({
     tokenInfo: daoTokenInfo,
     error: errorTokenInfo,
     isLoading: isLoadingTokenInfo,
-  } = useQueryTokenInfo(daoInfo?.token);
+  } = useQueryTokenInfo(daoInfo?.votingModule);
 
   const {
     tokenInfo: noteTokenInfo,

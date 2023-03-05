@@ -18,7 +18,8 @@ const useTxCreateDAO = (
   initialSupply: BigNumber,
   quorumFraction: BigNumber,
   votingDelay: BigNumber,
-  votingPeriod: BigNumber
+  votingPeriod: BigNumber,
+  minimalVotingPower: BigNumber
 ) => {
   const { config } = usePrepareContractWrite({
     address: GetDaoFactoryAddress(),
@@ -39,6 +40,9 @@ const useTxCreateDAO = (
         quorumFraction,
         votingDelay,
         votingPeriod,
+      },
+      {
+        minimalVotingPower: minimalVotingPower,
       },
     ],
   });

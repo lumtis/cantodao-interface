@@ -24,7 +24,9 @@ export const Dao = ({
   daoInfo?: DAOInfo;
   logoSize?: string;
 }) => {
-  const { tokenInfo, error, isLoading } = useQueryTokenInfo(daoInfo?.token);
+  const { tokenInfo, error, isLoading } = useQueryTokenInfo(
+    daoInfo?.votingModule
+  );
 
   // Get voting period
   const votingPeriod = BlocksToTime(
@@ -73,7 +75,7 @@ export const Dao = ({
             name="Total supply"
             value={FormatToken(tokenInfo.totalSupply, tokenInfo)}
           />
-          <ParamCopyCard name="Address" value={daoInfo?.token} />
+          <ParamCopyCard name="Address" value={daoInfo?.votingModule} />
         </ContainerSpaced>
       ) : (
         <Spinner />

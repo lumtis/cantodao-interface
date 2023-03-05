@@ -34,6 +34,8 @@ export const CreateDAO = () => {
   const [tokenSymbol, setTokenSymbol] = useState("DAOX");
   const [tokenSupply, setTokenSupply] = useState("1000000");
 
+  const [minimalVotingPower, setMinimalVotingPower] = useState("0");
+
   const {
     data,
     isLoading: isLoadingTx,
@@ -48,7 +50,8 @@ export const CreateDAO = () => {
     ParseToken(tokenSupply, DAOTokenDecimals),
     BigNumber.from(quorumFraction),
     TimeToBlocks(votingDelay, blockTime),
-    TimeToBlocks(votingPeriod, blockTime)
+    TimeToBlocks(votingPeriod, blockTime),
+    ParseToken(minimalVotingPower, DAOTokenDecimals)
   );
   const txHash = data?.hash;
 
@@ -183,6 +186,25 @@ export const CreateDAO = () => {
           type="number"
           step="any"
           onChange={(event: any) => setTokenSupply(event.target.value || "0")}
+        />
+      </Box>
+      <Divider />
+      <Heading fontSize="30px">Proposer options</Heading>
+      <Box display="flex" flexDirection="row" alignItems="flex-end">
+        <Text w="200px" mr={6}>
+          Minimal voting power:{" "}
+        </Text>
+        <Input
+          width="fit-content"
+          ml="auto"
+          id="minimalVotingPower"
+          name="minimalVotingPower"
+          value={minimalVotingPower}
+          type="number"
+          step="any"
+          onChange={(event: any) =>
+            setMinimalVotingPower(event.target.value || "0")
+          }
         />
       </Box>
       {!isSuccessTx && !txHash && !isLoadingTx && (

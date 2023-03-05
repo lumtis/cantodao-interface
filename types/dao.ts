@@ -7,7 +7,7 @@ export type DAOInfo = {
   proposalThreshold?: BigNumber;
   votingDelay?: BigNumber;
   votingPeriod?: BigNumber;
-  token?: string;
+  votingModule?: string;
   proposer?: string;
   imageURL?: string;
   description?: string;

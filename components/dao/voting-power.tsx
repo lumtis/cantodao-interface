@@ -27,7 +27,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
 
   const { votes, error, isLoading } = useQueryAvailableVotes(
     address || NullAddress,
-    daoInfo?.token
+    daoInfo?.votingModule
   );
 
   const selfDelegateAvailable = balance && votes && balance.gt(votes);
@@ -38,9 +38,9 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   // TODO: Support voting power display for other voting types
   return (
     <ContainerSpaced>
-      {isConnected && address && daoInfo?.token ? (
+      {isConnected && address && daoInfo?.votingModule ? (
         <Balance
-          contractAddress={daoInfo?.token}
+          contractAddress={daoInfo?.votingModule}
           holderAddress={address}
           setBalance={setBalance}
         />
@@ -62,7 +62,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
           <Delegate
             header={"Delegate voting power"}
             buttonText="Delegate voting power"
-            address={daoInfo?.token}
+            address={daoInfo?.votingModule}
             defaultRecipient={address}
           />
         </ContainerSpaced>

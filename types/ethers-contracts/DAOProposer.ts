@@ -28,12 +28,14 @@ export interface DAOProposerInterface extends utils.Interface {
     "daoGovernor()": FunctionFragment;
     "getProposalContent(uint256)": FunctionFragment;
     "getProposalCreator(uint256)": FunctionFragment;
+    "minimalVotingPower()": FunctionFragment;
     "proposalContents(uint256)": FunctionFragment;
     "proposalCount()": FunctionFragment;
     "proposalCreator(uint256)": FunctionFragment;
     "proposalIDs(uint256)": FunctionFragment;
     "propose(address[],uint256[],bytes[],string)": FunctionFragment;
     "setGovernor(address)": FunctionFragment;
+    "setMinimalVotingPower(uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -41,12 +43,14 @@ export interface DAOProposerInterface extends utils.Interface {
       | "daoGovernor"
       | "getProposalContent"
       | "getProposalCreator"
+      | "minimalVotingPower"
       | "proposalContents"
       | "proposalCount"
       | "proposalCreator"
       | "proposalIDs"
       | "propose"
       | "setGovernor"
+      | "setMinimalVotingPower"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -60,6 +64,10 @@ export interface DAOProposerInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getProposalCreator",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "minimalVotingPower",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "proposalContents",
@@ -90,6 +98,10 @@ export interface DAOProposerInterface extends utils.Interface {
     functionFragment: "setGovernor",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "setMinimalVotingPower",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "daoGovernor",
@@ -101,6 +113,10 @@ export interface DAOProposerInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getProposalCreator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "minimalVotingPower",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -122,6 +138,10 @@ export interface DAOProposerInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "propose", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGovernor",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setMinimalVotingPower",
     data: BytesLike
   ): Result;
 
@@ -167,6 +187,8 @@ export interface DAOProposer extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    minimalVotingPower(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -196,6 +218,11 @@ export interface DAOProposer extends BaseContract {
       _governor: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    setMinimalVotingPower(
+      _mininalVotingPower: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   daoGovernor(overrides?: CallOverrides): Promise<string>;
@@ -209,6 +236,8 @@ export interface DAOProposer extends BaseContract {
     id: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  minimalVotingPower(overrides?: CallOverrides): Promise<BigNumber>;
 
   proposalContents(
     arg0: PromiseOrValue<BigNumberish>,
@@ -240,6 +269,11 @@ export interface DAOProposer extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  setMinimalVotingPower(
+    _mininalVotingPower: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     daoGovernor(overrides?: CallOverrides): Promise<string>;
 
@@ -252,6 +286,8 @@ export interface DAOProposer extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    minimalVotingPower(overrides?: CallOverrides): Promise<BigNumber>;
 
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
@@ -282,6 +318,11 @@ export interface DAOProposer extends BaseContract {
       _governor: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    setMinimalVotingPower(
+      _mininalVotingPower: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
@@ -298,6 +339,8 @@ export interface DAOProposer extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    minimalVotingPower(overrides?: CallOverrides): Promise<BigNumber>;
 
     proposalContents(
       arg0: PromiseOrValue<BigNumberish>,
@@ -328,6 +371,11 @@ export interface DAOProposer extends BaseContract {
       _governor: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    setMinimalVotingPower(
+      _mininalVotingPower: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -340,6 +388,10 @@ export interface DAOProposer extends BaseContract {
 
     getProposalCreator(
       id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    minimalVotingPower(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -370,6 +422,11 @@ export interface DAOProposer extends BaseContract {
 
     setGovernor(
       _governor: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setMinimalVotingPower(
+      _mininalVotingPower: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

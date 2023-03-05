@@ -55,7 +55,7 @@ export const VoteDashboard = ({
   } = useQueryPastAvailableVotes(
     address || NullAddress,
     proposal.startBlock,
-    daoInfo?.token
+    daoInfo?.votingModule
   );
 
   const [selectedVote, setSelectedVote] = useState("for");

@@ -63,9 +63,17 @@ export type DaoParamsStructOutput = [BigNumber, BigNumber, BigNumber] & {
   votingPeriod: BigNumber;
 };
 
+export type DaoProposerStruct = {
+  minimalVotingPower: PromiseOrValue<BigNumberish>;
+};
+
+export type DaoProposerStructOutput = [BigNumber] & {
+  minimalVotingPower: BigNumber;
+};
+
 export interface DAOFactoryInterface extends utils.Interface {
   functions: {
-    "createDAO((string,string,string),(string,string,uint256),(uint256,uint256,uint256))": FunctionFragment;
+    "createDAO((string,string,string),(string,string,uint256),(uint256,uint256,uint256),(uint256))": FunctionFragment;
     "daos(uint256)": FunctionFragment;
     "getDAO(uint256)": FunctionFragment;
     "getDAOCount()": FunctionFragment;
@@ -87,7 +95,7 @@ export interface DAOFactoryInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "createDAO",
-    values: [DaoDataStruct, DaoTokenStruct, DaoParamsStruct]
+    values: [DaoDataStruct, DaoTokenStruct, DaoParamsStruct, DaoProposerStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "daos",
@@ -185,6 +193,7 @@ export interface DAOFactory extends BaseContract {
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -211,6 +220,7 @@ export interface DAOFactory extends BaseContract {
     _data: DaoDataStruct,
     _token: DaoTokenStruct,
     _params: DaoParamsStruct,
+    _proposer: DaoProposerStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -237,6 +247,7 @@ export interface DAOFactory extends BaseContract {
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
       overrides?: CallOverrides
     ): Promise<[string, string, string]>;
 
@@ -279,6 +290,7 @@ export interface DAOFactory extends BaseContract {
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -306,6 +318,7 @@ export interface DAOFactory extends BaseContract {
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

@@ -39,7 +39,7 @@ const useQueryDAOInfo = (contractAddress?: string) => {
       {
         address,
         abi,
-        functionName: "token",
+        functionName: "votingModule",
       },
       {
         address,
@@ -65,7 +65,7 @@ const useQueryDAOInfo = (contractAddress?: string) => {
     proposalThreshold: data?.[2] as BigNumber,
     votingDelay: data?.[3] as BigNumber,
     votingPeriod: data?.[4] as BigNumber,
-    token: data?.[5] as string,
+    votingModule: data?.[5] as string,
     proposer: data?.[6] as string,
     imageURL: data?.[7] as string,
     description: data?.[8],
