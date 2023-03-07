@@ -62,8 +62,8 @@ const TreasuryPage = () => {
                       <Balances
                         holderAddress={address as string}
                         contractAddresses={
-                          daoInfo?.token
-                            ? [GetNoteAddress(), daoInfo?.token]
+                          daoInfo?.votingModule
+                            ? [GetNoteAddress(), daoInfo?.votingModule]
                             : [GetNoteAddress()]
                         }
                         includeNative={true}

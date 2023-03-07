@@ -9,8 +9,12 @@ import {
 } from '@chakra-ui/react';
 
 import { blockTime } from '../../config/chain';
-import useTxCreateDAO from '../../hooks/txs/useTxCreateDAO';
-import { TimeToBlocks } from '../../types/evm';
+import useTxCreateDAOExistingToken
+  from '../../hooks/txs/useTxCreateDAOExistingToken';
+import {
+  NullAddress,
+  TimeToBlocks,
+} from '../../types/evm';
 import {
   DAOTokenDecimals,
   ParseToken,
@@ -21,7 +25,7 @@ import ContainerSpaced from '../ui/container-spaced';
 import Divider from '../ui/divider';
 import Input from '../ui/input';
 
-export const CreateDAO = () => {
+export const CreateDAOExistingToken = () => {
   const [daoName, setDaoName] = useState("My DAO");
   const [daoDescription, setDaoDescription] = useState("This is my new DAO");
   const [daoImage, setDaoImage] = useState("");
@@ -32,7 +36,7 @@ export const CreateDAO = () => {
 
   const [tokenName, setTokenName] = useState("My DAO token");
   const [tokenSymbol, setTokenSymbol] = useState("DAOX");
-  const [tokenSupply, setTokenSupply] = useState("1000000");
+  const [assetToken, setAssetToken] = useState(NullAddress);
 
   const [minimalVotingPower, setMinimalVotingPower] = useState("0");
 
@@ -41,13 +45,13 @@ export const CreateDAO = () => {
     isLoading: isLoadingTx,
     isSuccess: isSuccessTx,
     write,
-  } = useTxCreateDAO(
+  } = useTxCreateDAOExistingToken(
     daoName,
     daoDescription,
     daoImage,
     tokenName,
     tokenSymbol,
-    ParseToken(tokenSupply, DAOTokenDecimals),
+    assetToken,
     BigNumber.from(quorumFraction),
     TimeToBlocks(votingDelay, blockTime),
     TimeToBlocks(votingPeriod, blockTime),
@@ -175,17 +179,15 @@ export const CreateDAO = () => {
       </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
         <Text w="200px" mr={6}>
-          Initial supply:{" "}
+          Underlying token:{" "}
         </Text>
         <Input
           width="fit-content"
           ml="auto"
-          id="tokenSupply"
-          name="tokenSupply"
-          value={tokenSupply}
-          type="number"
-          step="any"
-          onChange={(event: any) => setTokenSupply(event.target.value || "0")}
+          id="assetToken"
+          name="assetToken"
+          value={assetToken}
+          onChange={(event: any) => setAssetToken(event.target.value)}
         />
       </Box>
       <Divider />
@@ -212,9 +214,6 @@ export const CreateDAO = () => {
           <Button disabled={!write} onClick={() => write?.()}>
             Create DAO
           </Button>
-          <Text mt={8}>
-            Note: the initial Supply is entirely minted to the deployer address
-          </Text>
         </Box>
       )}
       <TxInfo

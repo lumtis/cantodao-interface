@@ -32,8 +32,8 @@ const addresses: {
   };
 } = {
   localhost: {
-    note: "0x0165878a594ca255338adfa4d48449f69242eb8f",
-    daoFactory: "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+    note: "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    daoFactory: "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
     daoList: [],
     turnstile: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
   },

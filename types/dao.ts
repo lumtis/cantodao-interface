@@ -1,5 +1,10 @@
 import { BigNumber } from 'ethers';
 
+export enum DAOType {
+  NewTokenDAO,
+  ExistingTokenDAO,
+}
+
 // Regular info of a DAO
 export type DAOInfo = {
   name?: string;

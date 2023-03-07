@@ -31,6 +31,7 @@ export const CSRList = ({
           </Box>
           {Array.from(Array(balance.toNumber()).keys()).map((index) => (
             <CSRInfoFromIndex
+              key={index}
               csrContract={csrContract}
               holderAddress={holderAddress}
               tokenIndex={BigNumber.from(index)}

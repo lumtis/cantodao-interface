@@ -1,18 +1,27 @@
-import Head from "next/head";
+import { useState } from 'react';
 
-import { Box } from "@chakra-ui/react";
+import Head from 'next/head';
 
-import { CreateDAO } from "../../components/dao/dao-create";
-import { RecentlyDeployed } from "../../components/dao/recently-deployed";
-import BoxW from "../../components/ui/box";
-import ContainerPage from "../../components/ui/container-page";
-import PageHeader from "../../components/ui/page-header";
-import Layout from "../../layout/Layout";
+import { Box } from '@chakra-ui/react';
+
+import {
+  CreateDAOExistingToken,
+} from '../../components/dao/dao-create-existing-token';
+import { CreateDAONewToken } from '../../components/dao/dao-create-new-token';
+import { DAOTypeSelector } from '../../components/dao/dao-type-selector';
+import { RecentlyDeployed } from '../../components/dao/recently-deployed';
+import BoxW from '../../components/ui/box';
+import ContainerPage from '../../components/ui/container-page';
+import PageHeader from '../../components/ui/page-header';
+import Layout from '../../layout/Layout';
+import { DAOType } from '../../types/dao';
 
 // Around 4 hours
 const BLOCK_COUNT = 3000;
 
 const CreateDAOPage = () => {
+  const [daoType, setDAOType] = useState<DAOType>(DAOType.NewTokenDAO);
+
   return (
     <Layout>
       <ContainerPage>
@@ -25,9 +34,15 @@ const CreateDAOPage = () => {
             title="Create a new DAO"
             imgSource="/static/images/rocket.png"
           />
-          <BoxW width="fit-content" m="auto">
-            <CreateDAO />
-          </BoxW>
+          <Box display="flex" flexDirection="row" alignItems="flex-start">
+            <BoxW width="fit-content" m="auto">
+              {daoType === DAOType.NewTokenDAO && <CreateDAONewToken />}
+              {daoType === DAOType.ExistingTokenDAO && (
+                <CreateDAOExistingToken />
+              )}
+            </BoxW>
+            <DAOTypeSelector setDAOType={setDAOType} />
+          </Box>
         </Box>
         <Box>
           <PageHeader

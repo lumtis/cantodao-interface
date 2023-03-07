@@ -39,16 +39,16 @@ export type DaoDataStructOutput = [string, string, string] & {
   image: string;
 };
 
-export type DaoTokenStruct = {
+export type DaoWrappedTokenStruct = {
   name: PromiseOrValue<string>;
   symbol: PromiseOrValue<string>;
-  initialSupply: PromiseOrValue<BigNumberish>;
+  assetToken: PromiseOrValue<string>;
 };
 
-export type DaoTokenStructOutput = [string, string, BigNumber] & {
+export type DaoWrappedTokenStructOutput = [string, string, string] & {
   name: string;
   symbol: string;
-  initialSupply: BigNumber;
+  assetToken: string;
 };
 
 export type DaoParamsStruct = {
@@ -71,30 +71,55 @@ export type DaoProposerStructOutput = [BigNumber] & {
   minimalVotingPower: BigNumber;
 };
 
+export type DaoTokenStruct = {
+  name: PromiseOrValue<string>;
+  symbol: PromiseOrValue<string>;
+  initialSupply: PromiseOrValue<BigNumberish>;
+};
+
+export type DaoTokenStructOutput = [string, string, BigNumber] & {
+  name: string;
+  symbol: string;
+  initialSupply: BigNumber;
+};
+
 export interface DAOFactoryInterface extends utils.Interface {
   functions: {
-    "createDAO((string,string,string),(string,string,uint256),(uint256,uint256,uint256),(uint256))": FunctionFragment;
+    "createDAOExistingToken((string,string,string),(string,string,address),(uint256,uint256,uint256),(uint256))": FunctionFragment;
+    "createDAONewToken((string,string,string),(string,string,uint256),(uint256,uint256,uint256),(uint256))": FunctionFragment;
     "daos(uint256)": FunctionFragment;
     "getDAO(uint256)": FunctionFragment;
     "getDAOCount()": FunctionFragment;
     "governorDeployer()": FunctionFragment;
     "proposerDeployer()": FunctionFragment;
     "tokenDeployer()": FunctionFragment;
+    "wrappedTokenDeployer()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "createDAO"
+      | "createDAOExistingToken"
+      | "createDAONewToken"
       | "daos"
       | "getDAO"
       | "getDAOCount"
       | "governorDeployer"
       | "proposerDeployer"
       | "tokenDeployer"
+      | "wrappedTokenDeployer"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "createDAO",
+    functionFragment: "createDAOExistingToken",
+    values: [
+      DaoDataStruct,
+      DaoWrappedTokenStruct,
+      DaoParamsStruct,
+      DaoProposerStruct
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createDAONewToken",
     values: [DaoDataStruct, DaoTokenStruct, DaoParamsStruct, DaoProposerStruct]
   ): string;
   encodeFunctionData(
@@ -121,8 +146,19 @@ export interface DAOFactoryInterface extends utils.Interface {
     functionFragment: "tokenDeployer",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "wrappedTokenDeployer",
+    values?: undefined
+  ): string;
 
-  decodeFunctionResult(functionFragment: "createDAO", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "createDAOExistingToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createDAONewToken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "daos", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getDAO", data: BytesLike): Result;
   decodeFunctionResult(
@@ -141,9 +177,13 @@ export interface DAOFactoryInterface extends utils.Interface {
     functionFragment: "tokenDeployer",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "wrappedTokenDeployer",
+    data: BytesLike
+  ): Result;
 
   events: {
-    "DAOCreated(address,address,address,address)": EventFragment;
+    "DAOCreated(address,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "DAOCreated"): EventFragment;
@@ -152,11 +192,9 @@ export interface DAOFactoryInterface extends utils.Interface {
 export interface DAOCreatedEventObject {
   deployer: string;
   dao: string;
-  token: string;
-  proposer: string;
 }
 export type DAOCreatedEvent = TypedEvent<
-  [string, string, string, string],
+  [string, string],
   DAOCreatedEventObject
 >;
 
@@ -189,7 +227,15 @@ export interface DAOFactory extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    createDAO(
+    createDAOExistingToken(
+      _data: DaoDataStruct,
+      _wrappedToken: DaoWrappedTokenStruct,
+      _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    createDAONewToken(
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
@@ -214,9 +260,19 @@ export interface DAOFactory extends BaseContract {
     proposerDeployer(overrides?: CallOverrides): Promise<[string]>;
 
     tokenDeployer(overrides?: CallOverrides): Promise<[string]>;
+
+    wrappedTokenDeployer(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  createDAO(
+  createDAOExistingToken(
+    _data: DaoDataStruct,
+    _wrappedToken: DaoWrappedTokenStruct,
+    _params: DaoParamsStruct,
+    _proposer: DaoProposerStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  createDAONewToken(
     _data: DaoDataStruct,
     _token: DaoTokenStruct,
     _params: DaoParamsStruct,
@@ -242,8 +298,18 @@ export interface DAOFactory extends BaseContract {
 
   tokenDeployer(overrides?: CallOverrides): Promise<string>;
 
+  wrappedTokenDeployer(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
-    createDAO(
+    createDAOExistingToken(
+      _data: DaoDataStruct,
+      _wrappedToken: DaoWrappedTokenStruct,
+      _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
+      overrides?: CallOverrides
+    ): Promise<[string, string, string]>;
+
+    createDAONewToken(
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
@@ -268,25 +334,31 @@ export interface DAOFactory extends BaseContract {
     proposerDeployer(overrides?: CallOverrides): Promise<string>;
 
     tokenDeployer(overrides?: CallOverrides): Promise<string>;
+
+    wrappedTokenDeployer(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
-    "DAOCreated(address,address,address,address)"(
+    "DAOCreated(address,address)"(
       deployer?: PromiseOrValue<string> | null,
-      dao?: null,
-      token?: null,
-      proposer?: null
+      dao?: null
     ): DAOCreatedEventFilter;
     DAOCreated(
       deployer?: PromiseOrValue<string> | null,
-      dao?: null,
-      token?: null,
-      proposer?: null
+      dao?: null
     ): DAOCreatedEventFilter;
   };
 
   estimateGas: {
-    createDAO(
+    createDAOExistingToken(
+      _data: DaoDataStruct,
+      _wrappedToken: DaoWrappedTokenStruct,
+      _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    createDAONewToken(
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
@@ -311,10 +383,20 @@ export interface DAOFactory extends BaseContract {
     proposerDeployer(overrides?: CallOverrides): Promise<BigNumber>;
 
     tokenDeployer(overrides?: CallOverrides): Promise<BigNumber>;
+
+    wrappedTokenDeployer(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    createDAO(
+    createDAOExistingToken(
+      _data: DaoDataStruct,
+      _wrappedToken: DaoWrappedTokenStruct,
+      _params: DaoParamsStruct,
+      _proposer: DaoProposerStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    createDAONewToken(
       _data: DaoDataStruct,
       _token: DaoTokenStruct,
       _params: DaoParamsStruct,
@@ -339,5 +421,9 @@ export interface DAOFactory extends BaseContract {
     proposerDeployer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tokenDeployer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    wrappedTokenDeployer(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
   };
 }

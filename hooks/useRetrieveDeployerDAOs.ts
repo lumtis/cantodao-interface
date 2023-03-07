@@ -36,9 +36,7 @@ const useRetrieveDeployerDAOs = (blockCount: number, deployer?: string) => {
     DAOFactory__factory.abi,
     provider
   );
-  const eventSignature = ethers.utils.id(
-    "DAOCreated(address,address,address,address)"
-  );
+  const eventSignature = ethers.utils.id("DAOCreated(address,address)");
 
   useEffect(() => {
     const getEvents = async (address: string, fromBlock: number) => {

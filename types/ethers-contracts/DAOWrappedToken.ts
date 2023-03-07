@@ -39,36 +39,48 @@ export declare namespace ERC20Votes {
   };
 }
 
-export interface DAOTokenInterface extends utils.Interface {
+export interface DAOWrappedTokenInterface extends utils.Interface {
   functions: {
     "DOMAIN_SEPARATOR()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
+    "asset()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "checkpoints(address,uint32)": FunctionFragment;
+    "convertToAssets(uint256)": FunctionFragment;
+    "convertToShares(uint256)": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
     "delegate(address)": FunctionFragment;
     "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "delegates(address)": FunctionFragment;
+    "deposit(uint256,address)": FunctionFragment;
     "getPastTotalSupply(uint256)": FunctionFragment;
     "getPastVotes(address,uint256)": FunctionFragment;
     "getVotes(address)": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
-    "mint(uint256)": FunctionFragment;
+    "maxDeposit(address)": FunctionFragment;
+    "maxMint(address)": FunctionFragment;
+    "maxRedeem(address)": FunctionFragment;
+    "maxWithdraw(address)": FunctionFragment;
+    "mint(uint256,address)": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
     "numCheckpoints(address)": FunctionFragment;
-    "owner()": FunctionFragment;
     "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
+    "previewDeposit(uint256)": FunctionFragment;
+    "previewMint(uint256)": FunctionFragment;
+    "previewRedeem(uint256)": FunctionFragment;
+    "previewWithdraw(uint256)": FunctionFragment;
+    "redeem(uint256,address,address)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "totalAssets()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
     "turnstileTokenId()": FunctionFragment;
     "votingModuleType()": FunctionFragment;
+    "withdraw(uint256,address,address)": FunctionFragment;
   };
 
   getFunction(
@@ -76,31 +88,43 @@ export interface DAOTokenInterface extends utils.Interface {
       | "DOMAIN_SEPARATOR"
       | "allowance"
       | "approve"
+      | "asset"
       | "balanceOf"
       | "checkpoints"
+      | "convertToAssets"
+      | "convertToShares"
       | "decimals"
       | "decreaseAllowance"
       | "delegate"
       | "delegateBySig"
       | "delegates"
+      | "deposit"
       | "getPastTotalSupply"
       | "getPastVotes"
       | "getVotes"
       | "increaseAllowance"
+      | "maxDeposit"
+      | "maxMint"
+      | "maxRedeem"
+      | "maxWithdraw"
       | "mint"
       | "name"
       | "nonces"
       | "numCheckpoints"
-      | "owner"
       | "permit"
-      | "renounceOwnership"
+      | "previewDeposit"
+      | "previewMint"
+      | "previewRedeem"
+      | "previewWithdraw"
+      | "redeem"
       | "symbol"
+      | "totalAssets"
       | "totalSupply"
       | "transfer"
       | "transferFrom"
-      | "transferOwnership"
       | "turnstileTokenId"
       | "votingModuleType"
+      | "withdraw"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -115,6 +139,7 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "approve",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
+  encodeFunctionData(functionFragment: "asset", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "balanceOf",
     values: [PromiseOrValue<string>]
@@ -122,6 +147,14 @@ export interface DAOTokenInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "checkpoints",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "convertToAssets",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "convertToShares",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
@@ -148,6 +181,10 @@ export interface DAOTokenInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "deposit",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getPastTotalSupply",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -164,8 +201,24 @@ export interface DAOTokenInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "maxDeposit",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxMint",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxRedeem",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxWithdraw",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "mint",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
@@ -176,7 +229,6 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "numCheckpoints",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "permit",
     values: [
@@ -190,10 +242,34 @@ export interface DAOTokenInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "previewDeposit",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "previewMint",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "previewRedeem",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "previewWithdraw",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "redeem",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "totalAssets",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -211,16 +287,20 @@ export interface DAOTokenInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "turnstileTokenId",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "votingModuleType",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
 
   decodeFunctionResult(
@@ -229,9 +309,18 @@ export interface DAOTokenInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "asset", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkpoints",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "convertToAssets",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "convertToShares",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
@@ -245,6 +334,7 @@ export interface DAOTokenInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "delegates", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getPastTotalSupply",
     data: BytesLike
@@ -258,6 +348,13 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "increaseAllowance",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "maxDeposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "maxMint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "maxRedeem", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "maxWithdraw",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
@@ -265,13 +362,29 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "numCheckpoints",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "previewDeposit",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "previewMint",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "previewRedeem",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "previewWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "redeem", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "totalAssets",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -282,10 +395,6 @@ export interface DAOTokenInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "turnstileTokenId",
     data: BytesLike
   ): Result;
@@ -293,20 +402,23 @@ export interface DAOTokenInterface extends utils.Interface {
     functionFragment: "votingModuleType",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "DelegateChanged(address,address,address)": EventFragment;
     "DelegateVotesChanged(address,uint256,uint256)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
+    "Deposit(address,address,uint256,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
+    "Withdraw(address,address,address,uint256,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DelegateChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DelegateVotesChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Deposit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
 export interface ApprovalEventObject {
@@ -346,17 +458,18 @@ export type DelegateVotesChangedEvent = TypedEvent<
 export type DelegateVotesChangedEventFilter =
   TypedEventFilter<DelegateVotesChangedEvent>;
 
-export interface OwnershipTransferredEventObject {
-  previousOwner: string;
-  newOwner: string;
+export interface DepositEventObject {
+  sender: string;
+  owner: string;
+  assets: BigNumber;
+  shares: BigNumber;
 }
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string],
-  OwnershipTransferredEventObject
+export type DepositEvent = TypedEvent<
+  [string, string, BigNumber, BigNumber],
+  DepositEventObject
 >;
 
-export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+export type DepositEventFilter = TypedEventFilter<DepositEvent>;
 
 export interface TransferEventObject {
   from: string;
@@ -370,12 +483,26 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface DAOToken extends BaseContract {
+export interface WithdrawEventObject {
+  sender: string;
+  receiver: string;
+  owner: string;
+  assets: BigNumber;
+  shares: BigNumber;
+}
+export type WithdrawEvent = TypedEvent<
+  [string, string, string, BigNumber, BigNumber],
+  WithdrawEventObject
+>;
+
+export type WithdrawEventFilter = TypedEventFilter<WithdrawEvent>;
+
+export interface DAOWrappedToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: DAOTokenInterface;
+  interface: DAOWrappedTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -411,6 +538,8 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    asset(overrides?: CallOverrides): Promise<[string]>;
+
     balanceOf(
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -421,6 +550,16 @@ export interface DAOToken extends BaseContract {
       pos: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[ERC20Votes.CheckpointStructOutput]>;
+
+    convertToAssets(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { assets: BigNumber }>;
+
+    convertToShares(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { shares: BigNumber }>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -450,6 +589,12 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    deposit(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     getPastTotalSupply(
       blockNumber: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -472,8 +617,29 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    maxDeposit(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    maxMint(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    maxRedeem(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    maxWithdraw(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     mint(
-      amount: PromiseOrValue<BigNumberish>,
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -489,8 +655,6 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[number]>;
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
-
     permit(
       owner: PromiseOrValue<string>,
       spender: PromiseOrValue<string>,
@@ -502,11 +666,36 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    renounceOwnership(
+    previewDeposit(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    previewMint(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    previewRedeem(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    previewWithdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    redeem(
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    totalAssets(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -523,14 +712,16 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     turnstileTokenId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     votingModuleType(overrides?: CallOverrides): Promise<[number]>;
+
+    withdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
@@ -547,6 +738,8 @@ export interface DAOToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  asset(overrides?: CallOverrides): Promise<string>;
+
   balanceOf(
     account: PromiseOrValue<string>,
     overrides?: CallOverrides
@@ -557,6 +750,16 @@ export interface DAOToken extends BaseContract {
     pos: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<ERC20Votes.CheckpointStructOutput>;
+
+  convertToAssets(
+    shares: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  convertToShares(
+    assets: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -586,6 +789,12 @@ export interface DAOToken extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  deposit(
+    assets: PromiseOrValue<BigNumberish>,
+    receiver: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   getPastTotalSupply(
     blockNumber: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -608,8 +817,29 @@ export interface DAOToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  maxDeposit(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  maxMint(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  maxRedeem(
+    owner: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  maxWithdraw(
+    owner: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   mint(
-    amount: PromiseOrValue<BigNumberish>,
+    shares: PromiseOrValue<BigNumberish>,
+    receiver: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -625,8 +855,6 @@ export interface DAOToken extends BaseContract {
     overrides?: CallOverrides
   ): Promise<number>;
 
-  owner(overrides?: CallOverrides): Promise<string>;
-
   permit(
     owner: PromiseOrValue<string>,
     spender: PromiseOrValue<string>,
@@ -638,11 +866,36 @@ export interface DAOToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  renounceOwnership(
+  previewDeposit(
+    assets: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  previewMint(
+    shares: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  previewRedeem(
+    shares: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  previewWithdraw(
+    assets: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  redeem(
+    shares: PromiseOrValue<BigNumberish>,
+    receiver: PromiseOrValue<string>,
+    owner: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  totalAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -659,14 +912,16 @@ export interface DAOToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  transferOwnership(
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
   votingModuleType(overrides?: CallOverrides): Promise<number>;
+
+  withdraw(
+    assets: PromiseOrValue<BigNumberish>,
+    receiver: PromiseOrValue<string>,
+    owner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   callStatic: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
@@ -683,6 +938,8 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    asset(overrides?: CallOverrides): Promise<string>;
+
     balanceOf(
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -693,6 +950,16 @@ export interface DAOToken extends BaseContract {
       pos: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<ERC20Votes.CheckpointStructOutput>;
+
+    convertToAssets(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    convertToShares(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -722,6 +989,12 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    deposit(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getPastTotalSupply(
       blockNumber: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -744,10 +1017,31 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    mint(
-      amount: PromiseOrValue<BigNumberish>,
+    maxDeposit(
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
+
+    maxMint(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxRedeem(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxWithdraw(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    mint(
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -761,8 +1055,6 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<number>;
 
-    owner(overrides?: CallOverrides): Promise<string>;
-
     permit(
       owner: PromiseOrValue<string>,
       spender: PromiseOrValue<string>,
@@ -774,9 +1066,36 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    previewDeposit(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewMint(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewRedeem(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewWithdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    redeem(
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    totalAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -793,14 +1112,16 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     votingModuleType(overrides?: CallOverrides): Promise<number>;
+
+    withdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {
@@ -837,14 +1158,18 @@ export interface DAOToken extends BaseContract {
       newBalance?: null
     ): DelegateVotesChangedEventFilter;
 
-    "OwnershipTransferred(address,address)"(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
-    ): OwnershipTransferredEventFilter;
-    OwnershipTransferred(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
-    ): OwnershipTransferredEventFilter;
+    "Deposit(address,address,uint256,uint256)"(
+      sender?: PromiseOrValue<string> | null,
+      owner?: PromiseOrValue<string> | null,
+      assets?: null,
+      shares?: null
+    ): DepositEventFilter;
+    Deposit(
+      sender?: PromiseOrValue<string> | null,
+      owner?: PromiseOrValue<string> | null,
+      assets?: null,
+      shares?: null
+    ): DepositEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: PromiseOrValue<string> | null,
@@ -856,6 +1181,21 @@ export interface DAOToken extends BaseContract {
       to?: PromiseOrValue<string> | null,
       value?: null
     ): TransferEventFilter;
+
+    "Withdraw(address,address,address,uint256,uint256)"(
+      sender?: PromiseOrValue<string> | null,
+      receiver?: PromiseOrValue<string> | null,
+      owner?: PromiseOrValue<string> | null,
+      assets?: null,
+      shares?: null
+    ): WithdrawEventFilter;
+    Withdraw(
+      sender?: PromiseOrValue<string> | null,
+      receiver?: PromiseOrValue<string> | null,
+      owner?: PromiseOrValue<string> | null,
+      assets?: null,
+      shares?: null
+    ): WithdrawEventFilter;
   };
 
   estimateGas: {
@@ -873,6 +1213,8 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    asset(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -881,6 +1223,16 @@ export interface DAOToken extends BaseContract {
     checkpoints(
       account: PromiseOrValue<string>,
       pos: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    convertToAssets(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    convertToShares(
+      assets: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -912,6 +1264,12 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    deposit(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     getPastTotalSupply(
       blockNumber: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -934,8 +1292,29 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    maxDeposit(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxMint(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxRedeem(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    maxWithdraw(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     mint(
-      amount: PromiseOrValue<BigNumberish>,
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -951,8 +1330,6 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
     permit(
       owner: PromiseOrValue<string>,
       spender: PromiseOrValue<string>,
@@ -964,11 +1341,36 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    renounceOwnership(
+    previewDeposit(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewMint(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewRedeem(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    previewWithdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    redeem(
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -985,14 +1387,16 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     turnstileTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     votingModuleType(overrides?: CallOverrides): Promise<BigNumber>;
+
+    withdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1010,6 +1414,8 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    asset(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     balanceOf(
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1018,6 +1424,16 @@ export interface DAOToken extends BaseContract {
     checkpoints(
       account: PromiseOrValue<string>,
       pos: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    convertToAssets(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    convertToShares(
+      assets: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1049,6 +1465,12 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    deposit(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     getPastTotalSupply(
       blockNumber: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1071,8 +1493,29 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    maxDeposit(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    maxMint(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    maxRedeem(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    maxWithdraw(
+      owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     mint(
-      amount: PromiseOrValue<BigNumberish>,
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1088,8 +1531,6 @@ export interface DAOToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     permit(
       owner: PromiseOrValue<string>,
       spender: PromiseOrValue<string>,
@@ -1101,11 +1542,36 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    renounceOwnership(
+    previewDeposit(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    previewMint(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    previewRedeem(
+      shares: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    previewWithdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    redeem(
+      shares: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalAssets(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1122,13 +1588,15 @@ export interface DAOToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     turnstileTokenId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     votingModuleType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    withdraw(
+      assets: PromiseOrValue<BigNumberish>,
+      receiver: PromiseOrValue<string>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
   };
 }

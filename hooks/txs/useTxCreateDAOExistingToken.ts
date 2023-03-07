@@ -9,13 +9,13 @@ import {
   DAOFactory__factory,
 } from '../../types/ethers-contracts/factories/DAOFactory__factory';
 
-const useTxCreateDAO = (
+const useTxCreateDAOExistingToken = (
   daoName: string,
   daoDescription: string,
   imageURL: string,
   tokenName: string,
   tokenSymbol: string,
-  initialSupply: BigNumber,
+  assetToken: string,
   quorumFraction: BigNumber,
   votingDelay: BigNumber,
   votingPeriod: BigNumber,
@@ -24,7 +24,7 @@ const useTxCreateDAO = (
   const { config } = usePrepareContractWrite({
     address: GetDaoFactoryAddress(),
     abi: DAOFactory__factory.abi,
-    functionName: "createDAO",
+    functionName: "createDAOExistingToken",
     args: [
       {
         name: daoName,
@@ -34,7 +34,7 @@ const useTxCreateDAO = (
       {
         name: tokenName,
         symbol: tokenSymbol,
-        initialSupply,
+        assetToken: assetToken as `0x${string}`,
       },
       {
         quorumFraction,
@@ -51,4 +51,4 @@ const useTxCreateDAO = (
   return { data, isLoading, isSuccess, write };
 };
 
-export default useTxCreateDAO;
+export default useTxCreateDAOExistingToken;
