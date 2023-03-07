@@ -35,7 +35,6 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const shoudlAcquireToken =
     balance && votes && balance.isZero() && votes.isZero();
 
-  // TODO: Support voting power display for other voting types
   return (
     <ContainerSpaced>
       {isConnected && address && daoInfo?.votingModule ? (

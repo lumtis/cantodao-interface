@@ -32,7 +32,7 @@ const addresses: {
   };
 } = {
   localhost: {
-    note: "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    note: "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
     daoFactory: "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
     daoList: [],
     turnstile: "0x5fbdb2315678afecb367f032d93f642f64180aa3",

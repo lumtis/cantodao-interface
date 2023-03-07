@@ -8,13 +8,10 @@ import {
 } from '@chakra-ui/react';
 
 import { Dao } from '../../components/dao/dao';
-import { VotingPower } from '../../components/dao/voting-power';
 import { Proposals } from '../../components/proposal/proposals';
 import BoxW from '../../components/ui/box';
 import Button from '../../components/ui/button';
 import ContainerPage from '../../components/ui/container-page';
-import ContainerSpaced from '../../components/ui/container-spaced';
-import Divider from '../../components/ui/divider';
 import PageHeader from '../../components/ui/page-header';
 import useQueryDAOInfo from '../../hooks/queries/useQueryDAOInfo';
 import Layout from '../../layout/Layout';
@@ -58,19 +55,30 @@ const DaoPage = () => {
                       />
                     </BoxW>
                   </Link>
-                  <PageHeader
-                    title="Membership"
-                    imgSource="/static/images/cosmonaut.png"
-                  />
-                  <BoxW w="100%">
-                    <ContainerSpaced>
-                      <VotingPower daoInfo={daoInfo} />
-                    </ContainerSpaced>
-                  </BoxW>
+                  <Link href={"/membership/" + address}>
+                    <BoxW
+                      mb={8}
+                      _hover={{
+                        cursor: "pointer",
+                        bg: "primarydarkest",
+                      }}
+                    >
+                      <PageHeader
+                        title="Membership"
+                        imgSource="/static/images/cosmonaut.png"
+                        marginBottom="0px"
+                        fontSize="40px"
+                      />
+                    </BoxW>
+                  </Link>
                 </Box>
               </Box>
-              <Divider verticalPadding="50px" />
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                mt={16}
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+              >
                 <PageHeader
                   title="Proposals"
                   imgSource="/static/images/satellite.png"

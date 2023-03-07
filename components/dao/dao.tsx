@@ -4,18 +4,14 @@ import {
   Box,
   Heading,
   Image,
-  Spinner,
   Text,
 } from '@chakra-ui/react';
 
 import { blockTime } from '../../config/chain';
-import useQueryTokenInfo from '../../hooks/queries/useTokenInfo';
 import { DAOInfo } from '../../types/dao';
 import { BlocksToTime } from '../../types/evm';
-import { FormatToken } from '../../types/token';
 import ContainerSpaced from '../ui/container-spaced';
 import Param from '../ui/param';
-import ParamCopyCard from '../ui/param-copy-card';
 
 export const Dao = ({
   daoInfo,
@@ -24,10 +20,6 @@ export const Dao = ({
   daoInfo?: DAOInfo;
   logoSize?: string;
 }) => {
-  const { tokenInfo, error, isLoading } = useQueryTokenInfo(
-    daoInfo?.votingModule
-  );
-
   // Get voting period
   const votingPeriod = BlocksToTime(
     daoInfo?.votingPeriod?.toNumber() || 0,
@@ -66,19 +58,6 @@ export const Dao = ({
           <Param name="Voting delay" value={votingDelay} />
           <Param name="Voting period" value={votingPeriod} />
         </ContainerSpaced>
-      )}
-      <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Governance token:</Heading>
-      {!isLoading && !error && tokenInfo && tokenInfo.totalSupply && daoInfo ? (
-        <ContainerSpaced>
-          <Text>Name: {tokenInfo?.name}</Text>
-          <Param
-            name="Total supply"
-            value={FormatToken(tokenInfo.totalSupply, tokenInfo)}
-          />
-          <ParamCopyCard name="Address" value={daoInfo?.votingModule} />
-        </ContainerSpaced>
-      ) : (
-        <Spinner />
       )}
     </ContainerSpaced>
   );
