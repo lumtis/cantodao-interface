@@ -39,17 +39,9 @@ export type DaoDataStructOutput = [string, string, string] & {
   image: string;
 };
 
-export type DaoWrappedTokenStruct = {
-  name: PromiseOrValue<string>;
-  symbol: PromiseOrValue<string>;
-  assetToken: PromiseOrValue<string>;
-};
+export type DaoWrappedTokenStruct = { assetToken: PromiseOrValue<string> };
 
-export type DaoWrappedTokenStructOutput = [string, string, string] & {
-  name: string;
-  symbol: string;
-  assetToken: string;
-};
+export type DaoWrappedTokenStructOutput = [string] & { assetToken: string };
 
 export type DaoParamsStruct = {
   quorumFraction: PromiseOrValue<BigNumberish>;
@@ -85,7 +77,7 @@ export type DaoTokenStructOutput = [string, string, BigNumber] & {
 
 export interface DAOFactoryInterface extends utils.Interface {
   functions: {
-    "createDAOExistingToken((string,string,string),(string,string,address),(uint256,uint256,uint256),(uint256))": FunctionFragment;
+    "createDAOExistingToken((string,string,string),(address),(uint256,uint256,uint256),(uint256))": FunctionFragment;
     "createDAONewToken((string,string,string),(string,string,uint256),(uint256,uint256,uint256),(uint256))": FunctionFragment;
     "daos(uint256)": FunctionFragment;
     "getDAO(uint256)": FunctionFragment;

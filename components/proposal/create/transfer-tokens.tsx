@@ -16,7 +16,7 @@ import {
   ParseToken,
   TokenInfo,
 } from '../../../types/token';
-import { TokenSelector } from '../../token-selector';
+import { TokenSelector } from '../../token/token-selector';
 import { TxInfo } from '../../tx/tx-info';
 import Button from '../../ui/button';
 import ContainerSpaced from '../../ui/container-spaced';

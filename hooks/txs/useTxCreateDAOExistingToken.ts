@@ -13,8 +13,6 @@ const useTxCreateDAOExistingToken = (
   daoName: string,
   daoDescription: string,
   imageURL: string,
-  tokenName: string,
-  tokenSymbol: string,
   assetToken: string,
   quorumFraction: BigNumber,
   votingDelay: BigNumber,
@@ -32,8 +30,6 @@ const useTxCreateDAOExistingToken = (
         image: imageURL,
       },
       {
-        name: tokenName,
-        symbol: tokenSymbol,
         assetToken: assetToken as `0x${string}`,
       },
       {

@@ -11,24 +11,37 @@ import {
 } from '@chakra-ui/react';
 
 import useQueryAvailableVotes from '../../hooks/queries/useQueryAvailableVotes';
+import useQueryVotingModuleType
+  from '../../hooks/queries/useQueryVotingModuleType';
 import useAccountWrapped from '../../hooks/useAccount';
-import { DAOInfo } from '../../types/dao';
+import {
+  DAOInfo,
+  VotingModuleType,
+} from '../../types/dao';
 import { NullAddress } from '../../types/evm';
 import { DAOTokenDecimals } from '../../types/token';
-import { Balance } from '../balance';
 import { Delegate } from '../delegate';
+import { Balance } from '../token/balance';
 import ContainerSpaced from '../ui/container-spaced';
 import Divider from '../ui/divider';
 import Param from '../ui/param';
+import { UnderlyingBalance } from './underlying-balance';
 
 export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
   const { address, isConnected } = useAccountWrapped();
   const [balance, setBalance] = useState<BigNumber | undefined>(undefined);
 
-  const { votes, error, isLoading } = useQueryAvailableVotes(
-    address || NullAddress,
-    daoInfo?.votingModule
-  );
+  const {
+    votes,
+    error: errorVotes,
+    isLoading: isLoadingVotes,
+  } = useQueryAvailableVotes(address || NullAddress, daoInfo?.votingModule);
+
+  const {
+    votingModule,
+    error: errorVotingModule,
+    isLoading: isLoadingVotingModule,
+  } = useQueryVotingModuleType(daoInfo?.votingModule);
 
   const selfDelegateAvailable = balance && votes && balance.gt(votes);
 
@@ -36,7 +49,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
     balance && votes && balance.isZero() && votes.isZero();
 
   return (
-    <ContainerSpaced>
+    <ContainerSpaced spacing={8}>
       {isConnected && address && daoInfo?.votingModule ? (
         <Balance
           contractAddress={daoInfo?.votingModule}
@@ -46,7 +59,7 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
       ) : (
         <Spinner />
       )}
-      {votes && !error && !isLoading ? (
+      {votes && !errorVotes && !isLoadingVotes ? (
         <Param
           name="Voting power"
           value={utils.formatUnits(votes, DAOTokenDecimals)}
@@ -54,10 +67,13 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
       ) : (
         <Spinner />
       )}
-      {selfDelegateAvailable && (
+      {!shoudlAcquireToken && (
         <ContainerSpaced>
-          <Divider />
-          <Text>Delegate your balance to yourself to acquire voting power</Text>
+          {selfDelegateAvailable && (
+            <Text>
+              Delegate your balance to yourself to acquire voting power
+            </Text>
+          )}
           <Delegate
             header={"Delegate voting power"}
             buttonText="Delegate voting power"
@@ -72,6 +88,15 @@ export const VotingPower = ({ daoInfo }: { daoInfo: DAOInfo }) => {
           <Text>Get governance tokens to acquire voting power.</Text>
         </ContainerSpaced>
       )}
+      {!isLoadingVotingModule &&
+        !errorVotingModule &&
+        votingModule &&
+        votingModule === VotingModuleType.DAOWrappedToken && (
+          <UnderlyingBalance
+            address={address || NullAddress}
+            votingModuleAddress={daoInfo?.votingModule}
+          />
+        )}
     </ContainerSpaced>
   );
 };

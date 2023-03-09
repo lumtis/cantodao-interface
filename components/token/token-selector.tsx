@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from 'react';
 
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+} from '@chakra-ui/react';
 
-import useQueryTokenInfo from "../hooks/queries/useTokenInfo";
-import { TokenInfo } from "../types/token";
-import ContainerSpaced from "./ui/container-spaced";
-import Input from "./ui/input";
-import Radio from "./ui/radio";
+import useQueryTokenInfo from '../../hooks/queries/useTokenInfo';
+import { TokenInfo } from '../../types/token';
+import ContainerSpaced from '../ui/container-spaced';
+import Input from '../ui/input';
+import Radio from '../ui/radio';
 
 const NoteName = "Canto note";
 const Manual = "manual";

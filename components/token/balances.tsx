@@ -3,9 +3,9 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 
+import ContainerSpaced from '../ui/container-spaced';
 import { Balance } from './balance';
 import { BalanceNative } from './balance-native';
-import ContainerSpaced from './ui/container-spaced';
 
 export const Balances = ({
   contractAddresses,

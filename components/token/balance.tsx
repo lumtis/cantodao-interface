@@ -4,10 +4,10 @@ import { BigNumber } from 'ethers';
 
 import { Spinner } from '@chakra-ui/react';
 
-import useQueryTokenBalance from '../hooks/queries/useQueryTokenBalance';
-import useQueryTokenInfo from '../hooks/queries/useTokenInfo';
-import { FormatToken } from '../types/token';
-import Param from './ui/param';
+import useQueryTokenBalance from '../../hooks/queries/useQueryTokenBalance';
+import useQueryTokenInfo from '../../hooks/queries/useTokenInfo';
+import { FormatToken } from '../../types/token';
+import Param from '../ui/param';
 
 export const Balance = ({
   contractAddress,

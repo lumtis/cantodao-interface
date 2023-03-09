@@ -5,6 +5,24 @@ export enum DAOType {
   ExistingTokenDAO,
 }
 
+export enum VotingModuleType {
+  DAOToken = 0,
+  DAOWrappedToken = 1,
+}
+
+export const VotingModudeTypeToString = (
+  votingModule: VotingModuleType
+): string => {
+  switch (votingModule) {
+    case VotingModuleType.DAOToken:
+      return "Independent governance token";
+    case VotingModuleType.DAOWrappedToken:
+      return "Existing token based";
+    default:
+      return "Unknown";
+  }
+};
+
 // Regular info of a DAO
 export type DAOInfo = {
   name?: string;

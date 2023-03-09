@@ -4,33 +4,38 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import useQueryTokenInfo from '../../hooks/queries/useTokenInfo';
-import { DAOInfo } from '../../types/dao';
-import { FormatToken } from '../../types/token';
+import useQueryVotingModuleType
+  from '../../hooks/queries/useQueryVotingModuleType';
+import {
+  DAOInfo,
+  VotingModudeTypeToString,
+  VotingModuleType,
+} from '../../types/dao';
 import ContainerSpaced from '../ui/container-spaced';
-import Param from '../ui/param';
-import ParamCopyCard from '../ui/param-copy-card';
+import { TokenInfo } from './token-info';
+import { UnderlyingInfo } from './underlying-info';
 
 export const VotingModule = ({ daoInfo }: { daoInfo?: DAOInfo }) => {
-  const { tokenInfo, error, isLoading } = useQueryTokenInfo(
+  const { votingModule, error, isLoading } = useQueryVotingModuleType(
     daoInfo?.votingModule
   );
 
   return (
-    <ContainerSpaced>
-      <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Governance token:</Heading>
-      {!isLoading && !error && tokenInfo && tokenInfo.totalSupply && daoInfo ? (
-        <ContainerSpaced>
-          <Text>Name: {tokenInfo?.name}</Text>
-          <Param
-            name="Total supply"
-            value={FormatToken(tokenInfo.totalSupply, tokenInfo)}
-          />
-          <ParamCopyCard name="Address" value={daoInfo?.votingModule} />
+    <>
+      {votingModule && !isLoading && !error ? (
+        <ContainerSpaced spacing={8}>
+          <Text>
+            Voting module type: {VotingModudeTypeToString(votingModule)}
+          </Text>
+          <Heading fontSize="30px">Governance token:</Heading>
+          <TokenInfo address={daoInfo?.votingModule} />
+          {votingModule === VotingModuleType.DAOWrappedToken && (
+            <UnderlyingInfo address={daoInfo?.votingModule} />
+          )}
         </ContainerSpaced>
       ) : (
         <Spinner />
       )}
-    </ContainerSpaced>
+    </>
   );
 };

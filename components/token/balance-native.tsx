@@ -1,9 +1,9 @@
-import { useBalance } from "wagmi";
+import { useBalance } from 'wagmi';
 
-import { Spinner } from "@chakra-ui/react";
+import { Spinner } from '@chakra-ui/react';
 
-import { NativeToken } from "../config/chain";
-import Param from "./ui/param";
+import { NativeToken } from '../../config/chain';
+import Param from '../ui/param';
 
 export const BalanceNative = ({ holderAddress }: { holderAddress: string }) => {
   const { data, isError, isLoading } = useBalance({

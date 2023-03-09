@@ -34,8 +34,6 @@ export const CreateDAOExistingToken = () => {
   const [votingDelay, setVotingDelay] = useState("0");
   const [votingPeriod, setVotingPeriod] = useState("3600");
 
-  const [tokenName, setTokenName] = useState("My DAO token");
-  const [tokenSymbol, setTokenSymbol] = useState("DAOX");
   const [assetToken, setAssetToken] = useState(NullAddress);
 
   const [minimalVotingPower, setMinimalVotingPower] = useState("0");
@@ -49,8 +47,6 @@ export const CreateDAOExistingToken = () => {
     daoName,
     daoDescription,
     daoImage,
-    tokenName,
-    tokenSymbol,
     assetToken,
     BigNumber.from(quorumFraction),
     TimeToBlocks(votingDelay, blockTime),
@@ -151,32 +147,6 @@ export const CreateDAOExistingToken = () => {
       </Box>
       <Divider />
       <Heading fontSize="30px">Governance token</Heading>
-      <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text w="200px" mr={6}>
-          DAO token name:{" "}
-        </Text>
-        <Input
-          width="fit-content"
-          ml="auto"
-          id="tokenName"
-          name="tokenName"
-          value={tokenName}
-          onChange={(event: any) => setTokenName(event.target.value)}
-        />
-      </Box>
-      <Box display="flex" flexDirection="row" alignItems="flex-end">
-        <Text w="200px" mr={6}>
-          DAO token symbol:{" "}
-        </Text>
-        <Input
-          width="fit-content"
-          ml="auto"
-          id="tokenSymbol"
-          name="tokenSymbol"
-          value={tokenSymbol}
-          onChange={(event: any) => setTokenSymbol(event.target.value)}
-        />
-      </Box>
       <Box display="flex" flexDirection="row" alignItems="flex-end">
         <Text w="200px" mr={6}>
           Underlying token:{" "}
