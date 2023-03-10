@@ -22,7 +22,7 @@ export const VotingModule = ({ daoInfo }: { daoInfo?: DAOInfo }) => {
 
   return (
     <>
-      {votingModule && !isLoading && !error ? (
+      {votingModule != undefined && !isLoading && !error ? (
         <ContainerSpaced spacing={8}>
           <Text>
             Voting module type: {VotingModudeTypeToString(votingModule)}

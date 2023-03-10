@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 
 import useQueryNFTBalance from '../../hooks/queries/useQueryNFTBalance';
+import ContainerSpaced from '../ui/container-spaced';
 import { CSRInfoFromIndex } from './csr-info-from-index';
 
 export const CSRList = ({
@@ -24,10 +25,10 @@ export const CSRList = ({
   return (
     <>
       {!isLoadingBalance && !errorBalance && balance && (
-        <>
+        <ContainerSpaced>
           <Box display="flex" flexDirection="row" alignItems="flex-start">
             <Text>CSR ID</Text>
-            <Text m="auto">Earned fees</Text>
+            <Text ml="auto">Earned fees</Text>
           </Box>
           {Array.from(Array(balance.toNumber()).keys()).map((index) => (
             <CSRInfoFromIndex
@@ -37,7 +38,7 @@ export const CSRList = ({
               tokenIndex={BigNumber.from(index)}
             />
           ))}
-        </>
+        </ContainerSpaced>
       )}
       {!isLoadingBalance && !errorBalance && balance?.isZero() && (
         <Text>The DAO has no CSR</Text>
