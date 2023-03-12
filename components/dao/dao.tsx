@@ -1,17 +1,12 @@
-import { BigNumber } from 'ethers';
+import { BigNumber } from "ethers";
 
-import {
-  Box,
-  Heading,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Heading, Image, Text } from "@chakra-ui/react";
 
-import { blockTime } from '../../config/chain';
-import { DAOInfo } from '../../types/dao';
-import { BlocksToTime } from '../../types/evm';
-import ContainerSpaced from '../ui/container-spaced';
-import Param from '../ui/param';
+import { blockTime } from "../../config/chain";
+import { DAOInfo } from "../../types/dao";
+import { BlocksToTime } from "../../types/evm";
+import ContainerSpaced from "../ui/container-spaced";
+import Param from "../ui/param";
 
 export const Dao = ({
   daoInfo,
@@ -37,18 +32,21 @@ export const Dao = ({
 
   return (
     <ContainerSpaced>
-      <Box display="flex" flexDirection="row" alignItems="center">
-        <Heading>{daoInfo?.name}</Heading>
-        <Box margin={10} border="4px" borderColor="secondary">
-          <Image
-            src={daoInfo?.imageURL || "/static/images/logo2.png"}
-            alt="DAO logo"
-            minH={logoSize || 30}
-            minW={logoSize || 30}
-            maxH={logoSize || 150}
-            maxW={logoSize || 150}
-          />
-        </Box>
+      <Box
+        m="auto"
+        marginTop={8}
+        marginBottom={8}
+        border="4px"
+        borderColor="secondary"
+      >
+        <Image
+          src={daoInfo?.imageURL || "/static/images/logo2.png"}
+          alt="DAO logo"
+          minH={logoSize || 150}
+          minW={logoSize || 150}
+          maxH={logoSize || 150}
+          maxW={logoSize || 150}
+        />
       </Box>
       <Text>{daoInfo?.description}</Text>
       <Heading fontSize={{ sm: "3xl", md: "4xl" }}>Parameters:</Heading>

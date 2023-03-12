@@ -1,20 +1,17 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-import {
-  Box,
-  Spinner,
-} from '@chakra-ui/react';
+import { Box, Spinner } from "@chakra-ui/react";
 
-import { Dao } from '../../components/dao/dao';
-import { Proposals } from '../../components/proposal/proposals';
-import BoxW from '../../components/ui/box';
-import Button from '../../components/ui/button';
-import ContainerPage from '../../components/ui/container-page';
-import PageHeader from '../../components/ui/page-header';
-import useQueryDAOInfo from '../../hooks/queries/useQueryDAOInfo';
-import Layout from '../../layout/Layout';
+import { Dao } from "../../components/dao/dao";
+import { Proposals } from "../../components/proposal/proposals";
+import BoxW from "../../components/ui/box";
+import Button from "../../components/ui/button";
+import ContainerPage from "../../components/ui/container-page";
+import PageHeader from "../../components/ui/page-header";
+import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
+import Layout from "../../layout/Layout";
 
 const DaoPage = () => {
   const router = useRouter();
@@ -31,7 +28,10 @@ const DaoPage = () => {
         <Box>
           {!isLoading && !error && daoInfo ? (
             <Box>
-              <PageHeader title="DAO" imgSource="/static/images/computer.png" />
+              <PageHeader
+                title={daoInfo.name}
+                imgSource="/static/images/computer.png"
+              />
               <Box display="flex" flexDirection="row" alignItems="flex-start">
                 <Box w="100%">
                   <BoxW w="100%">

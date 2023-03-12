@@ -1,20 +1,16 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import { useRouter } from "next/router";
 
-import {
-  Box,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Spinner, Text } from "@chakra-ui/react";
 
-import { VotingModule } from '../../components/membership/voting-module';
-import { VotingPower } from '../../components/membership/voting-power';
-import BoxW from '../../components/ui/box';
-import ContainerPage from '../../components/ui/container-page';
-import PageHeader from '../../components/ui/page-header';
-import { RouteCard } from '../../components/ui/route-card';
-import useQueryDAOInfo from '../../hooks/queries/useQueryDAOInfo';
-import Layout from '../../layout/Layout';
+import { VotingModule } from "../../components/membership/voting-module";
+import { VotingPower } from "../../components/membership/voting-power";
+import BoxW from "../../components/ui/box";
+import ContainerPage from "../../components/ui/container-page";
+import PageHeader from "../../components/ui/page-header";
+import { RouteCard } from "../../components/ui/route-card";
+import useQueryDAOInfo from "../../hooks/queries/useQueryDAOInfo";
+import Layout from "../../layout/Layout";
 
 const MembershipPage = () => {
   const router = useRouter();
@@ -51,7 +47,7 @@ const MembershipPage = () => {
                 <Box ml={20} w="100%">
                   <PageHeader
                     title="Your Voting Power"
-                    imgSource="/static/images/cosmonaut.png"
+                    imgSource="/static/images/fist.png"
                   />
                   <BoxW w="100%" mb="40px">
                     <VotingPower daoInfo={daoInfo} />
@@ -61,7 +57,7 @@ const MembershipPage = () => {
               <Box mt={8}>
                 <PageHeader
                   title="Members"
-                  imgSource="/static/images/cosmonaut.png"
+                  imgSource="/static/images/ship2.png"
                 />
                 <Text>Not supported yet</Text>
               </Box>
