@@ -1,40 +1,30 @@
-import { BigNumber } from 'ethers';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useBlockNumber } from 'wagmi';
+import { BigNumber } from "ethers";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useBlockNumber } from "wagmi";
 
-import {
-  Box,
-  Heading,
-  Image,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 
-import {
-  ExecutionDashboard,
-} from '../../../components/proposal/execution-dashboard';
-import { ProposalInfo } from '../../../components/proposal/proposal-info';
-import { VoteDashboard } from '../../../components/proposal/vote-dashboard';
-import { VoteResults } from '../../../components/proposal/vote-results';
-import { VoteTurnout } from '../../../components/proposal/vote-turnout';
-import BoxW from '../../../components/ui/box';
-import ContainerPage from '../../../components/ui/container-page';
-import PageHeader from '../../../components/ui/page-header';
-import { RouteCard } from '../../../components/ui/route-card';
-import useQueryDAOInfo from '../../../hooks/queries/useQueryDAOInfo';
-import useQueryProposal from '../../../hooks/queries/useQueryProposal';
-import useQueryProposalContent
-  from '../../../hooks/queries/useQueryProposalContent';
-import useQueryProposalID from '../../../hooks/queries/useQueryProposalID';
-import useQueryProposalState
-  from '../../../hooks/queries/useQueryProposalState';
-import Layout from '../../../layout/Layout';
+import { ExecutionDashboard } from "../../../components/proposal/execution-dashboard";
+import { ProposalInfo } from "../../../components/proposal/proposal-info";
+import { VoteDashboard } from "../../../components/proposal/vote-dashboard";
+import { VoteResults } from "../../../components/proposal/vote-results";
+import { VoteTurnout } from "../../../components/proposal/vote-turnout";
+import BoxW from "../../../components/ui/box";
+import ContainerPage from "../../../components/ui/container-page";
+import PageHeader from "../../../components/ui/page-header";
+import { RouteCard } from "../../../components/ui/route-card";
+import useQueryDAOInfo from "../../../hooks/queries/useQueryDAOInfo";
+import useQueryProposal from "../../../hooks/queries/useQueryProposal";
+import useQueryProposalContent from "../../../hooks/queries/useQueryProposalContent";
+import useQueryProposalID from "../../../hooks/queries/useQueryProposalID";
+import useQueryProposalState from "../../../hooks/queries/useQueryProposalState";
+import Layout from "../../../layout/Layout";
 import {
   ProposalState,
   VoteState,
   VoteStateFromBlockNumber,
-} from '../../../types/proposal';
+} from "../../../types/proposal";
 
 const ProposalPage = () => {
   const router = useRouter();
@@ -140,7 +130,11 @@ const ProposalPage = () => {
               </BoxW>
             </Box>
             {voteState === VoteState.NotStarted && (
-              <Image m="auto" src="/static/images/space.png" maxWidth="500px" />
+              <Image
+                m="auto"
+                src="/static/images/satellite2.png"
+                maxWidth="500px"
+              />
             )}
             {voteState === VoteState.InProgress && (
               <Box ml={20}>

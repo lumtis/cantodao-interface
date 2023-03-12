@@ -36,8 +36,8 @@ const TestnetDisclaimer = () => {
                 Cantodao is currently only available with Canto testnet. Please
                 switch your Metamask network to Canto testnet to use the Dapp
               </Text>
-              <Text>RPC: https://eth.plexnode.wtf/</Text>
-              <Text>CHAIN ID: 740</Text>
+              <Text>RPC: https://canto-testnet.plexnode.wtf/</Text>
+              <Text>CHAIN ID: 7701</Text>
             </ModalBody>
             <ModalFooter>
               <Button onClick={handleClose}>Close</Button>

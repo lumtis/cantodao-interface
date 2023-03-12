@@ -4,7 +4,7 @@ export const blockTime = 5;
 
 // Chain configuration for Canto testnet
 export const CantoTestnet = {
-  id: 740,
+  id: 7701,
   name: "Canto Testnet",
   network: "cantotest",
   nativeCurrency: {
@@ -14,16 +14,16 @@ export const CantoTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ["https://eth.plexnode.wtf/"],
+      http: ["https://canto-testnet.plexnode.wtf"],
     },
     public: {
-      http: ["https://eth.plexnode.wtf/"],
+      http: ["https://canto-testnet.plexnode.wtf"],
     },
   },
   blockExplorers: {
     default: {
       name: "Canto Testnet Explorer",
-      url: "https://testnet-explorer.canto.neobase.one/",
+      url: "https://testnet.tuber.build/",
     },
   },
 };
@@ -32,7 +32,7 @@ export const CantoTestnet = {
 export const GetExplorer = (): string | null => {
   switch (process.env.NEXT_PUBLIC_NETWORK) {
     case "cantotest":
-      return "https://testnet-explorer.canto.neobase.one/tx/";
+      return "https://testnet.tuber.build/tx/";
     default:
       return null;
   }

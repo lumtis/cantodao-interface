@@ -38,12 +38,12 @@ const addresses: {
     turnstile: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
   },
   cantotest: {
-    note: "0xba42601EF6d6C4fe615A4Fc6D54677cC680C788C",
-    daoFactory: "0x24A33D2511CfCa006a333aC352A4Cd428442257a",
+    note: "0x05b47213E2A866C17E6cbB291Adf7bAe5001a3Da",
+    daoFactory: "0x29D47977E4e9Afbdd564bb90576e5Df21dD77453",
     daoList: [
-      "0x65513EA608273291d331FF2a03716b3C4bF1EE30",
-      "0x7910f45561F31b4bbc34b18e68Fb1BE851b6Acc2",
+      "0x7E4F8B085fCf14a8e8f227Eb5c2700EB62ef0E38",
+      "0xFFFa69928C6B62254c1811A2Cb35110711ef777d",
     ],
-    turnstile: "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512", // TODO: update
+    turnstile: "0xEcf044C5B4b867CFda001101c617eCd347095B44",
   },
 };
